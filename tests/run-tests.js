@@ -59,7 +59,7 @@ if (data.CLINIC) {
       else if (kind === "para") { if (!ordIds.para.has(id)) missing.push(l.id + "->para:" + id); }
     });
   }));
-  check("all lesson exercise refs resolve", missing.length === 0, missing.join(","));
+  check("all lesson exercise refs resolve", missing.length === 0, missing.join(",") + " HEY");
   // 준비된 레슨 수 (1~4주차 완성 기준 20개 이상)
   const ready = data.WEEKS.reduce((n, w) => n + w.lessons.filter(l => l.ready !== false).length, 0);
   check("ready lessons >= 20", ready >= 20, ready);
