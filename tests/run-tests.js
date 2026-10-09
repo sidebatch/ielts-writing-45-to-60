@@ -24,8 +24,8 @@ try {
 } catch (e) { check("data evaluates", false, e.message); }
 if (data.CLINIC) {
   check("CLINIC = 24", data.CLINIC.length === 24, data.CLINIC.length);
-  check("BUILDER_MCQ = 13", data.BUILDER_MCQ.length === 13, data.BUILDER_MCQ.length);
-  check("BUILDER_ORDER = 14", data.BUILDER_ORDER.length === 14, data.BUILDER_ORDER.length);
+  check("BUILDER_MCQ = 17", data.BUILDER_MCQ.length === 17, data.BUILDER_MCQ.length);
+  check("BUILDER_ORDER = 19", data.BUILDER_ORDER.length === 19, data.BUILDER_ORDER.length);
   check("PARA = 6", data.PARA.length === 6, data.PARA.length);
   check("CHUNKS = 32", data.CHUNKS.length === 32, data.CHUNKS.length);
   check("DIAG = 12", data.DIAG.length === 12, data.DIAG.length);
@@ -65,6 +65,7 @@ if (data.CLINIC) {
   check("ready lessons >= 20", ready >= 20, ready);
   check("week 3 all ready", data.WEEKS[2].lessons.every(l => l.ready !== false));
   check("week 4 all ready", data.WEEKS[3].lessons.every(l => l.ready !== false));
+  check("week 5 all ready", data.WEEKS[4].lessons.every(l => l.ready !== false));
   // ASSEMBLY 문단 경계 유효성
   let badAsm = [];
   data.ASSEMBLY.forEach(a => { a.breaks.forEach(b => { if (!(b > 0 && b < a.s.length)) badAsm.push(a.id + ":" + b); }); if (a.parts.length !== a.breaks.length + 1) badAsm.push(a.id + ":parts"); });
