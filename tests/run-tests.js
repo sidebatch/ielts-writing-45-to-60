@@ -24,12 +24,12 @@ try {
 } catch (e) { check("data evaluates", false, e.message); }
 if (data.CLINIC) {
   check("CLINIC = 24", data.CLINIC.length === 24, data.CLINIC.length);
-  check("BUILDER_MCQ = 17", data.BUILDER_MCQ.length === 17, data.BUILDER_MCQ.length);
-  check("BUILDER_ORDER = 19", data.BUILDER_ORDER.length === 19, data.BUILDER_ORDER.length);
+  check("BUILDER_MCQ = 23", data.BUILDER_MCQ.length === 23, data.BUILDER_MCQ.length);
+  check("BUILDER_ORDER = 24", data.BUILDER_ORDER.length === 24, data.BUILDER_ORDER.length);
   check("PARA = 6", data.PARA.length === 6, data.PARA.length);
   check("CHUNKS = 32", data.CHUNKS.length === 32, data.CHUNKS.length);
   check("DIAG = 12", data.DIAG.length === 12, data.DIAG.length);
-  check("ASSEMBLY = 3", data.ASSEMBLY.length === 3, data.ASSEMBLY.length);
+  check("ASSEMBLY = 5", data.ASSEMBLY.length === 5, data.ASSEMBLY.length);
   check("WEEKS = 8 / lessons = 40", data.WEEKS.length === 8 && data.WEEKS.reduce((n, w) => n + w.lessons.length, 0) === 40);
   // MCQ 정답 인덱스 유효성
   let badIdx = [];
@@ -66,6 +66,12 @@ if (data.CLINIC) {
   check("week 3 all ready", data.WEEKS[2].lessons.every(l => l.ready !== false));
   check("week 4 all ready", data.WEEKS[3].lessons.every(l => l.ready !== false));
   check("week 5 all ready", data.WEEKS[4].lessons.every(l => l.ready !== false));
+  check("week 6 all ready", data.WEEKS[5].lessons.every(l => l.ready !== false));
+  check("week 7 all ready", data.WEEKS[6].lessons.every(l => l.ready !== false));
+  // 레슨 운동 종류 회귀 (chunk 같은 미지원 kind가 세션 렌더러에서 빈 화면이 되는 버그 방지)
+  let badKind = [];
+  data.WEEKS.forEach(w => w.lessons.forEach(l => { (l.ex || []).forEach(e => { if (!["mcq", "order", "para"].includes(e[0])) badKind.push(l.id + ":" + e[0]); }); }));
+  check("lesson ex kinds are renderable", badKind.length === 0, badKind.join(","));
   // ASSEMBLY 문단 경계 유효성
   let badAsm = [];
   data.ASSEMBLY.forEach(a => { a.breaks.forEach(b => { if (!(b > 0 && b < a.s.length)) badAsm.push(a.id + ":" + b); }); if (a.parts.length !== a.breaks.length + 1) badAsm.push(a.id + ":parts"); });
