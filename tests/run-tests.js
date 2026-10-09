@@ -60,10 +60,11 @@ if (data.CLINIC) {
     });
   }));
   check("all lesson exercise refs resolve", missing.length === 0, missing.join(","));
-  // 준비된 레슨 수 (1~3주차 완성 기준 15개 이상)
+  // 준비된 레슨 수 (1~4주차 완성 기준 20개 이상)
   const ready = data.WEEKS.reduce((n, w) => n + w.lessons.filter(l => l.ready !== false).length, 0);
-  check("ready lessons >= 15", ready >= 15, ready);
+  check("ready lessons >= 20", ready >= 20, ready);
   check("week 3 all ready", data.WEEKS[2].lessons.every(l => l.ready !== false));
+  check("week 4 all ready", data.WEEKS[3].lessons.every(l => l.ready !== false));
   // ASSEMBLY 문단 경계 유효성
   let badAsm = [];
   data.ASSEMBLY.forEach(a => { a.breaks.forEach(b => { if (!(b > 0 && b < a.s.length)) badAsm.push(a.id + ":" + b); }); if (a.parts.length !== a.breaks.length + 1) badAsm.push(a.id + ":parts"); });
