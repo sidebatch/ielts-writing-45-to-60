@@ -9,7 +9,7 @@
 <meta name="theme-color" content="#4338ca">
 <link rel="icon" href="icon-192.png">
 <style>
-:root{--ink:#1e1b2e;--sub:#6b7280;--bg:#f6f6fb;--card:#fff;--brand:#4338ca;--brand2:#7c3aed;--teal:#0d9488;--amber:#d97706;--rose:#e11d48;--line:#e7e5f0;--ok:#059669;--bad:#dc2626;--radius:18px}
+:root{--ink:#1e1b2e;--sub:#6b7280;--bg:#f6f6fb;--card:#fff;--brand:#4338ca;--brand2:#7c3aed;--teal:#0f766e;--amber:#b45309;--rose:#be123c;--line:#e7e5f0;--ok:#059669;--bad:#dc2626;--radius:18px}
 *{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
 body{font-family:-apple-system,'Segoe UI','Malgun Gothic',sans-serif;background:var(--bg);color:var(--ink);line-height:1.55}
 #wrap{max-width:540px;margin:0 auto;padding:0 16px 110px}
@@ -22,7 +22,7 @@ h1 .grad{background:linear-gradient(90deg,var(--brand),var(--brand2));-webkit-ba
 .card h2{font-size:17px;font-weight:800;margin-bottom:6px}
 .card h3{font-size:15px;font-weight:800;margin-bottom:4px}
 .small{font-size:13px;color:var(--sub)}
-.btn{display:block;width:100%;border:0;border-radius:14px;padding:15px;font-size:16px;font-weight:800;cursor:pointer;background:linear-gradient(90deg,var(--brand),var(--brand2));color:#fff;text-align:center}
+.btn{display:block;width:100%;border:0;border-radius:14px;padding:15px;min-height:52px;font-size:16px;font-weight:800;cursor:pointer;background:linear-gradient(90deg,var(--brand),var(--brand2));color:#fff;text-align:center}
 .btn:active{transform:scale(.99)}
 .btn.ghost{background:#fff;color:var(--brand);border:2px solid var(--brand)}
 .btn.teal{background:var(--teal)}
@@ -31,17 +31,17 @@ h1 .grad{background:linear-gradient(90deg,var(--brand),var(--brand2));-webkit-ba
 .journey{background:linear-gradient(135deg,#312e81,#6d28d9);color:#fff;border:0}
 .journey .track{height:10px;background:rgba(255,255,255,.25);border-radius:99px;margin:14px 0 6px;overflow:hidden}
 .journey .fill{height:100%;background:#fbbf24;border-radius:99px;transition:width .5s}
-.journey .marks{display:flex;justify-content:space-between;font-size:12px;opacity:.9}
+.journey .marks{display:flex;justify-content:space-between;font-size:12.5px;opacity:.9}
 .mod{display:flex;align-items:center;gap:12px;padding:14px 4px;border-bottom:1px solid var(--line);cursor:pointer}
 .mod:last-child{border-bottom:0}
 .mod .ic{font-size:26px;width:46px;height:46px;display:flex;align-items:center;justify-content:center;background:#eef2ff;border-radius:14px;flex:none}
 .mod .grow{flex:1;min-width:0}
 .mod .t{font-weight:800;font-size:15px}
-.mod .d{font-size:12.5px;color:var(--sub)}
+.mod .d{font-size:13px;color:var(--sub)}
 .mod .pct{font-weight:900;color:var(--brand);font-size:15px}
 .bar{height:7px;background:#eceaf6;border-radius:99px;overflow:hidden;margin-top:6px}
 .bar i{display:block;height:100%;background:linear-gradient(90deg,var(--brand),var(--brand2))}
-.opt{display:block;width:100%;text-align:left;background:#fff;border:2px solid var(--line);border-radius:14px;padding:14px 15px;font-size:15.5px;margin:9px 0;cursor:pointer;line-height:1.5}
+.opt{display:block;width:100%;text-align:left;background:#fff;border:2px solid var(--line);border-radius:14px;padding:14px 15px;min-height:48px;font-size:15.5px;margin:9px 0;cursor:pointer;line-height:1.5}
 .opt:hover{border-color:#c7c2ea}
 .opt.correct{border-color:var(--ok);background:#ecfdf5}
 .opt.wrong{border-color:var(--bad);background:#fef2f2}
@@ -53,43 +53,45 @@ h1 .grad{background:linear-gradient(90deg,var(--brand),var(--brand2));-webkit-ba
 .why.no{background:#fef2f2;border:1px solid #fecaca}
 .pattern{background:#fffbeb;border:1px solid #fde68a;border-radius:10px;padding:9px 12px;font-size:14px;margin-top:8px}
 .chips{display:flex;flex-wrap:wrap;gap:8px;margin:12px 0}
-.chip{border:2px solid var(--brand);color:var(--brand);background:#eef2ff;border-radius:99px;padding:9px 14px;font-size:15px;font-weight:700;cursor:pointer}
+.chip{display:inline-flex;align-items:center;min-height:44px;border:2px solid var(--brand);color:var(--brand);background:#eef2ff;border-radius:99px;padding:10px 14px;font-size:15px;font-weight:700;cursor:pointer}
 .chip.used{opacity:.25;pointer-events:none}
 .built{background:#f5f3ff;border:1.5px dashed #c4b5fd;border-radius:12px;min-height:56px;padding:12px 14px;font-size:16.5px;line-height:1.6;margin:10px 0}
-.sent{display:block;width:100%;text-align:left;background:#fff;border:2px solid var(--line);border-radius:12px;padding:12px 14px;font-size:15.5px;margin:8px 0;cursor:pointer;line-height:1.55}
+.sent{display:block;width:100%;text-align:left;background:#fff;border:2px solid var(--line);border-radius:12px;padding:12px 14px;min-height:48px;font-size:15.5px;margin:8px 0;cursor:pointer;line-height:1.55}
 .sent.picked{border-color:var(--brand);background:#eef2ff}
 .sent.right{border-color:var(--ok);background:#ecfdf5}
 .sent.wrongb{border-color:var(--bad);background:#fef2f2}
 .prog{font-size:13px;color:var(--sub);font-weight:700}
 textarea{width:100%;min-height:260px;border:2px solid var(--line);border-radius:14px;padding:14px;font-size:16px;line-height:1.7;font-family:inherit;resize:vertical}
 textarea:focus{outline:none;border-color:var(--brand)}
-select{width:100%;padding:13px;border:2px solid var(--line);border-radius:12px;font-size:15.5px;background:#fff;margin:8px 0}
+select{width:100%;padding:13px;min-height:48px;border:2px solid var(--line);border-radius:12px;font-size:16px;background:#fff;margin:8px 0}
 .metric{display:flex;justify-content:space-between;padding:9px 0;border-bottom:1px solid var(--line);font-size:14.5px}
 .metric:last-child{border:0}
 .metric b{font-weight:800}
 .flag{background:#fef2f2;border:1px solid #fecaca;border-radius:10px;padding:10px 12px;font-size:14px;margin:7px 0}
 .good{background:#ecfdf5;border:1px solid #a7f3d0;border-radius:10px;padding:10px 12px;font-size:14px;margin:7px 0}
-.check{display:flex;gap:10px;align-items:flex-start;padding:10px 0;border-bottom:1px solid var(--line);font-size:15px}
+.check{display:flex;gap:10px;align-items:flex-start;padding:12px 0;border-bottom:1px solid var(--line);font-size:15px}
 .check:last-child{border:0}
-.check input{width:20px;height:20px;margin-top:2px;flex:none;accent-color:var(--brand)}
+.check input{width:24px;height:24px;margin-top:1px;flex:none;accent-color:var(--brand)}
 nav{position:fixed;bottom:0;left:0;right:0;background:#fff;border-top:1px solid var(--line);display:flex;justify-content:center;z-index:50}
 nav .inner{max-width:540px;width:100%;display:flex}
-nav button{flex:1;background:none;border:0;padding:10px 0 14px;font-size:12px;font-weight:700;color:var(--sub);cursor:pointer}
+nav button{flex:1;background:none;border:0;padding:10px 0 14px;min-height:56px;font-size:12.5px;font-weight:700;color:var(--sub);cursor:pointer}
 nav button.on{color:var(--brand)}
 nav button span{display:block;font-size:21px;margin-bottom:1px}
-.back{background:none;border:0;color:var(--brand);font-weight:800;font-size:15px;cursor:pointer;padding:6px 0}
-.tag{display:inline-block;font-size:11.5px;font-weight:800;padding:3px 9px;border-radius:99px;background:#eef2ff;color:var(--brand);margin-bottom:6px}
+.back{display:inline-flex;align-items:center;min-height:44px;background:none;border:0;color:var(--brand);font-weight:800;font-size:15px;cursor:pointer;padding:10px 12px 10px 0}
+.tag{display:inline-block;font-size:12.5px;font-weight:800;padding:3px 9px;border-radius:99px;background:#eef2ff;color:var(--brand);margin-bottom:6px}
 .tag.rose{background:#fff1f2;color:var(--rose)}.tag.teal{background:#f0fdfa;color:var(--teal)}.tag.amber{background:#fffbeb;color:var(--amber)}
 .kpi{display:flex;gap:8px;margin:10px 0}
 .kpi div{flex:1;background:#f5f3ff;border-radius:12px;padding:10px;text-align:center}
 .kpi b{display:block;font-size:19px}
-.kpi span{font-size:11.5px;color:var(--sub)}
+.kpi span{font-size:12.5px;color:var(--sub)}
 .hidden{display:none}
 .timer{font-variant-numeric:tabular-nums;font-weight:900;color:var(--brand)}
-details{margin:10px 0}summary{cursor:pointer;font-weight:800;color:var(--brand);font-size:14.5px}
+details{margin:10px 0}summary{cursor:pointer;font-weight:800;color:var(--brand);font-size:14.5px;padding:12px 0;min-height:44px}
 .skel{background:#f5f3ff;border-radius:12px;padding:13px 14px;font-size:14.5px;line-height:1.7;margin-top:8px}
 .skel b{color:var(--brand)}
-footer{text-align:center;color:#9ca3af;font-size:12px;padding:18px 0 4px}
+footer{text-align:center;color:#595959;font-size:12.5px;padding:18px 0 4px}
+:focus-visible{outline:3px solid var(--amber);outline-offset:2px;border-radius:6px}
+@media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}.btn:active{transform:none}}
 </style>
 </head>
 <body>
@@ -100,13 +102,13 @@ footer{text-align:center;color:#9ca3af;font-size:12px;padding:18px 0 4px}
 <p class="sub">단어를 더 외우는 앱이 아니에요. 4.5와 6.0의 차이는 <b>의미가 막히는 오류가 없는가</b>, <b>복문을 안정적으로 쓰는가</b>, <b>문단에 뼈대가 있는가</b> — 딱 이 세 가지에서 갈립니다.</p>
 </header>
 <main id="app"></main>
-<footer>Band Jump v1.8.0 · 하루 한 레슨, 8주 코스 · 진단 결과는 시작점 안내용이며 실제 시험 점수를 보장하지 않습니다 · 진도는 이 기기에만 저장됩니다</footer>
+<footer>Band Jump v1.9.0 · 하루 한 레슨, 8주 코스 · 진단 결과는 시작점 안내용이며 실제 시험 점수를 보장하지 않습니다 · 진도는 이 기기에만 저장됩니다</footer>
 </div>
-<nav><div class="inner">
-<button data-nav="home" class="on"><span>🏠</span>홈</button>
-<button data-nav="train"><span>🗓️</span>8주 코스</button>
-<button data-nav="write"><span>🧩</span>에세이 조립</button>
-<button data-nav="my"><span>📊</span>내 기록</button>
+<nav aria-label="주요 메뉴"><div class="inner">
+<button data-nav="home" class="on" aria-current="page"><span aria-hidden="true">🏠</span>홈</button>
+<button data-nav="train"><span aria-hidden="true">🗓️</span>8주 코스</button>
+<button data-nav="write"><span aria-hidden="true">🧩</span>에세이 조립</button>
+<button data-nav="my"><span aria-hidden="true">📊</span>내 기록</button>
 </div></nav>
 <script>
 "use strict";
@@ -455,7 +457,7 @@ function renderMCQ(head,pool,item){
   if(pool==="chunk")html+='<div class="qen">'+esc(item.s)+"</div>";
   html+='<div id="opts">';
   order.forEach(({o,i})=>{html+='<button class="opt" data-i="'+i+'">'+esc(o)+"</button>"});
-  html+='</div><div id="fb"></div></div>';
+  html+='</div><div id="fb" aria-live="polite"></div></div>';
   app.innerHTML=html;window.scrollTo(0,0);
   app.querySelectorAll(".opt").forEach(b=>b.onclick=()=>{
     const chosen=+b.dataset.i;const correct=chosen===item.a;
@@ -472,7 +474,7 @@ function renderOrder(head,tokens,kind,pool,id){
     const used=new Set(picked);
     let html=head+'<div class="card"><span class="tag teal">재조립</span><div class="q">조각을 순서대로 탭해서 문장을 완성하세요</div><div class="built">'+(picked.length?esc(picked.map(i=>tokens[i]).join(" ")):'<span class="small">여기에 문장이 조립됩니다</span>')+'</div><div class="chips">';
     shuffle(tokens.map((t,i)=>i)).forEach(i=>{if(!used.has(i))html+='<button class="chip" data-i="'+i+'">'+esc(tokens[i])+"</button>"});
-    html+='</div><div class="btnrow"><button class="btn ghost" id="undoBtn">되돌리기</button><button class="btn" id="chkBtn" '+(picked.length===tokens.length?"":"disabled")+">확인</button></div>"+'<div id="fb"></div></div>';
+    html+='</div><div class="btnrow"><button class="btn ghost" id="undoBtn">되돌리기</button><button class="btn" id="chkBtn" '+(picked.length===tokens.length?"":"disabled")+">확인</button></div>"+'<div id="fb" aria-live="polite"></div></div>';
     app.innerHTML=html;window.scrollTo(0,0);
     app.querySelectorAll(".chip").forEach(c=>c.onclick=()=>{picked.push(+c.dataset.i);draw()});
     const u=document.getElementById("undoBtn");if(u)u.onclick=()=>{picked.pop();draw()};
@@ -488,7 +490,7 @@ function renderPara(head,p){
   const draw=()=>{
     let html=head+'<div class="card"><span class="tag amber">문단 조립 · '+esc(p.topic)+'</span><div class="q">문장을 탭한 순서대로 문단이 만들어집니다. 주제문부터 순서대로 골라보세요</div>';
     p.s.forEach((s,i)=>{const idx=picked.indexOf(i);html+='<button class="sent'+(idx>=0?" picked":"")+'" data-i="'+i+'">'+(idx>=0?("<b>"+(idx+1)+".</b> "):"")+esc(s)+"</button>"});
-    html+='<div class="btnrow"><button class="btn ghost" id="rstBtn">처음부터</button><button class="btn" id="chkBtn" '+(picked.length===p.s.length?"":"disabled")+">확인</button></div>"+'<div id="fb"></div></div>';
+    html+='<div class="btnrow"><button class="btn ghost" id="rstBtn">처음부터</button><button class="btn" id="chkBtn" '+(picked.length===p.s.length?"":"disabled")+">확인</button></div>"+'<div id="fb" aria-live="polite"></div></div>';
     app.innerHTML=html;window.scrollTo(0,0);
     app.querySelectorAll(".sent").forEach(b=>b.onclick=()=>{const i=+b.dataset.i;const at=picked.indexOf(i);if(at>=0)picked.splice(at,1);else picked.push(i);draw()});
     document.getElementById("rstBtn").onclick=()=>{picked=[];draw()};
@@ -508,18 +510,19 @@ function sessionResult(title,correct,total,backView,extra){
 
 /* ============ VIEWS ============ */
 function go(view){
-  document.querySelectorAll("nav button").forEach(b=>b.classList.toggle("on",b.dataset.nav===view||(view==="lesson"&&b.dataset.nav==="train")));
+  document.querySelectorAll("nav button").forEach(b=>{const on=b.dataset.nav===view||(view==="lesson"&&b.dataset.nav==="train");b.classList.toggle("on",on);if(on)b.setAttribute("aria-current","page");else b.removeAttribute("aria-current")});
   if(view==="home")renderHome();else if(view==="train")renderCourse();else if(view==="write")renderAssemblyList();else if(view==="my")renderMy();
   window.scrollTo(0,0);
 }
 document.querySelectorAll("nav button").forEach(b=>b.onclick=()=>go(b.dataset.nav));
+document.addEventListener("keydown",e=>{if((e.key==="Enter"||e.key===" ")&&e.target&&e.target.dataset&&"kb"in e.target.dataset){e.preventDefault();e.target.click()}});
 function renderHome(){
   const total=allLessons().filter(x=>x.l.ready!==false).length;
   const done=allLessons().filter(x=>x.l.ready!==false&&S.lessons[x.l.id]).length;
   const pct=total?Math.round(done/total*100):0;
   const nx=nextLesson();const due=dueReviews();
   const totalAll=allLessons().length;
-  let html='<div class="card journey"><h2 style="color:#fff">Band 4.5 → 6.0 여정</h2><p style="font-size:13px;opacity:.92">8주 · 40레슨 코스입니다. 하루 한 레슨씩, 급할 것 없어요.</p><div class="track"><div class="fill" style="width:'+Math.max(pct,2)+'%"></div></div><div class="marks"><span>4.5 지금</span><span>5.0</span><span>5.5</span><span><b>6.0 목표</b></span></div><p style="font-size:12.5px;margin-top:8px;opacity:.92">전체 '+totalAll+'레슨 중 공개된 '+total+'레슨 · 완료 '+done+'개</p></div>';
+  let html='<div class="card journey"><h2 style="color:#fff">Band 4.5 → 6.0 여정</h2><p style="font-size:13px;opacity:.92">8주 · 40레슨 코스입니다. 하루 한 레슨씩, 급할 것 없어요.</p><div class="track"><div class="fill" style="width:'+Math.max(pct,2)+'%"></div></div><div class="marks"><span>4.5 지금</span><span>5.0</span><span>5.5</span><span><b>6.0 목표</b></span></div><p style="font-size:13px;margin-top:8px;opacity:.92">전체 '+totalAll+'레슨 중 공개된 '+total+'레슨 · 완료 '+done+'개</p></div>';
   html+='<div class="kpi"><div><b>'+streak()+'일</b><span>연속 학습</span></div><div><b>'+S.days.length+'일</b><span>누적 학습일</span></div><div><b>'+due.length+'개</b><span>오늘 복습</span></div></div>';
   if(!S.diag){html+='<div class="card"><span class="tag rose">먼저 진단부터</span><h2>지금 내 라이팅, 어디가 약할까?</h2><p class="small">12문제로 4개 평가기준(TR·CC·LR·GRA) 중 어디서 점수가 새는지 찾습니다. 3분이면 돼요.</p><br><button class="btn" onclick="startDiag()">진단 시작하기</button></div>'}
   const allDone=total>0&&done>=total;
@@ -537,14 +540,14 @@ function renderCourse(){
     w.lessons.forEach(l=>{
       const doneL=S.lessons[l.id];
       if(l.ready===false){html+='<div class="mod" style="opacity:.45"><div class="ic">🔒</div><div class="grow"><div class="t">'+esc(l.title)+'</div><div class="d">곧 열립니다</div></div></div>'}
-      else{html+='<div class="mod" onclick="startLesson(\''+l.id+'\')"><div class="ic">'+(doneL?"✅":"📘")+'</div><div class="grow"><div class="t">'+esc(l.title)+'</div><div class="d">'+esc(l.pat)+'</div></div><div class="pct">'+(doneL?"완료":"시작")+"</div></div>"}
+      else{html+='<div class="mod" role="button" tabindex="0" data-kb aria-label="'+esc(l.title)+' 레슨 열기" onclick="startLesson(\''+l.id+'\')"><div class="ic">'+(doneL?"✅":"📘")+'</div><div class="grow"><div class="t">'+esc(l.title)+'</div><div class="d">'+esc(l.pat)+'</div></div><div class="pct">'+(doneL?"완료":"시작")+"</div></div>"}
     });
     html+="</div>";
   });
   html+='<div class="card"><h2>자유 훈련장</h2><p class="small">레슨과 별개로 약한 곳만 골라 더 연습할 수 있어요.</p>';
   [["clinic","🩺 문장 수술실","의미를 막는 오류 고치기",CLINIC.length],["builder","🏗️ 문장 키우기","복문으로 확장하기",BUILDER_MCQ.length+BUILDER_ORDER.length],["para","🧱 문단 조립","뼈대 순서 맞히기",PARA.length],["paraphrase","🔄 패러프레이즈","질문을 내 말로 바꾸기",PARAPHRASE.length],["chunk","🧩 토픽 청크","주제별 표현 덩어리",CHUNKS.length]].forEach(([pool,ic,t,total])=>{
     const m=mastery(pool);const pct=m.total?Math.round(m.ok/m.total*100):0;
-    html+='<div class="mod" onclick="startFree(\''+pool+'\')"><div class="ic">'+ic.split(" ")[0]+'</div><div class="grow"><div class="t">'+ic.split(" ").slice(1).join(" ")+'</div><div class="d">'+t+' · '+total+'문항</div><div class="bar"><i style="width:'+pct+'%"></i></div></div><div class="pct">'+pct+"%</div></div>";
+    html+='<div class="mod" role="button" tabindex="0" data-kb onclick="startFree(\''+pool+'\')"><div class="ic">'+ic.split(" ")[0]+'</div><div class="grow"><div class="t">'+ic.split(" ").slice(1).join(" ")+'</div><div class="d">'+t+' · '+total+'문항</div><div class="bar"><i style="width:'+pct+'%"></i></div></div><div class="pct">'+pct+"%</div></div>";
   });
   html+="</div>";
   app.innerHTML=html;
@@ -566,8 +569,8 @@ function renderLessonResult(id,correct,total){
 function findLesson(id){for(const w of WEEKS){const l=w.lessons.find(x=>x.id===id);if(l)return{w:w.w,l}}return null}
 function startLesson(id){
   const f=findLesson(id);if(!f)return;const{w,l}=f;
-  let html='<button class="back" onclick="go(\'train\')">‹ 코스</button><div class="card"><span class="tag">'+w+'주차 레슨</span><h2>'+esc(l.title)+'</h2><p class="small" style="margin-bottom:10px">먼저 모델 문장 3개를 읽어보세요. 문장을 탭하면 뜻이 보입니다. 규칙은 아직 몰라도 돼요 — 공통된 모양이 눈에 들어오는지 느껴보세요.</p>';
-  l.models.forEach(m=>{html+='<div class="qen" style="cursor:pointer" onclick="this.querySelector(\'.ko\').classList.toggle(\'hidden\')">'+esc(m[0])+'<div class="ko hidden" style="color:var(--sub);font-size:14px;margin-top:4px">'+esc(m[1])+"</div></div>"});
+  let html='<button class="back" onclick="go(\'train\')">‹ 코스</button><div class="card"><span class="tag">'+w+'주차 레슨</span><h2>'+esc(l.title)+'</h2><p class="small" style="margin-bottom:10px">먼저 모델 문장 3개를 읽어보세요. 문장을 탭하면(키보드는 Enter) 뜻이 보입니다. 규칙은 아직 몰라도 돼요 — 공통된 모양이 눈에 들어오는지 느껴보세요.</p>';
+  l.models.forEach(m=>{html+='<div class="qen" role="button" tabindex="0" data-kb aria-expanded="false" aria-label="모델 문장 뜻 보기" style="cursor:pointer" onclick="var k=this.querySelector(\'.ko\');k.classList.toggle(\'hidden\');this.setAttribute(\'aria-expanded\',k.classList.contains(\'hidden\')?\'false\':\'true\')">'+esc(m[0])+'<div class="ko hidden" style="color:var(--sub);font-size:14px;margin-top:4px">'+esc(m[1])+"</div></div>"});
   html+='<div class="pattern">🔑 오늘의 패턴: <b>'+esc(l.pat)+'</b></div><p class="small" style="margin-top:10px;line-height:1.7">'+esc(l.note)+'</p><br><button class="btn" id="goEx">이제 문제로 확인하기 ('+l.ex.length+'문제)</button></div>';
   app.innerHTML=html;window.scrollTo(0,0);
   document.getElementById("goEx").onclick=()=>{
@@ -621,7 +624,7 @@ function startAssembly(id){
   const draw=()=>{
     let html='<button class="back" onclick="go(\'write\')">‹ 에세이 조립</button><div class="card"><span class="tag teal">'+esc(a.type)+'</span><div class="qen">'+esc(a.q)+'</div><div class="q">문장을 순서대로 탭하세요. 서론 → 본문 1 → 본문 2 → 결론 순서입니다</div>';
     a.s.forEach((s,i)=>{const idx=picked.indexOf(i);html+='<button class="sent'+(idx>=0?" picked":"")+'" data-i="'+i+'">'+(idx>=0?("<b>"+(idx+1)+".</b> "):"")+esc(s)+"</button>"});
-    html+='<div class="btnrow"><button class="btn ghost" id="rstBtn">처음부터</button><button class="btn" id="chkBtn" '+(picked.length===a.s.length?"":"disabled")+">확인</button></div>"+'<div id="fb"></div></div>';
+    html+='<div class="btnrow"><button class="btn ghost" id="rstBtn">처음부터</button><button class="btn" id="chkBtn" '+(picked.length===a.s.length?"":"disabled")+">확인</button></div>"+'<div id="fb" aria-live="polite"></div></div>';
     app.innerHTML=html;window.scrollTo(0,0);
     app.querySelectorAll(".sent").forEach(b=>b.onclick=()=>{const i=+b.dataset.i;const at=picked.indexOf(i);if(at>=0)picked.splice(at,1);else picked.push(i);draw()});
     document.getElementById("rstBtn").onclick=()=>{picked=[];draw()};

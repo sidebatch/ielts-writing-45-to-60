@@ -115,5 +115,20 @@ check("home has course-completion state", html.includes("8주 코스를 완주�
 check("review empty state is explicit", html.includes("오늘 복습할 문제가 없어요"));
 check("next review schedule helpers exist", html.includes("function nextDueInfo") && html.includes("function fmtDay"));
 check("quit returns to session origin", html.includes("SES.back"));
+// 8. 접근성·성능 회귀 (백로그 9): 터치 영역·대비·키보드·오프라인
+check("touch targets >=44px (chip)", html.includes(".chip{display:inline-flex;align-items:center;min-height:44px"));
+check("touch targets >=44px (back)", html.includes(".back{display:inline-flex;align-items:center;min-height:44px"));
+check("touch targets >=48px (opt/sent/btn)", html.includes(".opt{display:block") && html.includes("min-height:48px") && html.includes("min-height:52px"));
+check("focus-visible style present", html.includes(":focus-visible{outline:3px solid"));
+check("reduced motion respected", html.includes("prefers-reduced-motion"));
+check("no sub-12.5px text classes", !/font-size:11\.5px/.test(html) && !/font-size:12px/.test(html.split("<style>")[1].split("</style>")[0].replace("12.5px", "")));
+check("footer contrast color (not #9ca3af)", !html.includes("color:#9ca3af") && html.includes("color:#595959"));
+check("teal/amber/rose darkened for AA tags", html.includes("--teal:#0f766e") && html.includes("--amber:#b45309") && html.includes("--rose:#be123c"));
+check("select font 16px (no iOS auto-zoom)", /select\{[^}]*font-size:16px/.test(html));
+check("nav exposes aria-current and go() syncs it", html.includes('aria-current="page"') && html.includes('b.setAttribute("aria-current","page")'));
+check("keyboard activation for tappable rows/models", html.includes('data-kb') && html.includes('"kb"in e.target.dataset') && html.includes('role="button" tabindex="0" data-kb'));
+check("feedback regions are aria-live", (html.match(/aria-live="polite"/g) || []).length >= 4);
+check("sw caches only ok responses", sw.includes("res.ok"));
+check("sw offline navigation fallback to app shell", sw.includes('e.request.mode === "navigate"') && sw.includes('caches.match("./index.html"'));
 console.log("\n" + pass + " passed, " + fail + " failed");
 process.exit(fail ? 1 : 0);
