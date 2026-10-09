@@ -108,5 +108,12 @@ check("icons exist", fs.existsSync(path.join(root, "icon-192.png")) && fs.exists
 check("findLesson returns week number", html.includes("return{w:w.w,l}"));
 // 6. 자유 작문 모듈이 없는지 (러닝형 설계 확정)
 check("no free-writing textarea", !html.includes("<textarea"));
+// 7. UX 다듬기 회귀 (백로그 8): 다음 레슨은 '바로 다음 순서'여야 하고, 완주·복습 빈 상태가 안내돼야 함
+check("lessonAfter helper exists", html.includes("function lessonAfter"));
+check("lesson result uses linear next lesson", html.includes("function renderLessonResult") && html.includes("lessonAfter(id)"));
+check("home has course-completion state", html.includes("8주 코스를 완주했어요"));
+check("review empty state is explicit", html.includes("오늘 복습할 문제가 없어요"));
+check("next review schedule helpers exist", html.includes("function nextDueInfo") && html.includes("function fmtDay"));
+check("quit returns to session origin", html.includes("SES.back"));
 console.log("\n" + pass + " passed, " + fail + " failed");
 process.exit(fail ? 1 : 0);

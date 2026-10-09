@@ -100,7 +100,7 @@ footer{text-align:center;color:#9ca3af;font-size:12px;padding:18px 0 4px}
 <p class="sub">단어를 더 외우는 앱이 아니에요. 4.5와 6.0의 차이는 <b>의미가 막히는 오류가 없는가</b>, <b>복문을 안정적으로 쓰는가</b>, <b>문단에 뼈대가 있는가</b> — 딱 이 세 가지에서 갈립니다.</p>
 </header>
 <main id="app"></main>
-<footer>Band Jump v1.7.0 · 하루 한 레슨, 8주 코스 · 진단 결과는 시작점 안내용이며 실제 시험 점수를 보장하지 않습니다 · 진도는 이 기기에만 저장됩니다</footer>
+<footer>Band Jump v1.8.0 · 하루 한 레슨, 8주 코스 · 진단 결과는 시작점 안내용이며 실제 시험 점수를 보장하지 않습니다 · 진도는 이 기기에만 저장됩니다</footer>
 </div>
 <nav><div class="inner">
 <button data-nav="home" class="on"><span>🏠</span>홈</button>
@@ -412,12 +412,15 @@ function mastery(pool){const items=pool==="builder"?BUILDER_MCQ.concat(BUILDER_O
 function allLessons(){const out=[];WEEKS.forEach(w=>w.lessons.forEach(l=>out.push({w:w.w,l})));return out}
 function nextLesson(){return allLessons().find(x=>x.l.ready!==false&&!S.lessons[x.l.id])||allLessons().find(x=>x.l.ready!==false)}
 function streak(){const set=new Set(S.days);let n=0;const d=new Date();if(!set.has(todayStr()))d.setDate(d.getDate()-1);while(set.has(d.getFullYear()+"-"+String(d.getMonth()+1).padStart(2,"0")+"-"+String(d.getDate()).padStart(2,"0"))){n++;d.setDate(d.getDate()-1)}return n}
+function lessonAfter(id){const all=allLessons().filter(x=>x.l.ready!==false);const i=all.findIndex(x=>x.l.id===id);return i>=0&&i<all.length-1?all[i+1]:null}
+function nextDueInfo(){const ks=Object.keys(S.review);if(!ks.length)return null;let min=Infinity;ks.forEach(k=>{if(S.review[k].due<min)min=S.review[k].due});return{count:ks.length,earliest:min}}
+function fmtDay(ts){const d=new Date(ts);const now=new Date();const tom=new Date(Date.now()+86400000);const same=(a,b)=>a.getFullYear()===b.getFullYear()&&a.getMonth()===b.getMonth()&&a.getDate()===b.getDate();if(same(d,now))return"오늘";if(same(d,tom))return"내일";return(d.getMonth()+1)+"월 "+d.getDate()+"일"}
 
 /* ============ SESSION RUNNER ============ */
 let SES=null;
 function startSession(title,exercises,onFinish,opts){
-  opts=opts||{};SES={title,exercises:exercises.filter(e=>exFromKey(e[1]+":"+e[2])),i:0,correct:0,onFinish,reviewMode:!!opts.reviewMode};
-  if(!SES.exercises.length){app.innerHTML='<div class="card"><h2>준비된 문제가 없어요</h2><p class="small">복습할 항목이 아직 없습니다.</p></div><button class="btn" onclick="go(\'home\')">홈으로</button>';return}
+  opts=opts||{};SES={title,exercises:exercises.filter(e=>exFromKey(e[1]+":"+e[2])),i:0,correct:0,onFinish,reviewMode:!!opts.reviewMode,back:opts.back||"train"};
+  if(!SES.exercises.length){SES=null;app.innerHTML='<div class="card" style="text-align:center"><div style="font-size:40px">🌿</div><h2>지금 풀 문제가 없어요</h2><p class="small">선택한 훈련에 준비된 문제가 아직 없습니다. 레슨을 먼저 풀면 틀린 문제가 복습으로 쌓이고, 훈련장 문제도 채워집니다.</p></div><button class="btn" onclick="go(\'train\')">코스에서 레슨 시작하기</button><button class="btn ghost" style="margin-top:8px" onclick="go(\'home\')">홈으로</button>';window.scrollTo(0,0);return}
   renderExercise();
 }
 function renderExercise(){
@@ -435,7 +438,7 @@ function finishExercise(correct){
   if(SES.i>=SES.exercises.length){const f=SES.onFinish,c=SES.correct,t=SES.exercises.length;SES=null;f&&f(c,t)}
   else renderExercise();
 }
-function quitSession(){SES=null;go("train")}
+function quitSession(){const b=SES?SES.back:"train";SES=null;go(b)}
 function mcqPrompt(pool,item){
   if(pool==="clinic")return{t:"문장 수술실 · "+item.cat,q:"가장 올바른 문장은 어느 것인가요?"};
   if(pool==="builder")return item.q?{t:(item.link.includes("구조")?"에세이 구조 · ":"입장문 · ")+item.link,q:item.q}:{t:"문장 키우기 · "+item.link,q:"두 문장을 바르게 합친 것은 어느 것인가요?"};
@@ -519,8 +522,11 @@ function renderHome(){
   let html='<div class="card journey"><h2 style="color:#fff">Band 4.5 → 6.0 여정</h2><p style="font-size:13px;opacity:.92">8주 · 40레슨 코스입니다. 하루 한 레슨씩, 급할 것 없어요.</p><div class="track"><div class="fill" style="width:'+Math.max(pct,2)+'%"></div></div><div class="marks"><span>4.5 지금</span><span>5.0</span><span>5.5</span><span><b>6.0 목표</b></span></div><p style="font-size:12.5px;margin-top:8px;opacity:.92">전체 '+totalAll+'레슨 중 공개된 '+total+'레슨 · 완료 '+done+'개</p></div>';
   html+='<div class="kpi"><div><b>'+streak()+'일</b><span>연속 학습</span></div><div><b>'+S.days.length+'일</b><span>누적 학습일</span></div><div><b>'+due.length+'개</b><span>오늘 복습</span></div></div>';
   if(!S.diag){html+='<div class="card"><span class="tag rose">먼저 진단부터</span><h2>지금 내 라이팅, 어디가 약할까?</h2><p class="small">12문제로 4개 평가기준(TR·CC·LR·GRA) 중 어디서 점수가 새는지 찾습니다. 3분이면 돼요.</p><br><button class="btn" onclick="startDiag()">진단 시작하기</button></div>'}
-  if(nx){html+='<div class="card"><span class="tag">오늘의 레슨</span><h2>'+nx.w+'주차 · '+esc(nx.l.title)+'</h2><p class="small">'+esc(nx.l.pat||"")+' — 모델 문장부터 보고, 패턴을 발견하고, 조립하며 배웁니다. 약 15분.</p><br><button class="btn" onclick="startLesson(\''+nx.l.id+'\')">레슨 시작</button></div>'}
-  if(due.length){html+='<div class="card"><span class="tag amber">간격 반복 복습</span><h2>틀렸던 문제 '+due.length+'개가 돌아왔어요</h2><p class="small">어제 틀린 문제는 오늘, 맞히면 3일 뒤, 또 맞히면 7일 뒤에 다시 만납니다. 이 반복이 암기보다 강해요.</p><br><button class="btn teal" onclick="startReview()">복습 시작</button></div>'}
+  const allDone=total>0&&done>=total;
+  if(allDone){html+='<div class="card" style="text-align:center"><div style="font-size:40px">🎉</div><h2>8주 코스를 완주했어요</h2><p class="small">40레슨을 모두 끝냈습니다. 이제는 새 레슨보다 에세이 조립으로 전체 구조를 굳히고, 틀렸던 문제를 복습으로 반복하는 단계예요.</p><br><button class="btn" onclick="go(\'write\')">에세이 조립으로 마무리하기</button><button class="btn ghost" style="margin-top:8px" onclick="go(\'train\')">코스에서 다시 풀기</button></div>'}
+  else if(nx){html+='<div class="card"><span class="tag">'+(done?"이어서 할 레슨":"오늘의 레슨")+'</span><h2>'+nx.w+'주차 · '+esc(nx.l.title)+'</h2><p class="small">'+esc(nx.l.pat||"")+' — 모델 문장부터 보고, 패턴을 발견하고, 조립하며 배웁니다. 약 15분 · 지금까지 '+done+'/'+total+'레슨 완료.</p><br><button class="btn" onclick="startLesson(\''+nx.l.id+'\')">레슨 시작</button></div>'}
+  if(due.length){html+='<div class="card"><span class="tag amber">간격 반복 복습</span><h2>틀렸던 문제 '+due.length+'개가 돌아왔어요</h2><p class="small">틀린 문제는 다음 날 다시 만나고, 맞힐 때마다 간격이 3일, 7일로 늘어납니다. 오늘 몫만 끝내면 됩니다 — 이 반복이 암기보다 강해요.</p><br><button class="btn teal" onclick="startReview()">복습 시작 ('+due.length+'문제)</button></div>'}
+  else{const info=nextDueInfo();if(info){html+='<div class="card"><span class="tag amber">복습 예정</span><h2>오늘 복습은 없어요</h2><p class="small">대기 중인 복습 '+info.count+'개는 <b>'+fmtDay(info.earliest)+'</b>에 열립니다. 틀린 문제를 잊을 만할 때 다시 만나는 것이 간격 반복의 핵심이에요.</p><br><button class="btn ghost" onclick="go(\'my\')">내 기록에서 일정 확인</button></div>'}}
   html+='<div class="card"><h2>이 앱의 학습법</h2><p class="small" style="line-height:1.7">① 백지 작문은 하지 않습니다. 도달 가능한 <b>Band 6.5 모델</b>을 먼저 봅니다.<br>② 예문 속에서 패턴을 먼저 느끼고, 문법 용어는 마지막에 이름표처럼 붙입니다.<br>③ 틀린 문제는 간격 반복으로 다시 만나, \'아는 것\'이 아니라 \'몸이 기억하는 것\'으로 만듭니다.</p></div>';
   app.innerHTML=html;
 }
@@ -543,6 +549,20 @@ function renderCourse(){
   html+="</div>";
   app.innerHTML=html;
 }
+function renderLessonResult(id,correct,total){
+  const pct=total?Math.round(correct/total*100):0;
+  const after=lessonAfter(id);
+  const due=dueReviews().length;
+  let html='<div class="card" style="text-align:center"><div style="font-size:44px">'+(pct>=80?"🎉":pct>=50?"💪":"🌱")+'</div><h2>레슨 완료</h2><p style="font-size:30px;font-weight:900;color:var(--brand)">'+correct+" / "+total+'</p><p class="small">'+(pct>=80?"훌륭해요. 이 감각이 6.0의 감각입니다.":pct>=50?"좋아요. 틀린 문제는 내일 복습으로 다시 만나요.":"괜찮아요. 틀린 문제는 복습 큐에 들어갔고, 반복해서 만나면 몸이 기억합니다.")+"</p>";
+  if(!after){html+='<div class="why ok" style="text-align:left;margin-top:12px"><b>🎉 마지막 레슨까지 끝냈어요 — 8주 코스 완주입니다.</b><br>이제 에세이 조립으로 완성된 글을 전체로 맞춰 보고, 복습으로 틀렸던 문제를 굳히면 준비가 끝납니다.</div>'}
+  else if(due){html+='<p class="small" style="margin-top:10px">지금 복습할 문제가 '+due+'개 기다리고 있어요. 바로 다음 레슨으로 가도 되고, 복습부터 가볍게 끝내도 됩니다.</p>'}
+  html+="</div>";
+  if(after){html+='<button class="btn" onclick="startLesson(\''+after.l.id+'\')">다음 레슨: '+esc(after.l.title)+' ›</button>'}
+  else{html+='<button class="btn" onclick="go(\'write\')">에세이 조립으로 마무리하기</button>'}
+  if(due){html+='<button class="btn teal" style="margin-top:8px" onclick="startReview()">복습 '+due+'문제 먼저 하기</button>'}
+  html+='<button class="btn ghost" style="margin-top:8px" onclick="go(\'train\')">코스 목록으로</button>';
+  app.innerHTML=html;window.scrollTo(0,0);
+}
 function findLesson(id){for(const w of WEEKS){const l=w.lessons.find(x=>x.id===id);if(l)return{w:w.w,l}}return null}
 function startLesson(id){
   const f=findLesson(id);if(!f)return;const{w,l}=f;
@@ -553,8 +573,7 @@ function startLesson(id){
   document.getElementById("goEx").onclick=()=>{
     startSession(l.title,l.ex.map(e=>[e[0],e[1],e[2]]),(c,t)=>{
       S.lessons[id]={score:c,total:t,at:Date.now()};save();
-      const nx=nextLesson();
-      sessionResult("레슨 완료",c,t,"train",nx&&nx.l.id!==id?'<button class="btn ghost" style="margin-top:4px" onclick="startLesson(\''+nx.l.id+'\')">다음 레슨: '+esc(nx.l.title)+"</button>":"");
+      renderLessonResult(id,c,t);
     });
   };
 }
@@ -568,8 +587,14 @@ function startFree(pool){
   startSession("자유 훈련",wrongFirst.slice(0,8),(c,t)=>sessionResult("훈련 완료",c,t,"train"));
 }
 function startReview(){
-  const keys=dueReviews();const ex=keys.map(exFromKey).filter(Boolean);
-  startSession("간격 반복 복습",shuffle(ex).slice(0,10),(c,t)=>sessionResult("복습 완료",c,t,"home"),{reviewMode:true});
+  const keys=dueReviews();
+  if(!keys.length){
+    const info=nextDueInfo();
+    app.innerHTML='<div class="card" style="text-align:center"><div style="font-size:40px">🌿</div><h2>오늘 복습할 문제가 없어요</h2><p class="small">'+(info?("대기 중인 복습 "+info.count+"개는 <b>"+fmtDay(info.earliest)+"</b>에 열립니다. 잊을 만할 때 다시 만나는 것이 간격 반복의 핵심이라, 미리 풀 수는 없어요."):("틀린 문제가 생기면 자동으로 복습 일정이 잡힙니다. 지금은 새 레슨을 이어가면 됩니다."))+'</p></div><button class="btn" onclick="go(\'train\')">코스로 가기</button><button class="btn ghost" style="margin-top:8px" onclick="go(\'home\')">홈으로</button>';
+    window.scrollTo(0,0);return;
+  }
+  const ex=keys.map(exFromKey).filter(Boolean);
+  startSession("간격 반복 복습",shuffle(ex).slice(0,10),(c,t)=>sessionResult("복습 완료",c,t,"home"),{reviewMode:true,back:"home"});
 }
 function startDiag(){
   const ex=DIAG.map(d=>["mcq","diag",d.id]);
@@ -582,7 +607,7 @@ function startDiag(){
     const advice={GRA:"문장 정확도부터 잡아야 합니다. 1주차부터 순서대로 시작하세요.",CC:"문장보다 문단의 흐름이 약점이에요. 그래도 1~3주차 문장 훈련 뒤 4주차에서 크게 오릅니다.",LR:"표현의 짝꿍(콜로케이션)이 약점이에요. 6주차 청크 훈련이 특히 도움이 됩니다.",TR:"질문을 정확히 읽는 게 약점이에요. 5주차(서론)와 7주차(유형별)가 핵심입니다."};
     app.innerHTML='<div class="card"><h2>진단 결과</h2>'+rows+'<div class="why ok" style="margin-top:12px"><b>가장 먼저 잡을 곳: '+names[weakest]+'</b><br>'+advice[weakest]+'<br><br>그래도 코스는 1주차부터 순서대로 가세요. 이 앱의 레슨은 앞 레슨이 뒷 레슨의 재료가 되도록 쌓여 있습니다.</div></div><button class="btn" onclick="startLesson(\'w1d1\')">1주차 첫 레슨 시작하기</button>';
     window.scrollTo(0,0);
-  });
+  },{back:"home"});
 }
 function renderAssemblyList(){
   let html='<div class="card"><h2>에세이 조립</h2><p class="small">완성된 Band 6.5 에세이를 문장 단위로 섞어 두었습니다. 순서대로 조립하면서 에세이 전체의 뼈대를 몸으로 익히세요. 직접 쓰는 게 아니라, 좋은 글의 구조를 읽고 맞히는 훈련입니다.</p></div>';
@@ -612,12 +637,15 @@ function startAssembly(id){
 }
 function renderMy(){
   const names=[["clinic","문장 수술실"],["builder","문장 키우기"],["para","문단 조립"],["paraphrase","패러프레이즈"],["chunk","토픽 청크"]];
-  let html='<div class="card"><h2>내 기록</h2><div class="kpi"><div><b>'+streak()+'일</b><span>연속</span></div><div><b>'+S.days.length+'일</b><span>누적 학습일</span></div><div><b>'+Object.keys(S.lessons).length+'개</b><span>완료 레슨</span></div></div>';
+  let html='<div class="card"><h2>내 기록</h2><div class="kpi"><div><b>'+streak()+'일</b><span>연속</span></div><div><b>'+S.days.length+'일</b><span>누적 학습일</span></div><div><b>'+Object.keys(S.lessons).length+'개</b><span>완료 레슨</span></div></div>'+(Object.keys(S.lessons).length?'':'<p class="small" style="margin-top:6px">아직 완료한 레슨이 없어요. 아래 막대는 레슨과 훈련을 풀수록 채워집니다 — 1주차 첫 레슨부터 가볍게 시작해 보세요.</p><button class="btn" style="margin-top:10px" onclick="startLesson(\'w1d1\')">첫 레슨 시작하기</button>');
   names.forEach(([p,n])=>{const m=mastery(p);const pct=m.total?Math.round(m.ok/m.total*100):0;html+="<div style='margin:10px 0'><div style='display:flex;justify-content:space-between;font-size:14px'><span>"+n+"</span><b>"+m.ok+" / "+m.total+"</b></div><div class='bar'><i style='width:"+pct+"%'></i></div></div>"});
   html+="</div>";
-  const rev=Object.keys(S.review);
-  html+='<div class="card"><h2>복습 큐</h2>'+(rev.length?'<p class="small">아직 몸에 붙지 않은 문제 '+rev.length+'개가 간격 반복으로 돌고 있어요. 오늘 도래: '+dueReviews().length+'개</p><br><button class="btn teal" onclick="startReview()">지금 복습하기</button>':'<p class="small">복습 큐가 비어 있어요. 문제를 틀리면 자동으로 여기에 들어갑니다.</p>')+"</div>";
+  const rev=Object.keys(S.review);const dueN=dueReviews().length;const info=nextDueInfo();
+  if(dueN){html+='<div class="card"><h2>복습 큐</h2><p class="small">오늘 복습할 문제 <b>'+dueN+'개</b>가 기다리고 있어요. 전체 대기 중인 문제는 '+rev.length+'개입니다.</p><br><button class="btn teal" onclick="startReview()">복습 시작 ('+dueN+'문제)</button></div>'}
+  else if(rev.length){html+='<div class="card"><h2>복습 큐</h2><p class="small">오늘 도래한 복습은 없어요. 대기 중인 '+rev.length+'개는 <b>'+(info?fmtDay(info.earliest):"")+'</b>부터 차례로 열립니다. 맞힐 때마다 간격이 3일, 7일로 늘어나요.</p><br><button class="btn" onclick="go(\'train\')">대신 새 레슨 하러 가기</button></div>'}
+  else{html+='<div class="card" style="text-align:center"><div style="font-size:36px">🌿</div><h2>복습 큐가 비어 있어요</h2><p class="small">좋은 신호예요 — 아직 다시 볼 문제가 없다는 뜻입니다. 문제를 틀리면 그 문제가 자동으로 여기에 들어와 다음 날부터 다시 만나게 됩니다.</p><br><button class="btn" onclick="go(\'train\')">레슨 하러 가기</button></div>'}
   if(S.diag){html+='<div class="card"><h2>진단 기록</h2><p class="small">'+new Date(S.diag.at).toLocaleDateString("ko-KR")+' 진단 완료</p><br><button class="btn ghost" onclick="startDiag()">다시 진단하기</button></div>'}
+  else{html+='<div class="card"><h2>진단 기록</h2><p class="small">아직 진단 기록이 없어요. 12문제로 지금 약한 평가기준(TR·CC·LR·GRA)부터 확인하면 코스를 더 효율적으로 돌 수 있습니다.</p><br><button class="btn ghost" onclick="startDiag()">진단 시작하기</button></div>'}
   html+='<div class="card"><h2>처음부터 다시 시작</h2><p class="small">모든 진도와 기록을 지웁니다.</p><br><button class="btn ghost" style="border-color:var(--bad);color:var(--bad)" onclick="if(confirm(\'정말 모든 기록을 지울까요?\')){localStorage.removeItem(KEY);location.reload()}">기록 초기화</button></div>';
   app.innerHTML=html;
 }
