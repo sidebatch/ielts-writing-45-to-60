@@ -79,6 +79,18 @@ if (data.CLINIC) {
   check("assembly breaks valid", badAsm.length === 0, badAsm.join(","));
   // PARA 문장 수
   check("each PARA has 5 sentences", data.PARA.every(p => p.s.length === 5));
+  // 전수 검수 회귀 (2026-10-09, 백로그 7): MCQ 선택지 내 중복 금지
+  let dupOpts = [];
+  [data.CLINIC, data.BUILDER_MCQ, data.CHUNKS, data.DIAG].forEach(arr => arr.forEach(it => { const norm = it.opts.map(o => o.trim().toLowerCase()); if (new Set(norm).size !== norm.length) dupOpts.push(it.id); }));
+  check("no duplicate options within an MCQ", dupOpts.length === 0, dupOpts.join(","));
+  // 복수 정답 회귀: k5는 'contact'(keep in contact with도 성립), k10은 'with'(suffer with 용법 존재)가 오답으로 있으면 안 됨
+  const k5 = data.CHUNKS.find(x => x.id === "k5"), k10 = data.CHUNKS.find(x => x.id === "k10");
+  check("k5 distractor is not also-correct 'contact'", !!k5 && !k5.opts.includes("contact"));
+  check("k10 distractor is not also-correct 'with'", !!k10 && !k10.opts.includes("with"));
+  // 레슨 모델은 [영문, 국문] 쌍이 모두 비어 있지 않아야 함
+  let badModel = [];
+  data.WEEKS.forEach(w => w.lessons.forEach(l => (l.models || []).forEach(mo => { if (!Array.isArray(mo) || mo.length !== 2 || !mo[0] || !mo[1]) badModel.push(l.id); })));
+  check("all lesson models are en/ko pairs", badModel.length === 0, badModel.join(","));
 }
 // 3. 버전 동기화
 const vHtml = (html.match(/Band Jump v([\d.]+)/) || [])[1];
