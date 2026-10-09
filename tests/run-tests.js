@@ -130,5 +130,20 @@ check("keyboard activation for tappable rows/models", html.includes('data-kb') &
 check("feedback regions are aria-live", (html.match(/aria-live="polite"/g) || []).length >= 4);
 check("sw caches only ok responses", sw.includes("res.ok"));
 check("sw offline navigation fallback to app shell", sw.includes('e.request.mode === "navigate"') && sw.includes('caches.match("./index.html"'));
+// 9. 최종 플레이스루 회귀 (백로그 10): 모범 에세이는 실제 시험 최소 분량(250단어)을 충족해야 하고, 전 레슨이 처음부터 끝까지 플레이 가능해야 함
+if (data.ASSEMBLY) {
+  const wc = data.ASSEMBLY.map(a => a.s.join(" ").split(/\s+/).length);
+  check("every assembly essay meets the IELTS 250-word minimum (<=300)", wc.every(n => n >= 250 && n <= 300), wc.join(","));
+  check("assembly list shows word count", html.includes('a.s.join(" ").split(/\\s+/).length'));
+  check("w8d2 note matches a1 sentence count", html.includes("의견형 에세이 " + data.ASSEMBLY[0].s.length + "문장"));
+  let incomplete = [];
+  data.WEEKS.forEach(w => w.lessons.forEach(l => {
+    if (!l.pat || l.pat.length < 3) incomplete.push(l.id + ":pat");
+    if (!l.note || l.note.length < 40) incomplete.push(l.id + ":note");
+    if (!l.models || l.models.length < 2) incomplete.push(l.id + ":models");
+    if (!l.ex || l.ex.length < 3 || l.ex.length > 5) incomplete.push(l.id + ":ex");
+  }));
+  check("all 40 lessons playthrough-complete (pat/note/models/ex)", incomplete.length === 0, incomplete.join(","));
+}
 console.log("\n" + pass + " passed, " + fail + " failed");
 process.exit(fail ? 1 : 0);
