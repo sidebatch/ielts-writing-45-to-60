@@ -100,7 +100,7 @@ footer{text-align:center;color:#9ca3af;font-size:12px;padding:18px 0 4px}
 <p class="sub">단어를 더 외우는 앱이 아니에요. 4.5와 6.0의 차이는 <b>의미가 막히는 오류가 없는가</b>, <b>복문을 안정적으로 쓰는가</b>, <b>문단에 뼈대가 있는가</b> — 딱 이 세 가지에서 갈립니다.</p>
 </header>
 <main id="app"></main>
-<footer>Band Jump v1.0.1 · 하루 한 레슨, 8주 코스 · 진단 결과는 시작점 안내용이며 실제 시험 점수를 보장하지 않습니다 · 진도는 이 기기에만 저장됩니다</footer>
+<footer>Band Jump v1.1.0 · 하루 한 레슨, 8주 코스 · 진단 결과는 시작점 안내용이며 실제 시험 점수를 보장하지 않습니다 · 진도는 이 기기에만 저장됩니다</footer>
 </div>
 <nav><div class="inner">
 <button data-nav="home" class="on"><span>🏠</span>홈</button>
@@ -146,7 +146,11 @@ const BUILDER_MCQ=[
 {id:"b6",link:"so",opts:["Pollution increased, so the government introduced new laws.","So pollution increased, the government introduced new laws it.","Pollution increased so that the government introduced laws yesterday it did."],a:0,why:"원인 뒤에 so + 결과 순서예요. so 앞 콤마도 잊지 마세요.",pat:"원인, so + 결과"},
 {id:"b7",link:"because of",opts:["Flights were cancelled because of the bad weather.","Flights were cancelled because of the weather was bad.","Because of the weather was bad, flights were cancelled."],a:0,why:"because of 뒤에는 완전한 문장이 아니라 명사구(the bad weather)만 와요. 문장을 다 넣고 싶으면 because를 쓰세요.",pat:"because of + 명사구 / because + 문장"},
 {id:"b8",link:"who",opts:["People who exercise regularly live longer.","People who exercise regularly they live longer.","People which exercise regularly live longer."],a:0,why:"사람에게는 who, 사물에게는 which예요. 그리고 who 절 뒤에 they를 또 쓰지 않습니다.",pat:"사람 + who + 동사 / 사물 + which + 동사"},
-{id:"b9",link:"although",opts:["Although studying abroad is expensive, it offers valuable experience.","Although studying abroad is expensive. It offers valuable experience.","Studying abroad is expensive, although it offers valuable experience it."],a:0,why:"양보(although)로 시작하면 글에 깊이가 생겨요. 구조는 b2와 똑같습니다 — 반복이 실력입니다.",pat:"Although + 단점, + 장점 (논의형 에세이의 핵심 무기)"}
+{id:"b9",link:"although",opts:["Although studying abroad is expensive, it offers valuable experience.","Although studying abroad is expensive. It offers valuable experience.","Studying abroad is expensive, although it offers valuable experience it."],a:0,why:"양보(although)로 시작하면 글에 깊이가 생겨요. 구조는 b2와 똑같습니다 — 반복이 실력입니다.",pat:"Although + 단점, + 장점 (논의형 에세이의 핵심 무기)"},
+{id:"b19",link:"if",opts:["If public transport is affordable, more people will use it.","If public transport will be affordable, more people will use it.","If public transport is affordable. More people will use it."],a:0,why:"if 절에서는 will을 쓰지 않아요. 조건 쪽은 현재형 is, will은 결과 쪽에만 씁니다. 마침표로 끊으면 조각 문장이 돼요.",pat:"If + 현재형, + will + 결과"},
+{id:"b20",link:"when",opts:["When students receive feedback, they can improve their writing.","When students receive feedback. They can improve their writing.","When students receives feedback, they can improve their writing."],a:0,why:"When 절도 콤마로 주절과 이어야 해요. students는 복수라 동사는 receive 그대로입니다.",pat:"When + 상황, + can + 결과"},
+{id:"b21",link:"who",opts:["Teachers who give clear feedback help students improve.","Teachers who give clear feedback they help students improve.","Teachers which give clear feedback help students improve."],a:0,why:"사람을 설명할 때는 who예요. who 덩어리가 설명을 이어주기 때문에 뒤에 they를 또 쓰지 않습니다.",pat:"사람 + who + 동사 (they 중복 금지)"},
+{id:"b22",link:"which",opts:["The course, which lasts eight weeks, helps students write better essays.","The course, which it lasts eight weeks, helps students write better essays.","The course which lasts eight weeks, helps students write essays better it."],a:0,why:"which가 The course를 설명하면서 주어 역할까지 해요. 그래서 뒤에 it을 또 넣지 않습니다. 설명 덩어리는 콤마 사이에 끼워 넣는 모양입니다.",pat:"명사, which + 동사, + 주절 동사"}
 ];
 const BUILDER_ORDER=[
 {id:"b10",tokens:["Although","university education","is expensive,","it","gives","students","better job opportunities."],why:"Although 절이 먼저, 콤마 뒤에 주절이 이어지는 순서예요.",pat:"Although + 절, + 주절"},
@@ -157,7 +161,12 @@ const BUILDER_ORDER=[
 {id:"b15",tokens:["The government","should invest","in renewable energy","to reduce","pollution."],why:"to + 동사원형으로 '목적'을 붙였어요. 짧지만 점수가 오르는 확장입니다.",pat:"행동 + to + 목적"},
 {id:"b16",tokens:["Online courses","are popular","because","they","are","flexible and affordable."],why:"이유 절 안에도 주어+동사가 완전히 들어가야 해요.",pat:"주장 + because + 주어 + 동사 + 이유 내용"},
 {id:"b17",tokens:["Regular exercise","improves","health,","so","many people","join gyms."],why:"콤마 + so로 결과를 잇는 순서예요.",pat:"원인, so + 결과"},
-{id:"b18",tokens:["Cities","that","grow too quickly","often face","housing problems."],why:"that 절이 Cities를 뒤에서 설명해요. 주어와 동사(often face) 사이에 설명이 끼어드는 구조입니다.",pat:"명사 + that + 설명 + 동사"}
+{id:"b18",tokens:["Cities","that","grow too quickly","often face","housing problems."],why:"that 절이 Cities를 뒤에서 설명해요. 주어와 동사(often face) 사이에 설명이 끼어드는 구조입니다.",pat:"명사 + that + 설명 + 동사"},
+{id:"b23",tokens:["If","students","read regularly,","they","will","write better essays."],why:"조건(If 절, 현재형)이 먼저, 결과(will)가 뒤에 오는 순서예요.",pat:"If + 현재형, + will + 결과"},
+{id:"b24",tokens:["When","people","exercise regularly,","they","sleep","better at night."],why:"When 절(상황) 뒤에 콤마, 그 뒤에 결과가 이어지는 순서예요.",pat:"When + 상황, + 결과"},
+{id:"b25",tokens:["Students","who","read widely","usually","write","better essays."],why:"who 덩어리(read widely)가 Students를 설명하고, 그 뒤에 본동사 write가 와요. 설명이 주어와 동사 사이에 끼어드는 구조입니다.",pat:"명사 + who + 설명 + 동사"},
+{id:"b26",tokens:["Online courses","offer recorded lectures,","which","allow","students","to review difficult topics."],why:"which가 앞의 recorded lectures를 받아서 그 효과를 이어줘요. 콤마 + which 순서입니다.",pat:"명사, which + 효과"},
+{id:"b27",tokens:["Although","online learning","is convenient,","some students","prefer","face-to-face classes."],why:"Although 절(인정하는 단점)이 먼저, 콤마 뒤에 주절(그래도 성립하는 사실)이 오는 순서예요.",pat:"Although + 단점, + 그럼에도 주절"}
 ];
 const PARA=[
 {id:"p1",topic:"교육 · 온라인 학습",note:"주제문 → First → 예시 → In addition → As a result. 본문 문단의 표준 뼈대예요.",s:["Online learning offers several benefits for students.","First, it allows them to study at their own pace.","For example, a student with a part-time job can watch lectures at night.","In addition, online courses are usually cheaper than traditional classes.","As a result, more people can access education."]},
@@ -290,11 +299,12 @@ const WEEKS=[
 {id:"w2d5",title:"1~2주차 총복습 — 이유·결과 세트",pat:"because / so / because of / to 구분하기",models:[["Because the weather was bad, the flights were cancelled.","날씨가 나빠서 항공편이 취소됐습니다."],["The government built a new subway to reduce traffic congestion.","정부는 교통 혼잡을 줄이기 위해 새 지하철을 지었습니다."]],note:"오늘은 섞어서 나옵니다. 연결어를 보고 방향(이유인지 결과인지 목적지)을 먼저 판단하는 게 요령이에요.",ex:[["mcq","builder","b1"],["mcq","builder","b7"],["mcq","builder","b6"],["order","builder","b11"]]}
 ]},
 {w:3,title:"복문으로 깊이 더하기",desc:"because를 넘어서 — 양보·조건·관계절까지 안정적으로 쓰는 주입니다.",lessons:[
-{id:"w3d1",title:"although — 단점을 먼저 인정하기",ready:false},
-{id:"w3d2",title:"if — 조건으로 근거 만들기",ready:false},
-{id:"w3d3",title:"when — 상황 + 결과",ready:false},
-{id:"w3d4",title:"which / who — 설명 붙이기",ready:false},
-{id:"w3d5",title:"3주차 총복습 — 복문 세트",ready:false}]},
+{id:"w3d1",title:"although — 단점을 먼저 인정하기",pat:"Although + 단점, + 그럼에도 주장",models:[["Although electric cars are expensive, they produce less pollution.","전기차는 비싸지만, 오염을 덜 일으킵니다."],["Although studying abroad can be lonely, it helps students become independent.","유학은 외로울 수 있지만, 학생들이 자립하는 데 도움이 됩니다."],["Although online learning is convenient, some students prefer face-to-face classes.","온라인 학습은 편리하지만, 일부 학생은 대면 수업을 선호합니다."]],note:"세 문장의 공통 모양을 보세요. 앞덩어리에서 단점이나 불리한 점을 먼저 인정하고, 콤마 뒤에서 '그래도 이게 사실이다'라고 말합니다. 상대쪽의 일부를 인정하면 내 주장이 더 믿을 만해 보여요. 주의할 점은 딱 하나 — Although 덩어리만 따로 마침표로 끊으면 조각 문장이 됩니다.",ex:[["mcq","builder","b2"],["mcq","builder","b9"],["order","builder","b27"],["order","builder","b10"]]},
+{id:"w3d2",title:"if — 조건으로 근거 만들기",pat:"If + 현재형, + will + 결과",models:[["If governments invest in public transport, traffic will decrease.","정부가 대중교통에 투자하면 교통량이 줄어들 것입니다."],["If students read regularly, they will write better essays.","학생들이 꾸준히 읽으면 더 나은 에세이를 쓰게 될 것입니다."],["If people use less plastic, oceans will become cleaner.","사람들이 플라스틱을 덜 쓰면 바다가 더 깨끗해질 것입니다."]],note:"앞덩어리는 조건, 뒷덩어리는 그 조건에서 나오는 결과예요. 규칙은 딱 하나만 몸에 붙이면 됩니다. If 덩어리 안에서는 will을 쓰지 않고 현재형으로 쓰고, will은 결과 쪽에만 둡니다. 문제해결형과 의견형 본문의 근거는 대부분 이 '조건 → 결과' 모양으로 만들어집니다.",ex:[["mcq","builder","b4"],["mcq","builder","b19"],["order","builder","b11"],["order","builder","b23"]]},
+{id:"w3d3",title:"when — 상황 + 결과",pat:"When + 상황, + 결과",models:[["When people exercise regularly, they sleep better at night.","사람들은 규칙적으로 운동하면 밤에 더 잘 잡니다."],["When students receive clear feedback, they know how to improve.","학생들은 명확한 피드백을 받으면 어떻게 개선해야 할지 알게 됩니다."],["When traffic increases, air quality becomes worse.","교통량이 늘면 공기 질이 나빠집니다."]],note:"모양은 어제 배운 If와 똑같습니다. 콤마 앞은 상황, 뒤는 그 상황에서 일어나는 결과예요. 느낌의 차이만 알아두세요. if가 '만약 그런 조건이라면'에 가깝다면, when은 '그런 상황이 오면 늘 그렇다'는 일반적 사실에 가깝습니다. 둘 다 콤마 뒤에 완전한 결과가 와야 합니다.",ex:[["mcq","builder","b5"],["mcq","builder","b20"],["order","builder","b14"],["order","builder","b24"]]},
+{id:"w3d4",title:"which / who — 설명 붙이기",pat:"사람 + who · 사물 + which + 설명",models:[["People who exercise regularly tend to live longer.","규칙적으로 운동하는 사람들은 더 오래 사는 경향이 있습니다."],["The city introduced a new bus system, which reduced traffic in the centre.","그 도시는 새 버스 시스템을 도입했고, 그 결과 도심의 교통량이 줄었습니다."],["Students who read widely usually write better essays.","폭넓게 읽는 학생들은 보통 더 나은 에세이를 씁니다."]],note:"앞 명사에 설명을 한 덩어리 더 붙이는 모양이에요. 사람을 설명하면 who, 사물이나 앞 문장 전체를 받으면 which를 씁니다. 가장 흔한 실수는 설명 덩어리 뒤에 they나 it을 또 쓰는 것 — who와 which가 이미 주어 역할을 하고 있어서 필요 없습니다. 두 번째 문장처럼 앞 문장 전체를 받을 때는 콤마 + which입니다.",ex:[["mcq","builder","b3"],["mcq","builder","b8"],["order","builder","b25"],["order","builder","b12"]]},
+{id:"w3d5",title:"3주차 총복습 — 복문 세트",pat:"although / if / when / who·which 구분하기",models:[["Although public transport is cheap, many people still prefer to drive.","대중교통은 저렴하지만, 많은 사람은 여전히 직접 운전하는 것을 선호합니다."],["If cities build safer cycle lanes, more people will cycle to work.","도시가 더 안전한 자전거 도로를 만들면, 더 많은 사람이 자전거로 출근할 것입니다."]],note:"오늘은 섞어서 나옵니다. 문제를 풀기 전에 연결어부터 보고 관계를 판단하세요. although는 '인정하고 뒤집기', if는 '조건 → 결과', when은 '상황 → 결과', who와 which는 '명사에 설명 붙이기'입니다. 헷갈리면 답을 고르기 전에 이 네 가지 중 무엇인지 먼저 말해보는 게 요령이에요.",ex:[["mcq","builder","b9"],["mcq","builder","b19"],["mcq","builder","b20"],["mcq","builder","b21"],["order","builder","b26"]]}
+]},
 {w:4,title:"문단 — 뼈대 세우기",desc:"문장이 모여 문단이 되는 규칙. 주제문 하나로 문단 전체가 예고됩니다.",lessons:[
 {id:"w4d1",title:"주제문 — 문단의 예고편",ready:false},
 {id:"w4d2",title:"근거에 설명 붙이기",ready:false},

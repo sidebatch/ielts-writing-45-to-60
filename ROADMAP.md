@@ -9,7 +9,7 @@
 - 모바일 360px 폭에서 칩·버튼이 깨지지 않는가
 
 ## 백로그 (위부터)
-1. [ ] 3주차 레슨 5개 완성 (w3d1~w3d5) — although/if/when/which·who, 기존 builder 풀 활용 + 신규 문항 필요시 추가
+1. [x] 3주차 레슨 5개 완성 (w3d1~w3d5) — although/if/when/which·who, 기존 builder 풀 활용 + 신규 문항 필요시 추가
 2. [ ] 4주차 레슨 5개 완성 (w4d1~w4d5) — 주제문·근거·예시·연결어 + PARA 풀 연결
 3. [ ] 5주차 레슨 5개 완성 (w5d1~w5d5) — PARAPHRASE 풀 연결 + 입장문 조립형 신규
 4. [ ] 6주차 레슨 5개 완성 (w6d1~w6d5) — CHUNKS 풀 연결 (주제별)

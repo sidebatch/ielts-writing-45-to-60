@@ -24,8 +24,8 @@ try {
 } catch (e) { check("data evaluates", false, e.message); }
 if (data.CLINIC) {
   check("CLINIC = 24", data.CLINIC.length === 24, data.CLINIC.length);
-  check("BUILDER_MCQ = 9", data.BUILDER_MCQ.length === 9, data.BUILDER_MCQ.length);
-  check("BUILDER_ORDER = 9", data.BUILDER_ORDER.length === 9, data.BUILDER_ORDER.length);
+  check("BUILDER_MCQ = 13", data.BUILDER_MCQ.length === 13, data.BUILDER_MCQ.length);
+  check("BUILDER_ORDER = 14", data.BUILDER_ORDER.length === 14, data.BUILDER_ORDER.length);
   check("PARA = 6", data.PARA.length === 6, data.PARA.length);
   check("CHUNKS = 32", data.CHUNKS.length === 32, data.CHUNKS.length);
   check("DIAG = 12", data.DIAG.length === 12, data.DIAG.length);
@@ -60,9 +60,10 @@ if (data.CLINIC) {
     });
   }));
   check("all lesson exercise refs resolve", missing.length === 0, missing.join(","));
-  // 준비된 레슨 수 (v1.0 기준 10개 이상)
+  // 준비된 레슨 수 (1~3주차 완성 기준 15개 이상)
   const ready = data.WEEKS.reduce((n, w) => n + w.lessons.filter(l => l.ready !== false).length, 0);
-  check("ready lessons >= 10", ready >= 10, ready);
+  check("ready lessons >= 15", ready >= 15, ready);
+  check("week 3 all ready", data.WEEKS[2].lessons.every(l => l.ready !== false));
   // ASSEMBLY 문단 경계 유효성
   let badAsm = [];
   data.ASSEMBLY.forEach(a => { a.breaks.forEach(b => { if (!(b > 0 && b < a.s.length)) badAsm.push(a.id + ":" + b); }); if (a.parts.length !== a.breaks.length + 1) badAsm.push(a.id + ":parts"); });
