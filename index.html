@@ -100,7 +100,7 @@ footer{text-align:center;color:#9ca3af;font-size:12px;padding:18px 0 4px}
 <p class="sub">단어를 더 외우는 앱이 아니에요. 4.5와 6.0의 차이는 <b>의미가 막히는 오류가 없는가</b>, <b>복문을 안정적으로 쓰는가</b>, <b>문단에 뼈대가 있는가</b> — 딱 이 세 가지에서 갈립니다.</p>
 </header>
 <main id="app"></main>
-<footer>Band Jump v1.0 · 하루 한 레슨, 8주 코스 · 진단 결과는 시작점 안내용이며 실제 시험 점수를 보장하지 않습니다 · 진도는 이 기기에만 저장됩니다</footer>
+<footer>Band Jump v1.0.1 · 하루 한 레슨, 8주 코스 · 진단 결과는 시작점 안내용이며 실제 시험 점수를 보장하지 않습니다 · 진도는 이 기기에만 저장됩니다</footer>
 </div>
 <nav><div class="inner">
 <button data-nav="home" class="on"><span>🏠</span>홈</button>
@@ -485,7 +485,7 @@ function renderCourse(){
   html+="</div>";
   app.innerHTML=html;
 }
-function findLesson(id){for(const w of WEEKS){const l=w.lessons.find(x=>x.id===id);if(l)return{w,l}}return null}
+function findLesson(id){for(const w of WEEKS){const l=w.lessons.find(x=>x.id===id);if(l)return{w:w.w,l}}return null}
 function startLesson(id){
   const f=findLesson(id);if(!f)return;const{w,l}=f;
   let html='<button class="back" onclick="go(\'train\')">‹ 코스</button><div class="card"><span class="tag">'+w+'주차 레슨</span><h2>'+esc(l.title)+'</h2><p class="small" style="margin-bottom:10px">먼저 모델 문장 3개를 읽어보세요. 문장을 탭하면 뜻이 보입니다. 규칙은 아직 몰라도 돼요 — 공통된 모양이 눈에 들어오는지 느껴보세요.</p>';

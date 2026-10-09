@@ -82,6 +82,8 @@ check("manifest name", manifest.name.includes("Band Jump"));
 check("sw network-first", sw.includes("fetch(e.request)"));
 check("localStorage key", html.includes('const KEY="bandjump-v1"'));
 check("icons exist", fs.existsSync(path.join(root, "icon-192.png")) && fs.existsSync(path.join(root, "icon-512.png")));
+// 5b. 레슨 주차 라벨 회귀 ([object Object] 버그 방지)
+check("findLesson returns week number", html.includes("return{w:w.w,l}"));
 // 6. 자유 작문 모듈이 없는지 (러닝형 설계 확정)
 check("no free-writing textarea", !html.includes("<textarea"));
 console.log("\n" + pass + " passed, " + fail + " failed");
