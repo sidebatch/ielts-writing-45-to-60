@@ -1,0 +1,570 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Band Jump — IELTS Writing 4.5 → 6.0</title>
+<meta name="description" content="Band 4.5를 6.0으로: 의미를 막는 오류를 없애고, 안정적인 복문과 문단 뼈대를 몸에 붙이는 IELTS 라이팅 트레이너">
+<link rel="manifest" href="manifest.webmanifest">
+<meta name="theme-color" content="#4338ca">
+<link rel="icon" href="icon-192.png">
+<style>
+:root{--ink:#1e1b2e;--sub:#6b7280;--bg:#f6f6fb;--card:#fff;--brand:#4338ca;--brand2:#7c3aed;--teal:#0d9488;--amber:#d97706;--rose:#e11d48;--line:#e7e5f0;--ok:#059669;--bad:#dc2626;--radius:18px}
+*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
+body{font-family:-apple-system,'Segoe UI','Malgun Gothic',sans-serif;background:var(--bg);color:var(--ink);line-height:1.55}
+#wrap{max-width:540px;margin:0 auto;padding:0 16px 110px}
+header{padding:22px 4px 8px}
+.logo{font-size:13px;font-weight:800;letter-spacing:.14em;color:var(--brand)}
+h1{font-size:26px;font-weight:900;line-height:1.25;margin:4px 0 6px}
+h1 .grad{background:linear-gradient(90deg,var(--brand),var(--brand2));-webkit-background-clip:text;background-clip:text;color:transparent}
+.sub{color:var(--sub);font-size:14px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:18px;margin:12px 0;box-shadow:0 2px 10px rgba(67,56,202,.05)}
+.card h2{font-size:17px;font-weight:800;margin-bottom:6px}
+.card h3{font-size:15px;font-weight:800;margin-bottom:4px}
+.small{font-size:13px;color:var(--sub)}
+.btn{display:block;width:100%;border:0;border-radius:14px;padding:15px;font-size:16px;font-weight:800;cursor:pointer;background:linear-gradient(90deg,var(--brand),var(--brand2));color:#fff;text-align:center}
+.btn:active{transform:scale(.99)}
+.btn.ghost{background:#fff;color:var(--brand);border:2px solid var(--brand)}
+.btn.teal{background:var(--teal)}
+.btn:disabled{opacity:.45;cursor:default}
+.btnrow{display:flex;gap:8px}.btnrow .btn{flex:1}
+.journey{background:linear-gradient(135deg,#312e81,#6d28d9);color:#fff;border:0}
+.journey .track{height:10px;background:rgba(255,255,255,.25);border-radius:99px;margin:14px 0 6px;overflow:hidden}
+.journey .fill{height:100%;background:#fbbf24;border-radius:99px;transition:width .5s}
+.journey .marks{display:flex;justify-content:space-between;font-size:12px;opacity:.9}
+.mod{display:flex;align-items:center;gap:12px;padding:14px 4px;border-bottom:1px solid var(--line);cursor:pointer}
+.mod:last-child{border-bottom:0}
+.mod .ic{font-size:26px;width:46px;height:46px;display:flex;align-items:center;justify-content:center;background:#eef2ff;border-radius:14px;flex:none}
+.mod .grow{flex:1;min-width:0}
+.mod .t{font-weight:800;font-size:15px}
+.mod .d{font-size:12.5px;color:var(--sub)}
+.mod .pct{font-weight:900;color:var(--brand);font-size:15px}
+.bar{height:7px;background:#eceaf6;border-radius:99px;overflow:hidden;margin-top:6px}
+.bar i{display:block;height:100%;background:linear-gradient(90deg,var(--brand),var(--brand2))}
+.opt{display:block;width:100%;text-align:left;background:#fff;border:2px solid var(--line);border-radius:14px;padding:14px 15px;font-size:15.5px;margin:9px 0;cursor:pointer;line-height:1.5}
+.opt:hover{border-color:#c7c2ea}
+.opt.correct{border-color:var(--ok);background:#ecfdf5}
+.opt.wrong{border-color:var(--bad);background:#fef2f2}
+.opt:disabled{cursor:default;opacity:.92}
+.q{font-size:17px;font-weight:700;line-height:1.6;margin:8px 0 4px}
+.qen{font-size:16.5px;line-height:1.65;background:#f5f3ff;border:1px solid #e9e5ff;border-radius:12px;padding:13px 14px;margin:10px 0}
+.why{border-radius:12px;padding:13px 14px;margin:12px 0;font-size:14.5px;line-height:1.6}
+.why.ok{background:#ecfdf5;border:1px solid #a7f3d0}
+.why.no{background:#fef2f2;border:1px solid #fecaca}
+.pattern{background:#fffbeb;border:1px solid #fde68a;border-radius:10px;padding:9px 12px;font-size:14px;margin-top:8px}
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin:12px 0}
+.chip{border:2px solid var(--brand);color:var(--brand);background:#eef2ff;border-radius:99px;padding:9px 14px;font-size:15px;font-weight:700;cursor:pointer}
+.chip.used{opacity:.25;pointer-events:none}
+.built{background:#f5f3ff;border:1.5px dashed #c4b5fd;border-radius:12px;min-height:56px;padding:12px 14px;font-size:16.5px;line-height:1.6;margin:10px 0}
+.sent{display:block;width:100%;text-align:left;background:#fff;border:2px solid var(--line);border-radius:12px;padding:12px 14px;font-size:15.5px;margin:8px 0;cursor:pointer;line-height:1.55}
+.sent.picked{border-color:var(--brand);background:#eef2ff}
+.sent.right{border-color:var(--ok);background:#ecfdf5}
+.sent.wrongb{border-color:var(--bad);background:#fef2f2}
+.prog{font-size:13px;color:var(--sub);font-weight:700}
+textarea{width:100%;min-height:260px;border:2px solid var(--line);border-radius:14px;padding:14px;font-size:16px;line-height:1.7;font-family:inherit;resize:vertical}
+textarea:focus{outline:none;border-color:var(--brand)}
+select{width:100%;padding:13px;border:2px solid var(--line);border-radius:12px;font-size:15.5px;background:#fff;margin:8px 0}
+.metric{display:flex;justify-content:space-between;padding:9px 0;border-bottom:1px solid var(--line);font-size:14.5px}
+.metric:last-child{border:0}
+.metric b{font-weight:800}
+.flag{background:#fef2f2;border:1px solid #fecaca;border-radius:10px;padding:10px 12px;font-size:14px;margin:7px 0}
+.good{background:#ecfdf5;border:1px solid #a7f3d0;border-radius:10px;padding:10px 12px;font-size:14px;margin:7px 0}
+.check{display:flex;gap:10px;align-items:flex-start;padding:10px 0;border-bottom:1px solid var(--line);font-size:15px}
+.check:last-child{border:0}
+.check input{width:20px;height:20px;margin-top:2px;flex:none;accent-color:var(--brand)}
+nav{position:fixed;bottom:0;left:0;right:0;background:#fff;border-top:1px solid var(--line);display:flex;justify-content:center;z-index:50}
+nav .inner{max-width:540px;width:100%;display:flex}
+nav button{flex:1;background:none;border:0;padding:10px 0 14px;font-size:12px;font-weight:700;color:var(--sub);cursor:pointer}
+nav button.on{color:var(--brand)}
+nav button span{display:block;font-size:21px;margin-bottom:1px}
+.back{background:none;border:0;color:var(--brand);font-weight:800;font-size:15px;cursor:pointer;padding:6px 0}
+.tag{display:inline-block;font-size:11.5px;font-weight:800;padding:3px 9px;border-radius:99px;background:#eef2ff;color:var(--brand);margin-bottom:6px}
+.tag.rose{background:#fff1f2;color:var(--rose)}.tag.teal{background:#f0fdfa;color:var(--teal)}.tag.amber{background:#fffbeb;color:var(--amber)}
+.kpi{display:flex;gap:8px;margin:10px 0}
+.kpi div{flex:1;background:#f5f3ff;border-radius:12px;padding:10px;text-align:center}
+.kpi b{display:block;font-size:19px}
+.kpi span{font-size:11.5px;color:var(--sub)}
+.hidden{display:none}
+.timer{font-variant-numeric:tabular-nums;font-weight:900;color:var(--brand)}
+details{margin:10px 0}summary{cursor:pointer;font-weight:800;color:var(--brand);font-size:14.5px}
+.skel{background:#f5f3ff;border-radius:12px;padding:13px 14px;font-size:14.5px;line-height:1.7;margin-top:8px}
+.skel b{color:var(--brand)}
+footer{text-align:center;color:#9ca3af;font-size:12px;padding:18px 0 4px}
+</style>
+</head>
+<body>
+<div id="wrap">
+<header>
+<div class="logo">BAND JUMP · IELTS WRITING</div>
+<h1>4.5에서 <span class="grad">6.0</span>으로,<br>쓰는 법만 바꿉니다</h1>
+<p class="sub">단어를 더 외우는 앱이 아니에요. 4.5와 6.0의 차이는 <b>의미가 막히는 오류가 없는가</b>, <b>복문을 안정적으로 쓰는가</b>, <b>문단에 뼈대가 있는가</b> — 딱 이 세 가지에서 갈립니다.</p>
+</header>
+<main id="app"></main>
+<footer>Band Jump v1.0 · 하루 한 레슨, 8주 코스 · 진단 결과는 시작점 안내용이며 실제 시험 점수를 보장하지 않습니다 · 진도는 이 기기에만 저장됩니다</footer>
+</div>
+<nav><div class="inner">
+<button data-nav="home" class="on"><span>🏠</span>홈</button>
+<button data-nav="train"><span>🗓️</span>8주 코스</button>
+<button data-nav="write"><span>🧩</span>에세이 조립</button>
+<button data-nav="my"><span>📊</span>내 기록</button>
+</div></nav>
+<script>
+"use strict";
+/* ============ DATA ============ */
+const CLINIC=[
+{id:"c1",cat:"문장 경계",opts:["Many people use smartphones they are useful in daily life.","Many people use smartphones because they are useful in daily life.","Because they are useful in daily life."],a:1,why:"두 문장을 연결어 없이 붙이면 run-on 오류예요. because로 이유를 이어주면 한 문장 안에서 의미가 완성됩니다.",pat:"주장 + because + 이유"},
+{id:"c2",cat:"주어-동사 일치",opts:["The number of students increase every year.","The number of students increases every year.","The number of students are increasing every years."],a:1,why:"진짜 주어는 students가 아니라 number(단수)예요. 그래서 동사도 단수 increases가 옵니다.",pat:"The number of + 복수명사 + 단수동사"},
+{id:"c3",cat:"시제",opts:["In the past, people sends letters to communicate.","In the past, people sent letters to communicate.","In the past, people sending letters to communicate."],a:1,why:"'In the past'라는 신호가 있으면 동사는 과거형 sent로 바꿔야 해요.",pat:"In the past, + 주어 + 과거형 동사"},
+{id:"c4",cat:"관사·수",opts:["Government should invest in a public transport.","Governments should invest in public transport.","Governments should invest in publics transport."],a:1,why:"일반적으로 말하는 '공공교통'은 셀 수 없는 개념이라 관사 없이 씁니다. 주어 governments는 복수가 자연스러워요.",pat:"Governments should invest in + (관사 없는) 공공 개념"},
+{id:"c5",cat:"단어 형태",opts:["The develop of technology is fast.","The development of technology is fast.","The developing of technology is fastly."],a:1,why:"The 뒤, of 앞에는 명사가 와야 해요. develop(동사)의 명사형은 development입니다.",pat:"The + 명사(development) + of + 명사"},
+{id:"c6",cat:"문장 경계",opts:["Although it is expensive.","Although it is expensive, many people buy smartphones.","Although it is expensive many people buy smartphones"],a:1,why:"Although로 시작하는 절은 혼자서는 문장이 못 돼요. 콤마 뒤에 주절이 반드시 따라와야 합니다.",pat:"Although + 절, + 주절"},
+{id:"c7",cat:"주어-동사 일치",opts:["Every student have to wear a uniform.","Every student has to wear a uniform.","Every students has to wear a uniform."],a:1,why:"Every + 단수명사예요. 주어가 단수라 has를 씁니다.",pat:"Every + 단수명사 + 단수동사"},
+{id:"c8",cat:"동사 형태",opts:["This policy will helps reduce crime.","This policy will help reduce crime.","This policy will helped reduce crime."],a:1,why:"will 뒤에는 언제나 동사원형 help가 옵니다. -s도, 과거형도 붙이지 않아요.",pat:"will + 동사원형"},
+{id:"c9",cat:"문장 경계",opts:["Online learning is flexible, it saves time.","Online learning is flexible, and it saves time.","Online learning is flexible it saves time very much."],a:1,why:"콤마 하나만으로 두 절을 이을 수는 없어요(comma splice). and 같은 연결사가 필요합니다.",pat:"절, + and/so/but + 절"},
+{id:"c10",cat:"관사·수",opts:["Many informations are available online.","Much information is available online.","Many information is available online."],a:1,why:"information은 셀 수 없는 명사예요. many가 아니라 much, 동사도 단수 is를 씁니다.",pat:"Much + 불가산명사 + 단수동사 (information, advice, equipment)"},
+{id:"c11",cat:"동사 형태",opts:["By use public transport, we can reduce pollution.","By using public transport, we can reduce pollution.","By used public transport, we can reduce pollution."],a:1,why:"전치사 By 뒤에는 동명사 using이 와요. 수단·방법을 말하는 강력한 패턴입니다.",pat:"By + ~ing, 주어 + can + 결과"},
+{id:"c12",cat:"주어-동사 일치",opts:["One of the main reasons are cost.","One of the main reasons is cost.","One of the main reason is cost."],a:1,why:"주어는 reasons가 아니라 One(단수)이에요. 그래서 is를 씁니다.",pat:"One of the + 복수명사 + 단수동사"},
+{id:"c13",cat:"시제",opts:["When I was young, I play outside every day.","When I was young, I played outside every day.","When I was young, I am playing outside every day."],a:1,why:"과거 이야기(was)에는 과거형 played로 통일해요. 시제가 섞이면 읽는 사람이 헷갈립니다.",pat:"과거 신호(was, In the past) → 전부 과거형"},
+{id:"c14",cat:"관사·수",opts:["The education is important for everyone.","Education is important for everyone.","An education is important for everyone in general way."],a:1,why:"'교육 일반'처럼 개념 전체를 말할 때는 the를 붙이지 않아요. IELTS에서 정말 자주 틀리는 지점입니다.",pat:"일반 개념(education, society, technology) = 관사 없음"},
+{id:"c15",cat:"단어 형태",opts:["It is importance to protect the environment.","It is important to protect the environment.","It is importantly to protect the environment."],a:1,why:"be동사 뒤에는 형용사 important가 와요. importance는 명사라 이 자리에 못 들어갑니다.",pat:"It is + 형용사 + to + 동사원형"},
+{id:"c16",cat:"문장 경계",opts:["Technology has changed our lives. For example smartphones.","Technology has changed our lives. For example, smartphones have changed how we communicate.","Technology has changed our lives for example smartphones changed it"],a:1,why:"'For example' 뒤에도 완전한 문장(주어+동사)이 와야 해요. smartphones만 두면 조각 문장입니다.",pat:"For example, + 주어 + 동사 + 목적어"},
+{id:"c17",cat:"주어",opts:["Is important to exercise regularly.","It is important to exercise regularly.","There is important to exercise regularly."],a:1,why:"영어 문장에는 주어가 꼭 필요해요. 내용이 뒤에 있을 때는 형식주어 It으로 시작합니다.",pat:"It is + 형용사 + to + 동사원형"},
+{id:"c18",cat:"비교급",opts:["Cars are more faster than bicycles.","Cars are faster than bicycles.","Cars are most faster than bicycles."],a:1,why:"faster 자체가 비교급이라 more를 또 붙이면 이중 비교급 오류예요.",pat:"짧은 형용사 + -er than (more와 함께 쓰지 않기)"},
+{id:"c19",cat:"동사 형태",opts:["This problem should be solve by the government.","This problem should be solved by the government.","This problem should solved by the government."],a:1,why:"be + 과거분사(solved)가 수동태의 모양이에요. '해결되어야 한다'는 수동태로 씁니다.",pat:"should be + 과거분사"},
+{id:"c20",cat:"주어-동사 일치",opts:["There is many advantages to living in a city.","There are many advantages to living in a city.","There are much advantages to living in a city."],a:1,why:"There 뒤 명사가 복수(advantages)면 be동사도 are예요. 뒤를 보고 결정합니다.",pat:"There are + 복수명사 / There is + 단수·불가산"},
+{id:"c21",cat:"동사 형태",opts:["Students should avoid to waste time.","Students should avoid wasting time.","Students should avoid waste time."],a:1,why:"avoid 뒤에는 ~ing가 옵니다. enjoy, avoid, consider, finish는 전부 같은 팀이에요.",pat:"avoid/enjoy/consider + ~ing"},
+{id:"c22",cat:"문장 경계",opts:["He studied hard. Because he wanted to pass.","He studied hard because he wanted to pass the exam.","He studied hard, because he wanted, to pass."],a:1,why:"because 절만 따로 떼어 마침표를 찍으면 조각 문장이 돼요. 앞 문장에 붙여서 한 문장으로 쓰세요.",pat:"주절 + because + 이유 절 (마침표로 끊지 않기)"},
+{id:"c23",cat:"관사·수",opts:["There are fewer health problems these days.","There are less health problems these days.","There is fewer health problems these days."],a:0,why:"problems는 셀 수 있는 복수명사예요. '더 적은 수'에는 fewer, 동사는 are를 씁니다.",pat:"fewer + 가산 복수 / less + 불가산"},
+{id:"c24",cat:"관사·수",opts:["Only few people can afford this.","Only a few people can afford this.","Only few of people can affords this."],a:1,why:"few 앞의 a 하나가 뜻을 바꿔요. 'a few = 몇몇은 있다', 'few = 거의 없다'입니다.",pat:"a few = 어느 정도 있음 / few = 거의 없음"}
+];
+const BUILDER_MCQ=[
+{id:"b1",link:"because",opts:["Many people work from home because they want to avoid traffic.","Because many people work from home, they want to avoid traffic.","Many people work from home because they want to avoid traffic every day they do."],a:0,why:"because는 '이유' 앞에 붙어요. 이유(they want to avoid traffic)가 뒤에 오도록 순서를 확인하세요.",pat:"주장 + because + 이유"},
+{id:"b2",link:"although",opts:["Although electric cars are expensive, many people buy them.","Although electric cars are expensive. Many people buy them.","Electric cars are expensive, although many people buy them expensive."],a:0,why:"Although 절 + 콤마 + 주절. 마침표로 끊으면 조각 문장이 됩니다.",pat:"Although + 불리한 조건, + 그럼에도 주절"},
+{id:"b3",link:"which",opts:["The city built a new park, which attracts many visitors.","The city built a new park which it attracts many visitors.","The city built a new park, which attracting many visitors."],a:0,why:"which 절 안에는 주어를 또 넣지 않아요. which가 주어 역할까지 합니다.",pat:"명사, which + 동사 (주어 중복 금지)"},
+{id:"b4",link:"if",opts:["If governments invest in schools, children get better jobs.","If governments invest in schools. Children get better jobs.","If governments will invest in schools, children get better jobs."],a:0,why:"조건을 말하는 if 절에서는 will을 쓰지 않고 현재형을 써요. 습관처럼 외워두는 규칙입니다.",pat:"If + 현재형, + 주절"},
+{id:"b5",link:"when",opts:["When children watch too much TV, they exercise less.","When children watch too much TV. They exercise less.","When children watches too much TV, they exercise less."],a:0,why:"when 절도 콤마로 주절과 이어야 해요. children은 복수라 watch 그대로입니다.",pat:"When + 절, + 결과"},
+{id:"b6",link:"so",opts:["Pollution increased, so the government introduced new laws.","So pollution increased, the government introduced new laws it.","Pollution increased so that the government introduced laws yesterday it did."],a:0,why:"원인 뒤에 so + 결과 순서예요. so 앞 콤마도 잊지 마세요.",pat:"원인, so + 결과"},
+{id:"b7",link:"because of",opts:["Flights were cancelled because of the bad weather.","Flights were cancelled because of the weather was bad.","Because of the weather was bad, flights were cancelled."],a:0,why:"because of 뒤에는 완전한 문장이 아니라 명사구(the bad weather)만 와요. 문장을 다 넣고 싶으면 because를 쓰세요.",pat:"because of + 명사구 / because + 문장"},
+{id:"b8",link:"who",opts:["People who exercise regularly live longer.","People who exercise regularly they live longer.","People which exercise regularly live longer."],a:0,why:"사람에게는 who, 사물에게는 which예요. 그리고 who 절 뒤에 they를 또 쓰지 않습니다.",pat:"사람 + who + 동사 / 사물 + which + 동사"},
+{id:"b9",link:"although",opts:["Although studying abroad is expensive, it offers valuable experience.","Although studying abroad is expensive. It offers valuable experience.","Studying abroad is expensive, although it offers valuable experience it."],a:0,why:"양보(although)로 시작하면 글에 깊이가 생겨요. 구조는 b2와 똑같습니다 — 반복이 실력입니다.",pat:"Although + 단점, + 장점 (논의형 에세이의 핵심 무기)"}
+];
+const BUILDER_ORDER=[
+{id:"b10",tokens:["Although","university education","is expensive,","it","gives","students","better job opportunities."],why:"Although 절이 먼저, 콤마 뒤에 주절이 이어지는 순서예요.",pat:"Although + 절, + 주절"},
+{id:"b11",tokens:["If","people","use public transport more,","traffic","will","decrease."],why:"조건(if 절, 현재형) → 결과(will) 순서입니다.",pat:"If + 현재형, + will + 결과"},
+{id:"b12",tokens:["Technology","has made","communication","faster,","which","helps","businesses","grow."],why:"앞 문장 전체를 which로 받아서 결과를 붙였어요.",pat:"문장, which + 결과"},
+{id:"b13",tokens:["Many students","study abroad","because","they","want","an international experience."],why:"주장 뒤에 because로 이유를 붙이는 가장 기본적인 확장입니다.",pat:"주장 + because + 이유"},
+{id:"b14",tokens:["When","children","play outside,","they","develop","social skills."],why:"When 절(조건 상황) 뒤에 결과가 옵니다.",pat:"When + 상황, + 결과"},
+{id:"b15",tokens:["The government","should invest","in renewable energy","to reduce","pollution."],why:"to + 동사원형으로 '목적'을 붙였어요. 짧지만 점수가 오르는 확장입니다.",pat:"행동 + to + 목적"},
+{id:"b16",tokens:["Online courses","are popular","because","they","are","flexible and affordable."],why:"이유 절 안에도 주어+동사가 완전히 들어가야 해요.",pat:"주장 + because + 주어 + 동사 + 이유 내용"},
+{id:"b17",tokens:["Regular exercise","improves","health,","so","many people","join gyms."],why:"콤마 + so로 결과를 잇는 순서예요.",pat:"원인, so + 결과"},
+{id:"b18",tokens:["Cities","that","grow too quickly","often face","housing problems."],why:"that 절이 Cities를 뒤에서 설명해요. 주어와 동사(often face) 사이에 설명이 끼어드는 구조입니다.",pat:"명사 + that + 설명 + 동사"}
+];
+const PARA=[
+{id:"p1",topic:"교육 · 온라인 학습",note:"주제문 → First → 예시 → In addition → As a result. 본문 문단의 표준 뼈대예요.",s:["Online learning offers several benefits for students.","First, it allows them to study at their own pace.","For example, a student with a part-time job can watch lectures at night.","In addition, online courses are usually cheaper than traditional classes.","As a result, more people can access education."]},
+{id:"p2",topic:"기술 · 스마트폰",note:"주제문 → 과거 대조 → 현재 → However(단점) → Overall(정리). 대조 구조가 보이죠.",s:["Smartphones have changed the way people communicate.","In the past, people waited days for letters to arrive.","Now, messages are sent and received in seconds.","However, this constant connection can also cause stress.","Overall, smartphones bring both convenience and new problems."]},
+{id:"p3",topic:"건강 · 운동",note:"주제문 → Firstly → 구체 설명 → Moreover → For these reasons(결론).",s:["Regular exercise is essential for a healthy life.","Firstly, it strengthens the body and reduces the risk of disease.","People who exercise daily are less likely to suffer from obesity.","Moreover, physical activity improves mental health.","For these reasons, everyone should make time for exercise."]},
+{id:"p4",topic:"환경 · 대중교통",note:"주제문 → 설명 → This means(결과) → For instance(예시) → Therefore(주장).",s:["Public transport plays a key role in protecting the environment.","Buses and trains carry many passengers at once.","This means fewer cars on the road and less air pollution.","For instance, one full bus can replace dozens of private cars.","Therefore, governments should invest more in public transport."]},
+{id:"p5",topic:"일 · 재택근무",note:"주제문 → 장점 2개 → On the other hand(반대) → Despite(양보로 마무리).",s:["Working from home has become increasingly popular.","Employees save time because they do not need to commute.","They can also spend more time with their families.","On the other hand, some workers feel isolated at home.","Despite this drawback, remote work is likely to remain common."]},
+{id:"p6",topic:"범죄 · 처벌",note:"주제문 → 근거 → 예시 → However(한계) → 대안 제시. 논의형 본문의 전형입니다.",s:["Many people believe that stricter punishments reduce crime.","When penalties are severe, criminals think twice before breaking the law.","For example, countries with strict drug laws often report lower drug offences.","However, punishment alone cannot solve the root causes of crime.","Education and jobs must also be provided to prevent crime."]}
+];
+const PARAPHRASE=[
+{id:"pp1",q:"Some people think that university education should be free for all students.",opts:["It is believed that everyone should be able to attend university without paying fees.","Some people think university education is free for all students now.","Free university is a thing some people think students should think about."],a:0,why:"핵심은 두 가지예요: 주체를 흐리기(It is believed that), 핵심어를 바꾸기(free → without paying fees). 질문 문장을 그대로 베끼면 TR에서 감점됩니다.",pat:"Some people think → It is believed/argued that"},
+{id:"pp2",q:"Many people believe that social networking sites have had a negative effect on individuals and society.",opts:["Social media platforms are thought to have harmed both people and communities.","Many people believe social networking sites are used negatively by individuals.","Social networking has had people and society, according to many beliefs."],a:0,why:"social networking sites → social media platforms, negative effect → harmed, individuals and society → people and communities. 단어 3개를 바꾸면 패러프레이즈 완성입니다.",pat:"핵심 명사·동사·형용사를 각각 동의어로 교체"},
+{id:"pp3",q:"Some people say that the best way to reduce crime is to give longer prison sentences.",opts:["It is argued that increasing the length of prison terms is the most effective way to lower crime rates.","Some people say prisons should be longer for crime people.","The best way is longer prison sentences, some people say about crime."],a:0,why:"give longer prison sentences → increasing the length of prison terms처럼 동사를 명사구로 바꾸면 수준이 올라가 보여요.",pat:"동사구 → 명사구로 바꾸기 (give longer → increasing the length of)"},
+{id:"pp4",q:"In many countries, plastic containers have become more common than ever.",opts:["Plastic packaging is now used more widely than in the past in numerous nations.","In many countries, plastic containers are common than ever now.","Plastic containers have become countries in many common ways."],a:0,why:"containers → packaging, more common → used more widely, many countries → numerous nations. 뜻은 같고 옷만 갈아입혔어요.",pat:"같은 뜻, 다른 단어 3개"},
+{id:"pp5",q:"Some people think that it is better to live in a small town than in a big city.",opts:["Living in a small town is considered preferable to living in a large city.","It is better to live in a small town than a big city, some people think.","Some people think small towns are better cities than big ones."],a:0,why:"better → preferable, big → large. 비교 구조는 유지하되 단어만 교체했어요.",pat:"better → preferable / big → large 같은 안전 교체"},
+{id:"pp6",q:"Governments should spend more money on public services rather than the arts.",opts:["It is argued that governments ought to fund public services instead of spending on the arts.","Governments should spend more money on public services, not the arts.","The arts should rather get money from governments than public services."],a:0,why:"세 번째 선택지는 뜻이 뒤집혔어요. 패러프레이즈에서 가장 위험한 건 뜻이 바뀌는 것 — 단어 교체보다 뜻 보존이 먼저입니다.",pat:"뜻 보존 > 단어 교체 (뜻이 바뀌면 오답)"},
+{id:"pp7",q:"Many children nowadays spend too much time playing video games.",opts:["These days, a large number of children spend excessive amounts of time on video games.","Nowadays many children play too much time with video games.","Children spend too much time nowadays, many of them, on games video."],a:0,why:"nowadays → these days, many → a large number of, too much → excessive amounts of. 세트처럼 통째로 익혀두세요.",pat:"nowadays → these days / many → a large number of"},
+{id:"pp8",q:"Some people believe that working from home is better than working in an office.",opts:["Remote work is thought to be more beneficial than office-based work.","Working from home is better than office, believed by some people.","Some people believe home work beats office work better."],a:0,why:"working from home → remote work처럼 개념을 한 단어로 압축하면 밴드가 올라가 보여요.",pat:"길게 풀린 표현 → 압축된 개념어 (remote work)"},
+{id:"pp9",q:"The most important aim of science should be to improve people's lives.",opts:["The primary goal of science ought to be enhancing human life.","Science should aim most importantly to improve people lives.","The most important aim is science improving lives of people."],a:0,why:"most important aim → primary goal, improve → enhancing. should → ought to도 안전한 교체입니다.",pat:"aim → goal / improve → enhance / should → ought to"},
+{id:"pp10",q:"In some countries, many people choose to live alone today.",opts:["Nowadays, living alone is increasingly common in some nations.","Today many people in some countries choose alone living.","People choose today to live in some countries alone."],a:0,why:"'choose to live alone' → 'living alone is common'처럼 행위 → 현상으로 바꾸는 것도 좋은 패러프레이즈예요.",pat:"행위 표현 → 현상 표현으로 전환"},
+{id:"pp11",q:"Some people think that a high salary is the most important factor when choosing a job.",opts:["For some, pay is regarded as the key consideration in selecting a career.","A high salary is the most important factor for some people think.","Salary high is important factor most when job choosing."],a:0,why:"a high salary → pay, most important factor → key consideration, choosing a job → selecting a career. 전부 세트 교체입니다.",pat:"factor → consideration / choose → select"},
+{id:"pp12",q:"Many people say that international tourism creates tension rather than understanding between cultures.",opts:["It is often claimed that global tourism leads to conflict instead of cultural understanding.","International tourism creates tension, many people say, rather than understanding.","Tourism between cultures creates understanding rather than tension, people say."],a:0,why:"세 번째는 rather than의 앞뒤가 뒤집혀 뜻이 반대가 됐어요. 비교·대조 구조는 특히 주의하세요.",pat:"creates → leads to / tension → conflict"},
+{id:"pp13",q:"Some people believe that school children should not be given homework.",opts:["It is believed that homework should not be assigned to school pupils.","School children should not be given homework, believe some people.","Homework should not be believed for school children to give."],a:0,why:"be given → be assigned, children → pupils. 수동태를 수동태로 유지한 것도 포인트예요.",pat:"give → assign / children → pupils"},
+{id:"pp14",q:"As technology develops, traditional skills such as making food by hand are disappearing.",opts:["Traditional abilities like cooking by hand are being lost as technology advances.","Technology develops and traditional skills disappear such as hand food.","Making food by hand is a traditional skill technology disappears."],a:0,why:"문장 순서까지 바꿨어요(원인↔결과 교체). 단어 교체 다음 단계가 구조 교체입니다.",pat:"문장 순서 교체 + 단어 교체 = 고급 패러프레이즈"},
+{id:"pp15",q:"Some people think that the government should pay for health care for all citizens.",opts:["It is argued that free health care for everyone should be funded by the state.","The government should pay health care for all citizens, thinks some people.","Health care should be paid by citizens for all government."],a:0,why:"pay for → fund, the government → the state. 국가·정부 단어 교체는 단골입니다.",pat:"government → the state / pay for → fund"}
+];
+const CHUNKS=[
+{id:"k1",topic:"교육",chunk:"play a key role in",s:"Schools play a key ___ in children's development.",opts:["role","part","job"],a:0,ko:"핵심 역할을 하다 — play a key role in"},
+{id:"k2",topic:"교육",chunk:"have access to",s:"All children should have ___ to quality education.",opts:["access","entrance","chance"],a:0,ko:"~에 접근할 수 있다 — have access to"},
+{id:"k3",topic:"교육",chunk:"a wide range of",s:"The library provides a wide ___ of study materials.",opts:["range","kind","group"],a:0,ko:"다양한 — a wide range of"},
+{id:"k4",topic:"교육",chunk:"academic achievement",s:"Regular reading improves students' academic ___.",opts:["achievement","achieve","achieved"],a:0,ko:"학업 성취 — academic achievement (명사 자리예요)"},
+{id:"k5",topic:"기술",chunk:"keep in touch with",s:"Social media helps people keep in ___ with friends abroad.",opts:["touch","contact","relation"],a:0,ko:"연락을 유지하다 — keep in touch with"},
+{id:"k6",topic:"기술",chunk:"become increasingly popular",s:"Online shopping has become increasingly ___.",opts:["popular","populared","popularity"],a:0,ko:"점점 인기가 많아지다 — become increasingly + 형용사"},
+{id:"k7",topic:"기술",chunk:"have a negative impact on",s:"Too much screen time can have a negative ___ on children's health.",opts:["impact","effecting","reason"],a:0,ko:"부정적 영향을 미치다 — have a negative impact on"},
+{id:"k8",topic:"기술",chunk:"rely on",s:"Many people rely ___ technology for their daily tasks.",opts:["on","in","at"],a:0,ko:"~에 의존하다 — rely on"},
+{id:"k9",topic:"건강",chunk:"lead a healthy lifestyle",s:"It is important to lead a healthy ___.",opts:["lifestyle","lifeway","livingstyle"],a:0,ko:"건강한 생활 방식을 유지하다 — lead a healthy lifestyle"},
+{id:"k10",topic:"건강",chunk:"suffer from",s:"Millions of office workers suffer ___ stress.",opts:["from","with","by"],a:0,ko:"~로 고통받다 — suffer from"},
+{id:"k11",topic:"건강",chunk:"a balanced diet",s:"A balanced ___ is essential for good health.",opts:["diet","food plan","eating"],a:0,ko:"균형 잡힌 식단 — a balanced diet"},
+{id:"k12",topic:"건강",chunk:"mental health",s:"Exercise improves both physical and ___ health.",opts:["mental","mind","thinking"],a:0,ko:"정신 건강 — mental health"},
+{id:"k13",topic:"환경",chunk:"climate change",s:"Carbon emissions are a major cause of climate ___.",opts:["change","changing","weather"],a:0,ko:"기후 변화 — climate change"},
+{id:"k14",topic:"환경",chunk:"renewable energy",s:"Governments should invest in renewable ___ sources.",opts:["energy","powering","electric"],a:0,ko:"재생 에너지 — renewable energy"},
+{id:"k15",topic:"환경",chunk:"protect the environment",s:"Everyone has a responsibility to protect the ___.",opts:["environment","nature world","surrounding"],a:0,ko:"환경을 보호하다 — protect the environment"},
+{id:"k16",topic:"환경",chunk:"air pollution",s:"Traffic is the main source of air ___ in large cities.",opts:["pollution","polluting","dirty"],a:0,ko:"대기 오염 — air pollution"},
+{id:"k17",topic:"일",chunk:"job satisfaction",s:"Salary is not the only factor in job ___.",opts:["satisfaction","satisfy","happy"],a:0,ko:"직무 만족도 — job satisfaction"},
+{id:"k18",topic:"일",chunk:"work-life balance",s:"Flexible hours help employees achieve a better work-life ___.",opts:["balance","balancing","equal"],a:0,ko:"일과 삶의 균형 — work-life balance"},
+{id:"k19",topic:"일",chunk:"career opportunities",s:"Large cities offer more career ___.",opts:["opportunities","chances job","ways"],a:0,ko:"경력 기회 — career opportunities"},
+{id:"k20",topic:"일",chunk:"find employment",s:"Many young graduates struggle to find ___.",opts:["employment","employer","employed"],a:0,ko:"일자리를 구하다 — find employment (employer는 고용주예요)"},
+{id:"k21",topic:"사회",chunk:"public services",s:"Taxes are used to fund public ___ such as hospitals and schools.",opts:["services","servants","serving"],a:0,ko:"공공 서비스 — public services"},
+{id:"k22",topic:"사회",chunk:"standard of living",s:"Economic growth can raise people's standard of ___.",opts:["living","life level","live"],a:0,ko:"생활 수준 — standard of living"},
+{id:"k23",topic:"사회",chunk:"crime rate",s:"The new policy reduced the crime ___ in the area.",opts:["rate","speed","level number"],a:0,ko:"범죄율 — crime rate"},
+{id:"k24",topic:"사회",chunk:"social welfare",s:"The government increased spending on social ___.",opts:["welfare","wellbeing money","society care"],a:0,ko:"사회 복지 — social welfare"},
+{id:"k25",topic:"가족",chunk:"bring up children",s:"It is expensive to bring ___ children in a large city.",opts:["up","out","over"],a:0,ko:"아이를 키우다 — bring up children"},
+{id:"k26",topic:"가족",chunk:"spend time with",s:"Parents should spend more ___ with their children.",opts:["time","times","timing"],a:0,ko:"~와 시간을 보내다 — spend time with (time은 불가산이라 s를 안 붙여요)"},
+{id:"k27",topic:"가족",chunk:"single-parent families",s:"Children from single-parent ___ may face financial difficulties.",opts:["families","family groups","houses"],a:0,ko:"한부모 가정 — single-parent families"},
+{id:"k28",topic:"가족",chunk:"child development",s:"Reading to young children supports their language ___.",opts:["development","develop","growing"],a:0,ko:"아동 발달 — development (명사형)"},
+{id:"k29",topic:"범죄",chunk:"break the law",s:"People who break the ___ should be punished.",opts:["law","rule book","legal"],a:0,ko:"법을 어기다 — break the law"},
+{id:"k30",topic:"범죄",chunk:"commit a crime",s:"Poverty may push some people to commit a ___.",opts:["crime","criminal","guilt"],a:0,ko:"범죄를 저지르다 — commit a crime (criminal은 범죄자예요)"},
+{id:"k31",topic:"범죄",chunk:"prison sentence",s:"The judge gave the man a long prison ___.",opts:["sentence","punish time","jail word"],a:0,ko:"징역형 — prison sentence"},
+{id:"k32",topic:"범죄",chunk:"prevent crime",s:"Better street lighting can help to ___ crime in cities.",opts:["prevent","make","do"],a:0,ko:"범죄를 예방하다 — prevent crime"}
+];
+const DIAG=[
+{id:"dg1",crit:"GRA",opts:["The government have decided to build more schools.","The government has decided to build more schools.","The government have decides to build more schools."],a:1,why:"government는 단수 취급이라 has를 씁니다."},
+{id:"dg2",crit:"GRA",opts:["Many people prefer online learning it is convenient.","Many people prefer online learning because it is convenient.","Because it is convenient. Many people prefer online learning."],a:1,why:"because로 이유를 붙여야 한 문장이 됩니다."},
+{id:"dg3",crit:"GRA",opts:["Although the course was difficult.","Although the course was difficult, I learned a great deal.","The course was difficult although. I learned a great deal."],a:1,why:"Although 절에는 주절이 따라와야 합니다."},
+{id:"dg4",crit:"GRA",opts:["This change will improves people's lives.","This change will improve people's lives.","This change will improved people's lives."],a:1,why:"will 뒤에는 동사원형입니다."},
+{id:"dc1",crit:"CC",q:"'운동의 장점'을 설명하는 본문 문단의 주제문으로 가장 좋은 것은?",opts:["Exercise is good.","Regular exercise provides several important benefits for both the body and the mind.","I exercise every morning with my friends at the park near my house."],a:1,why:"주제문은 문단 전체를 예고해야 해요. 너무 막연하거나(1번) 개인 일화(3번)는 주제문이 아닙니다."},
+{id:"dc2",crit:"CC",q:"빈칸에 가장 알맞은 연결어는? 'Online learning is flexible. ___, it allows students to study anywhere.'",opts:["However","In addition","Because"],a:1,why:"앞 내용에 장점을 하나 더 얹는 흐름이라 In addition입니다."},
+{id:"dc3",crit:"CC",q:"에세이의 결론 첫 문장으로 가장 좋은 것은?",opts:["In conclusion, I firmly believe that free university education benefits both individuals and society.","To sum up everything I said above, education is good and important for people.","There are many other things I could not write because of time."],a:0,why:"결론은 입장을 압축해 다시 말하는 자리예요. 2번은 비격식 클리셰, 3번은 미완성의 인상을 줍니다."},
+{id:"dl1",crit:"LR",q:"빈칸에 알맞은 단어는? 'Students can make significant ___ in a short period.'",opts:["progress","progresses","advance money"],a:0,why:"make progress는 고정된 짝꿍 표현(콜로케이션)입니다."},
+{id:"dl2",crit:"LR",q:"빈칸에 알맞은 단어는? 'The ___ of cars in cities continues to grow.'",opts:["amount","number","quantity of people"],a:1,why:"cars는 셀 수 있는 명사라 amount가 아니라 number를 씁니다."},
+{id:"dl3",crit:"LR",q:"다음 중 콜로케이션이 자연스러운 것은?",opts:["do a decision","make a decision","create a decision quickly"],a:1,why:"decision의 짝꿍 동사는 make예요. 이런 짝꿍이 LR 점수를 만듭니다."},
+{id:"dt1",crit:"TR",q:"질문: 'Some people think children should compete, others think they should cooperate. Discuss both views and give your own opinion.' 이 질문에 완전히 답하는 입장문(thesis)은?",opts:["I believe competition is more important for children.","While competition teaches children to work hard, cooperation is equally important, and in my view schools should develop both skills.","Children compete and cooperate at school every day."],a:1,why:"논의형은 양쪽 관점 + 내 의견, 세 가지를 입장문에 담아야 TR 만점에 가까워집니다."},
+{id:"dt2",crit:"TR",q:"질문: 'Traffic congestion is a serious problem. What are the causes and what solutions can you suggest?' 에세이 계획으로 옳은 것은?",opts:["본문 1: 내 의견 / 본문 2: 내 경험","본문 1: 원인 / 본문 2: 해결책","본문 1: 장점 / 본문 2: 단점"],a:1,why:"이중질문형은 질문 두 개가 곧 본문 두 개예요. 질문이 시키는 대로 쓰는 것이 TR의 절반입니다."}
+];
+const ASSEMBLY=[
+{id:"a1",type:"의견형 (Opinion)",q:"Some people believe that university education should be free for all students. To what extent do you agree or disagree?",band:"이 에세이의 수준: Band 6.5 — 화려하지 않지만 오류가 거의 없고 구조가 완전합니다. 6.0의 목표는 바로 이 모습이에요.",breaks:[2,6,10],parts:["서론","본문 1 — 개인에게 공평한 기회","본문 2 — 사회 전체의 이익","결론"],s:[
+"It is often argued that university education should be provided free of charge for all students.",
+"I completely agree with this view because equal access to education benefits both individuals and society as a whole.",
+"The main reason for my view is that free university education gives everyone a fair chance to succeed.",
+"If students from poor families do not have to pay tuition fees, they can focus fully on their studies.",
+"For example, in some European countries, talented students from low-income backgrounds can attend university and later find well-paid jobs.",
+"As a result, free education can reduce the gap between the rich and the poor.",
+"Another reason is that society as a whole gains from having more educated citizens.",
+"Graduates tend to earn higher salaries, so they pay more tax to the government.",
+"In addition, educated people are more likely to contribute to innovation and economic growth.",
+"This means that the money spent on free education can be recovered in the long term.",
+"In conclusion, I firmly believe that university education should be free for all students.",
+"It creates fairer opportunities for individuals and brings lasting benefits to society."]},
+{id:"a2",type:"논의형 (Discussion)",q:"Some people think that children should learn to compete, while others believe that cooperation is more valuable. Discuss both views and give your own opinion.",band:"이 에세이의 수준: Band 6.5 — 양쪽 관점을 공정하게 다루고 마지막에 자기 의견을 분명히 밝히는 논의형의 표준 구조예요.",breaks:[2,6,10],parts:["서론","본문 1 — 경쟁을 지지하는 관점","본문 2 — 협력을 지지하는 관점 + 내 의견","결론"],s:[
+"It is often debated whether children should be taught to compete or to cooperate with each other.",
+"While both skills are important, I believe that cooperation deserves greater emphasis in schools.",
+"On the one hand, competition can motivate children to work hard and achieve their best.",
+"In competitive activities such as sports and exams, children learn to set goals and deal with failure.",
+"This can prepare them for adult life, where they often have to compete for jobs.",
+"Moreover, a competitive environment can reveal talented children who might otherwise be overlooked.",
+"On the other hand, cooperation teaches children to communicate and solve problems as a team.",
+"In most real jobs, success depends on working effectively with colleagues rather than outperforming them.",
+"Children who only learn to compete may become selfish and find it difficult to build relationships.",
+"For this reason, I believe schools should create more opportunities for group work and team projects.",
+"In conclusion, although competition has some value in education, cooperation is more important for children's long-term development.",
+"Schools should therefore focus mainly on teaching children how to work well with others."]},
+{id:"a3",type:"문제·해결형 (Problem & Solution)",q:"In many cities, traffic congestion is becoming a serious problem. What are the causes of this problem, and what measures can be taken to solve it?",band:"이 에세이의 수준: Band 6.5 — 질문이 두 개(원인/해결)라 본문도 두 개로 정확히 나눴습니다. 질문 구조 = 에세이 구조예요.",breaks:[2,7,11],parts:["서론","본문 1 — 원인","본문 2 — 해결책","결론"],s:[
+"Traffic congestion has become a major problem in many large cities around the world.",
+"This essay will examine the main causes of this problem and suggest several possible solutions.",
+"The main cause of congestion is that too many people rely on private cars for their daily travel.",
+"As incomes rise, more families can afford cars, so the number of vehicles on the road keeps increasing.",
+"In addition, many cities have poor public transport systems, which gives people few real alternatives.",
+"When buses are slow and crowded, most people naturally choose to drive instead.",
+"This creates a cycle in which roads become more congested every year.",
+"Several measures can be taken to deal with this problem.",
+"Firstly, governments should invest in faster and more reliable public transport, such as subway systems.",
+"If public transport becomes convenient, many drivers will leave their cars at home.",
+"Another solution is to introduce a congestion charge for driving in city centres, as has been done in London.",
+"In conclusion, traffic congestion is mainly caused by the growth of private car use and weak public transport.",
+"By improving public transport and charging drivers in busy areas, cities can significantly reduce this problem."]}
+];
+const WEEKS=[
+{w:1,title:"문장 기초 — 의미가 막히지 않게",desc:"4.5의 가장 큰 특징은 '읽다가 막히는 문장'이에요. 1주차는 문장의 뼈대부터 세웁니다.",lessons:[
+{id:"w1d1",title:"모든 문장은 주어 + 동사로 시작해요",pat:"주어 + 동사 (+ 목적어)",models:[["Education changes lives.","교육은 삶을 바꿉니다."],["Many students study abroad.","많은 학생이 유학을 갑니다."],["Technology has improved our daily lives.","기술은 우리의 일상을 향상시켰습니다."]],note:"한국어는 주어를 생략해도 되지만 영어는 안 돼요. 문장을 시작할 때 '누가/무엇이 + 무엇을 한다'가 박혀 있는지부터 확인하는 습관이 6.0의 출발점입니다.",ex:[["mcq","clinic","c17"],["mcq","clinic","c7"],["mcq","clinic","c2"],["order","builder","b13"]]},
+{id:"w1d2",title:"문장을 중간에 끊지 않기",pat:"Although / Because 절 + 주절 = 한 문장",models:[["Although it is expensive, many people buy smartphones.","비싸지만, 많은 사람이 스마트폰을 삽니다."],["He studied hard because he wanted to pass the exam.","그는 시험에 합격하고 싶어서 열심히 공부했습니다."],["When children play outside, they develop social skills.","아이들은 밖에서 놀 때 사회성을 기릅니다."]],note:"because나 although로 시작한 덩어리는 혼자 서 있을 수 없어요. 반드시 주절(완전한 문장)과 한 몸이어야 합니다. 이 오류 하나로 문장 전체가 '미완성'이 됩니다.",ex:[["mcq","clinic","c6"],["mcq","clinic","c22"],["mcq","clinic","c1"],["order","builder","b14"]]},
+{id:"w1d3",title:"두 문장을 붙이는 법",pat:"절, and/so + 절 · 절 + because + 절",models:[["Online learning is flexible, and it saves time.","온라인 학습은 유연하고, 시간을 절약해 줍니다."],["Pollution increased, so the government introduced new laws.","오염이 심해져서 정부가 새 법을 도입했습니다."],["Regular exercise improves health, so many people join gyms.","규칙적인 운동은 건강을 좋게 해서 많은 사람이 헬스장에 등록합니다."]],note:"생각 두 개를 문장 하나로 잇는 데는 딱 두 가지 방법뿐이에요: 연결사(and/so)를 쓰거나, because 같은 접속사로 한쪽을 붙이거나. 콤마만으로는 못 잇습니다.",ex:[["mcq","clinic","c9"],["mcq","builder","b6"],["order","builder","b17"],["mcq","clinic","c16"]]},
+{id:"w1d4",title:"주어와 동사는 짝을 맞춰요",pat:"단수 주어 → 단수 동사 (has / is / increases)",models:[["The number of students increases every year.","학생 수가 매년 증가합니다."],["Every student has to wear a uniform.","모든 학생은 교복을 입어야 합니다."],["There are many advantages to living in a city.","도시에 사는 것에는 장점이 많습니다."]],note:"of 뒤 명사에 속지 마세요. 진짜 주어가 단수인지 복수인지가 동사를 결정합니다. 채점관이 가장 먼저 눈으로 훑는 기본기예요.",ex:[["mcq","clinic","c2"],["mcq","clinic","c7"],["mcq","clinic","c12"],["mcq","clinic","c20"]]},
+{id:"w1d5",title:"시제와 will — 동사 모양 지키기",pat:"will + 동사원형 · 과거 신호 → 과거형",models:[["This policy will help reduce crime.","이 정책은 범죄를 줄이는 데 도움이 될 것입니다."],["In the past, people sent letters to communicate.","과거에 사람들은 편지로 소통했습니다."],["If governments invest in schools, children get better jobs.","정부가 학교에 투자하면 아이들이 더 좋은 직업을 얻습니다."]],note:"will 뒤에는 어떤 상황에서도 동사원형. 그리고 'In the past' 같은 신호가 보이면 그 문단은 전부 과거형으로 통일하세요.",ex:[["mcq","clinic","c3"],["mcq","clinic","c8"],["mcq","clinic","c13"],["mcq","builder","b4"]]}
+]},
+{w:2,title:"이유·결과로 문장 키우기",desc:"단문만으로는 5.0을 넘기 어려워요. 2주차는 가장 안전하고 자주 쓰는 확장 4종을 몸에 붙입니다.",lessons:[
+{id:"w2d1",title:"이유 붙이기 — because",pat:"주장 + because + 이유 (완전한 문장)",models:[["Many students study abroad because they want an international experience.","많은 학생이 국제 경험을 원해서 유학을 갑니다."],["Online courses are popular because they are flexible and affordable.","온라인 강의는 유연하고 저렴해서 인기가 많습니다."],["People exercise regularly because they want to stay healthy.","사람들은 건강을 유지하고 싶어서 규칙적으로 운동합니다."]],note:"because 뒤에는 '주어+동사'가 있는 완전한 이유가 와야 해요. 에세이 본문의 모든 근거는 사실상 because 문장의 변형입니다.",ex:[["mcq","builder","b1"],["order","builder","b13"],["order","builder","b16"],["mcq","clinic","c22"]]},
+{id:"w2d2",title:"결과 잇기 — so",pat:"원인, so + 결과",models:[["Pollution increased, so the government introduced new laws.","오염이 심해져서 정부가 새 법을 도입했습니다."],["The city built more parks, so residents now enjoy cleaner air.","도시가 공원을 더 만들어서 주민들이 이제 더 깨끗한 공기를 누립니다."],["Housing became expensive, so many young people moved to smaller cities.","집값이 비싸져서 많은 젊은이가 더 작은 도시로 이사했습니다."]],note:"because가 이유를 뒤에 붙인다면, so는 결과를 뒤에 붙여요. 방향만 반대일 뿐 한 쌍입니다. 콤마 + so, 이 모양을 그대로 외우세요.",ex:[["mcq","builder","b6"],["order","builder","b17"],["mcq","clinic","c9"]]},
+{id:"w2d3",title:"because of — 짧게 이유 말하기",pat:"because of + 명사구 (문장 아님)",models:[["Flights were cancelled because of the bad weather.","악천후 때문에 항공편이 취소됐습니다."],["Many people move to cities because of better job opportunities.","많은 사람이 더 좋은 일자리 때문에 도시로 이사합니다."],["The match was postponed because of heavy rain.","폭우 때문에 경기가 연기됐습니다."]],note:"because 뒤는 문장, because of 뒤는 명사 덩어리. 이 구분 하나만 정확해도 문장이 훨씬 다양해 보입니다.",ex:[["mcq","builder","b7"],["mcq","chunk","k19"],["mcq","chunk","k2"]]},
+{id:"w2d4",title:"목적과 수단 — to / By ~ing",pat:"행동 + to + 목적 · By ~ing, + 결과",models:[["The government should invest in renewable energy to reduce pollution.","정부는 오염을 줄이기 위해 재생 에너지에 투자해야 합니다."],["By using public transport, we can reduce air pollution.","대중교통을 이용함으로써 대기 오염을 줄일 수 있습니다."],["Students use language apps to improve their English.","학생들은 영어를 늘리기 위해 언어 앱을 사용합니다."]],note:"해결책을 쓰는 문장(문제해결형·의견형 본문)의 핵심 패턴 두 가지예요. '무엇을 해야 한다' 다음에 to로 목적, By ~ing으로 수단을 붙이세요.",ex:[["order","builder","b15"],["mcq","clinic","c11"],["mcq","chunk","k14"]]},
+{id:"w2d5",title:"1~2주차 총복습 — 이유·결과 세트",pat:"because / so / because of / to 구분하기",models:[["Because the weather was bad, the flights were cancelled.","날씨가 나빠서 항공편이 취소됐습니다."],["The government built a new subway to reduce traffic congestion.","정부는 교통 혼잡을 줄이기 위해 새 지하철을 지었습니다."]],note:"오늘은 섞어서 나옵니다. 연결어를 보고 방향(이유인지 결과인지 목적지)을 먼저 판단하는 게 요령이에요.",ex:[["mcq","builder","b1"],["mcq","builder","b7"],["mcq","builder","b6"],["order","builder","b11"]]}
+]},
+{w:3,title:"복문으로 깊이 더하기",desc:"because를 넘어서 — 양보·조건·관계절까지 안정적으로 쓰는 주입니다.",lessons:[
+{id:"w3d1",title:"although — 단점을 먼저 인정하기",ready:false},
+{id:"w3d2",title:"if — 조건으로 근거 만들기",ready:false},
+{id:"w3d3",title:"when — 상황 + 결과",ready:false},
+{id:"w3d4",title:"which / who — 설명 붙이기",ready:false},
+{id:"w3d5",title:"3주차 총복습 — 복문 세트",ready:false}]},
+{w:4,title:"문단 — 뼈대 세우기",desc:"문장이 모여 문단이 되는 규칙. 주제문 하나로 문단 전체가 예고됩니다.",lessons:[
+{id:"w4d1",title:"주제문 — 문단의 예고편",ready:false},
+{id:"w4d2",title:"근거에 설명 붙이기",ready:false},
+{id:"w4d3",title:"예시 들기 — For example",ready:false},
+{id:"w4d4",title:"연결어 — 문장과 문장 사이",ready:false},
+{id:"w4d5",title:"문단 조립 실습",ready:false}]},
+{w:5,title:"서론 — 패러프레이즈와 입장",desc:"질문을 내 말로 바꾸고, 입장을 한 문장으로 못 박는 주입니다.",lessons:[
+{id:"w5d1",title:"패러프레이즈 1 — 단어 교체",ready:false},
+{id:"w5d2",title:"패러프레이즈 2 — 구조 교체",ready:false},
+{id:"w5d3",title:"입장문 — 의견형",ready:false},
+{id:"w5d4",title:"입장문 — 논의형·이중질문형",ready:false},
+{id:"w5d5",title:"서론 조립 실습",ready:false}]},
+{w:6,title:"본문 심화 — 설명·예시·토픽 청크",desc:"주제별로 바로 써먹는 표현 덩어리와 본문을 길게 밀어주는 확장 기술입니다.",lessons:[
+{id:"w6d1",title:"토픽 청크 1 — 교육·기술",ready:false},
+{id:"w6d2",title:"토픽 청크 2 — 건강·환경",ready:false},
+{id:"w6d3",title:"토픽 청크 3 — 일·사회·가족·범죄",ready:false},
+{id:"w6d4",title:"예시 구체화하기",ready:false},
+{id:"w6d5",title:"설명 확장 — This means / As a result",ready:false}]},
+{w:7,title:"유형별 구조",desc:"에세이 유형 5종의 뼈대를 각각 몸에 붙이는 주입니다.",lessons:[
+{id:"w7d1",title:"의견형 (Agree or Disagree)",ready:false},
+{id:"w7d2",title:"논의형 (Discuss Both Views)",ready:false},
+{id:"w7d3",title:"장단점형 (Advantages & Disadvantages)",ready:false},
+{id:"w7d4",title:"문제·해결형 (Problem & Solution)",ready:false},
+{id:"w7d5",title:"이중질문형 (Two-part Question)",ready:false}]},
+{w:8,title:"결론과 전체 조립",desc:"문장→문단→에세이. 배운 것을 하나의 완성된 에세이로 조립하며 마무리합니다.",lessons:[
+{id:"w8d1",title:"결론 — 입장의 압축",ready:false},
+{id:"w8d2",title:"에세이 전체 조립 1 — 의견형",ready:false},
+{id:"w8d3",title:"에세이 전체 조립 2 — 논의형·문제해결형",ready:false},
+{id:"w8d4",title:"내 약점 집중 복습",ready:false},
+{id:"w8d5",title:"최종 점검 — 6.0 체크리스트",ready:false}]}
+];
+
+/* ============ POOLS / STATE ============ */
+const byId=(arr)=>Object.fromEntries(arr.map(x=>[x.id,x]));
+const MCQ={clinic:byId(CLINIC),builder:byId(BUILDER_MCQ),chunk:byId(CHUNKS),paraphrase:byId(PARAPHRASE),diag:byId(DIAG)};
+const ORD={builder:byId(BUILDER_ORDER),para:byId(PARA)};
+const KEY="bandjump-v1";
+let S;try{S=JSON.parse(localStorage.getItem(KEY))||{}}catch(e){S={}}
+S.lessons=S.lessons||{};S.res=S.res||{};S.review=S.review||{};S.days=S.days||[];S.diag=S.diag||null;S.asm=S.asm||{};
+function save(){localStorage.setItem(KEY,JSON.stringify(S))}
+function todayStr(){const d=new Date();return d.getFullYear()+"-"+String(d.getMonth()+1).padStart(2,"0")+"-"+String(d.getDate()).padStart(2,"0")}
+function touchDay(){const t=todayStr();if(!S.days.includes(t)){S.days.push(t);save()}}
+function esc(s){return String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;")}
+const app=document.getElementById("app");
+function shuffle(a){a=a.slice();for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]]}return a}
+function recordResult(pool,id,correct){
+  const k=pool+":"+id;const prev=S.res[k];
+  S.res[k]={r:correct?1:0,tries:(prev?prev.tries:0)+1};
+  const now=Date.now();
+  if(!correct){S.review[k]={due:now+86400000,stage:0}}
+  else if(S.review[k]){const r=S.review[k];r.stage=(r.stage||0)+1;if(r.stage>=3){delete S.review[k]}else{r.due=now+(r.stage===1?3:7)*86400000}}
+  touchDay();save();
+}
+function dueReviews(){const now=Date.now();return Object.keys(S.review).filter(k=>S.review[k].due<=now)}
+function exFromKey(k){const[pool,id]=k.split(":");if(MCQ[pool]&&MCQ[pool][id])return["mcq",pool,id];if(ORD[pool]&&ORD[pool][id])return pool==="para"?["para",pool,id]:["order",pool,id];return null}
+function mastery(pool){const items=pool==="builder"?BUILDER_MCQ.concat(BUILDER_ORDER):(MCQ[pool]?Object.values(MCQ[pool]):Object.values(ORD[pool]||{}));let ok=0;items.forEach(it=>{const r=S.res[pool+":"+it.id];if(r&&r.r===1)ok++});return{ok,total:items.length}}
+function allLessons(){const out=[];WEEKS.forEach(w=>w.lessons.forEach(l=>out.push({w:w.w,l})));return out}
+function nextLesson(){return allLessons().find(x=>x.l.ready!==false&&!S.lessons[x.l.id])||allLessons().find(x=>x.l.ready!==false)}
+function streak(){const set=new Set(S.days);let n=0;const d=new Date();if(!set.has(todayStr()))d.setDate(d.getDate()-1);while(set.has(d.getFullYear()+"-"+String(d.getMonth()+1).padStart(2,"0")+"-"+String(d.getDate()).padStart(2,"0"))){n++;d.setDate(d.getDate()-1)}return n}
+
+/* ============ SESSION RUNNER ============ */
+let SES=null;
+function startSession(title,exercises,onFinish,opts){
+  opts=opts||{};SES={title,exercises:exercises.filter(e=>exFromKey(e[1]+":"+e[2])),i:0,correct:0,onFinish,reviewMode:!!opts.reviewMode};
+  if(!SES.exercises.length){app.innerHTML='<div class="card"><h2>준비된 문제가 없어요</h2><p class="small">복습할 항목이 아직 없습니다.</p></div><button class="btn" onclick="go(\'home\')">홈으로</button>';return}
+  renderExercise();
+}
+function renderExercise(){
+  const[kind,pool,id]=SES.exercises[SES.i];
+  const head='<button class="back" onclick="quitSession()">‹ 그만하기</button><div class="prog">'+esc(SES.title)+' · '+(SES.i+1)+' / '+SES.exercises.length+'</div>';
+  if(kind==="mcq")renderMCQ(head,pool,MCQ[pool][id]);
+  else if(kind==="order")renderOrder(head,ORD[pool][id].tokens,"order",pool,id);
+  else if(kind==="para"){const p=ORD.para[id];renderPara(head,p)}
+}
+function finishExercise(correct){
+  const[kind,pool,id]=SES.exercises[SES.i];
+  if(!SES.reviewMode)recordResult(pool,id,correct);else recordResult(pool,id,correct);
+  if(correct)SES.correct++;
+  SES.i++;
+  if(SES.i>=SES.exercises.length){const f=SES.onFinish,c=SES.correct,t=SES.exercises.length;SES=null;f&&f(c,t)}
+  else renderExercise();
+}
+function quitSession(){SES=null;go("train")}
+function mcqPrompt(pool,item){
+  if(pool==="clinic")return{t:"문장 수술실 · "+item.cat,q:"가장 올바른 문장은 어느 것인가요?"};
+  if(pool==="builder")return{t:"문장 키우기 · "+item.link,q:"두 문장을 바르게 합친 것은 어느 것인가요?"};
+  if(pool==="chunk")return{t:"토픽 청크 · "+item.topic,q:"빈칸에 들어가면 표현이 완성되는 단어는?"};
+  if(pool==="paraphrase")return{t:"패러프레이즈",q:"아래 문장을 가장 잘 바꿔 쓴 것은?"};
+  if(pool==="diag")return{t:"진단",q:item.q||"가장 올바른 문장은 어느 것인가요?"};
+  return{t:"",q:""};
+}
+function renderMCQ(head,pool,item){
+  const p=mcqPrompt(pool,item);
+  const order=shuffle(item.opts.map((o,i)=>({o,i})));
+  let html=head+'<div class="card"><span class="tag">'+esc(p.t)+'</span><div class="q">'+esc(p.q)+"</div>";
+  if(pool==="paraphrase"||pool==="diag"&&item.q) { if(pool==="paraphrase")html+='<div class="qen">'+esc(item.q)+"</div>"; }
+  if(pool==="chunk")html+='<div class="qen">'+esc(item.s)+"</div>";
+  html+='<div id="opts">';
+  order.forEach(({o,i})=>{html+='<button class="opt" data-i="'+i+'">'+esc(o)+"</button>"});
+  html+='</div><div id="fb"></div></div>';
+  app.innerHTML=html;window.scrollTo(0,0);
+  app.querySelectorAll(".opt").forEach(b=>b.onclick=()=>{
+    const chosen=+b.dataset.i;const correct=chosen===item.a;
+    app.querySelectorAll(".opt").forEach(x=>{x.disabled=true;if(+x.dataset.i===item.a)x.classList.add("correct")});
+    if(!correct)b.classList.add("wrong");
+    document.getElementById("fb").innerHTML='<div class="why '+(correct?"ok":"no")+'"><b>'+(correct?"정답이에요.":"아쉬워요. 정답을 확인하세요.")+"</b><br>"+esc(item.why||"")+(item.pat?'<div class="pattern">🔑 '+esc(item.pat)+"</div>":"")+(item.ko?'<div class="pattern">🔑 '+esc(item.ko)+"</div>":"")+'</div><button class="btn" id="nextBtn">'+(SES.i+1>=SES.exercises.length?"결과 보기":"다음 문제")+"</button>";
+    document.getElementById("nextBtn").onclick=()=>finishExercise(correct);
+  });
+}
+function renderOrder(head,tokens,kind,pool,id){
+  const item=ORD[pool][id];
+  let picked=[];
+  const draw=()=>{
+    const used=new Set(picked);
+    let html=head+'<div class="card"><span class="tag teal">재조립</span><div class="q">조각을 순서대로 탭해서 문장을 완성하세요</div><div class="built">'+(picked.length?esc(picked.map(i=>tokens[i]).join(" ")):'<span class="small">여기에 문장이 조립됩니다</span>')+'</div><div class="chips">';
+    shuffle(tokens.map((t,i)=>i)).forEach(i=>{if(!used.has(i))html+='<button class="chip" data-i="'+i+'">'+esc(tokens[i])+"</button>"});
+    html+='</div><div class="btnrow"><button class="btn ghost" id="undoBtn">되돌리기</button><button class="btn" id="chkBtn" '+(picked.length===tokens.length?"":"disabled")+">확인</button></div>"+'<div id="fb"></div></div>';
+    app.innerHTML=html;window.scrollTo(0,0);
+    app.querySelectorAll(".chip").forEach(c=>c.onclick=()=>{picked.push(+c.dataset.i);draw()});
+    const u=document.getElementById("undoBtn");if(u)u.onclick=()=>{picked.pop();draw()};
+    const k2=document.getElementById("chkBtn");if(k2)k2.onclick=()=>{
+      const correct=picked.every((v,idx)=>v===idx);
+      document.getElementById("fb").innerHTML='<div class="why '+(correct?"ok":"no")+'"><b>'+(correct?"완벽해요. 이 문장 모양을 통째로 기억하세요.":"순서가 달라요. 정답 문장을 소리 내어 읽어보세요.")+'</b><br><span class="qen" style="display:block">'+esc(tokens.join(" "))+"</span>"+esc(item.why||"")+(item.pat?'<div class="pattern">🔑 '+esc(item.pat)+"</div>":"")+'</div><button class="btn" id="nextBtn">'+(SES.i+1>=SES.exercises.length?"결과 보기":"다음 문제")+"</button>";
+      document.getElementById("nextBtn").onclick=()=>finishExercise(correct);
+    };
+  };draw();
+}
+function renderPara(head,p){
+  let picked=[];
+  const draw=()=>{
+    let html=head+'<div class="card"><span class="tag amber">문단 조립 · '+esc(p.topic)+'</span><div class="q">문장을 탭한 순서대로 문단이 만들어집니다. 주제문부터 순서대로 골라보세요</div>';
+    p.s.forEach((s,i)=>{const idx=picked.indexOf(i);html+='<button class="sent'+(idx>=0?" picked":"")+'" data-i="'+i+'">'+(idx>=0?("<b>"+(idx+1)+".</b> "):"")+esc(s)+"</button>"});
+    html+='<div class="btnrow"><button class="btn ghost" id="rstBtn">처음부터</button><button class="btn" id="chkBtn" '+(picked.length===p.s.length?"":"disabled")+">확인</button></div>"+'<div id="fb"></div></div>';
+    app.innerHTML=html;window.scrollTo(0,0);
+    app.querySelectorAll(".sent").forEach(b=>b.onclick=()=>{const i=+b.dataset.i;const at=picked.indexOf(i);if(at>=0)picked.splice(at,1);else picked.push(i);draw()});
+    document.getElementById("rstBtn").onclick=()=>{picked=[];draw()};
+    document.getElementById("chkBtn").onclick=()=>{
+      const correct=picked.every((v,idx)=>v===idx);
+      app.querySelectorAll(".sent").forEach(b=>{const i=+b.dataset.i;b.classList.add(picked.indexOf(i)===i?"right":"wrongb")});
+      document.getElementById("fb").innerHTML='<div class="why '+(correct?"ok":"no")+'"><b>'+(correct?"문단의 뼈대가 그대로 보여요.":"아쉬워요. 아래 순서가 정답 뼈대입니다.")+"</b><br>"+esc(p.note)+'</div><button class="btn" id="nextBtn">'+(SES.i+1>=SES.exercises.length?"결과 보기":"다음 문제")+"</button>";
+      document.getElementById("nextBtn").onclick=()=>finishExercise(correct);
+    };
+  };draw();
+}
+function sessionResult(title,correct,total,backView,extra){
+  const pct=total?Math.round(correct/total*100):0;
+  app.innerHTML='<div class="card" style="text-align:center"><div style="font-size:44px">'+(pct>=80?"🎉":pct>=50?"💪":"🌱")+'</div><h2>'+esc(title)+'</h2><p style="font-size:30px;font-weight:900;color:var(--brand)">'+correct+" / "+total+'</p><p class="small">'+(pct>=80?"훌륭해요. 이 감각이 6.0의 감각입니다.":pct>=50?"좋아요. 틀린 문제는 내일 복습으로 다시 만나요.":"괜찮아요. 틀린 문제는 복습 큐에 들어갔고, 반복해서 만나면 몸이 기억합니다.")+"</p>"+(extra||"")+'</div><button class="btn" onclick="go(\''+backView+'\')">계속하기</button>';
+  window.scrollTo(0,0);
+}
+
+/* ============ VIEWS ============ */
+function go(view){
+  document.querySelectorAll("nav button").forEach(b=>b.classList.toggle("on",b.dataset.nav===view||(view==="lesson"&&b.dataset.nav==="train")));
+  if(view==="home")renderHome();else if(view==="train")renderCourse();else if(view==="write")renderAssemblyList();else if(view==="my")renderMy();
+  window.scrollTo(0,0);
+}
+document.querySelectorAll("nav button").forEach(b=>b.onclick=()=>go(b.dataset.nav));
+function renderHome(){
+  const total=allLessons().filter(x=>x.l.ready!==false).length;
+  const done=allLessons().filter(x=>x.l.ready!==false&&S.lessons[x.l.id]).length;
+  const pct=total?Math.round(done/total*100):0;
+  const nx=nextLesson();const due=dueReviews();
+  const totalAll=allLessons().length;
+  let html='<div class="card journey"><h2 style="color:#fff">Band 4.5 → 6.0 여정</h2><p style="font-size:13px;opacity:.92">8주 · 40레슨 코스입니다. 하루 한 레슨씩, 급할 것 없어요.</p><div class="track"><div class="fill" style="width:'+Math.max(pct,2)+'%"></div></div><div class="marks"><span>4.5 지금</span><span>5.0</span><span>5.5</span><span><b>6.0 목표</b></span></div><p style="font-size:12.5px;margin-top:8px;opacity:.92">전체 '+totalAll+'레슨 중 공개된 '+total+'레슨 · 완료 '+done+'개</p></div>';
+  html+='<div class="kpi"><div><b>'+streak()+'일</b><span>연속 학습</span></div><div><b>'+S.days.length+'일</b><span>누적 학습일</span></div><div><b>'+due.length+'개</b><span>오늘 복습</span></div></div>';
+  if(!S.diag){html+='<div class="card"><span class="tag rose">먼저 진단부터</span><h2>지금 내 라이팅, 어디가 약할까?</h2><p class="small">12문제로 4개 평가기준(TR·CC·LR·GRA) 중 어디서 점수가 새는지 찾습니다. 3분이면 돼요.</p><br><button class="btn" onclick="startDiag()">진단 시작하기</button></div>'}
+  if(nx){html+='<div class="card"><span class="tag">오늘의 레슨</span><h2>'+nx.w+'주차 · '+esc(nx.l.title)+'</h2><p class="small">'+esc(nx.l.pat||"")+' — 모델 문장부터 보고, 패턴을 발견하고, 조립하며 배웁니다. 약 15분.</p><br><button class="btn" onclick="startLesson(\''+nx.l.id+'\')">레슨 시작</button></div>'}
+  if(due.length){html+='<div class="card"><span class="tag amber">간격 반복 복습</span><h2>틀렸던 문제 '+due.length+'개가 돌아왔어요</h2><p class="small">어제 틀린 문제는 오늘, 맞히면 3일 뒤, 또 맞히면 7일 뒤에 다시 만납니다. 이 반복이 암기보다 강해요.</p><br><button class="btn teal" onclick="startReview()">복습 시작</button></div>'}
+  html+='<div class="card"><h2>이 앱의 학습법</h2><p class="small" style="line-height:1.7">① 백지 작문은 하지 않습니다. 도달 가능한 <b>Band 6.5 모델</b>을 먼저 봅니다.<br>② 예문 속에서 패턴을 먼저 느끼고, 문법 용어는 마지막에 이름표처럼 붙입니다.<br>③ 틀린 문제는 간격 반복으로 다시 만나, \'아는 것\'이 아니라 \'몸이 기억하는 것\'으로 만듭니다.</p></div>';
+  app.innerHTML=html;
+}
+function renderCourse(){
+  let html='<div class="card"><h2>8주 코스</h2><p class="small">레슨은 순서대로 여는 걸 권합니다. 각 레슨: 모델 문장 → 패턴 발견 → 드릴 → 재조립.</p></div>';
+  WEEKS.forEach(w=>{
+    html+='<div class="card"><h3>'+w.w+'주차 · '+esc(w.title)+'</h3><p class="small">'+esc(w.desc)+"</p>";
+    w.lessons.forEach(l=>{
+      const doneL=S.lessons[l.id];
+      if(l.ready===false){html+='<div class="mod" style="opacity:.45"><div class="ic">🔒</div><div class="grow"><div class="t">'+esc(l.title)+'</div><div class="d">곧 열립니다</div></div></div>'}
+      else{html+='<div class="mod" onclick="startLesson(\''+l.id+'\')"><div class="ic">'+(doneL?"✅":"📘")+'</div><div class="grow"><div class="t">'+esc(l.title)+'</div><div class="d">'+esc(l.pat)+'</div></div><div class="pct">'+(doneL?"완료":"시작")+"</div></div>"}
+    });
+    html+="</div>";
+  });
+  html+='<div class="card"><h2>자유 훈련장</h2><p class="small">레슨과 별개로 약한 곳만 골라 더 연습할 수 있어요.</p>';
+  [["clinic","🩺 문장 수술실","의미를 막는 오류 고치기",CLINIC.length],["builder","🏗️ 문장 키우기","복문으로 확장하기",BUILDER_MCQ.length+BUILDER_ORDER.length],["para","🧱 문단 조립","뼈대 순서 맞히기",PARA.length],["paraphrase","🔄 패러프레이즈","질문을 내 말로 바꾸기",PARAPHRASE.length],["chunk","🧩 토픽 청크","주제별 표현 덩어리",CHUNKS.length]].forEach(([pool,ic,t,total])=>{
+    const m=mastery(pool);const pct=m.total?Math.round(m.ok/m.total*100):0;
+    html+='<div class="mod" onclick="startFree(\''+pool+'\')"><div class="ic">'+ic.split(" ")[0]+'</div><div class="grow"><div class="t">'+ic.split(" ").slice(1).join(" ")+'</div><div class="d">'+t+' · '+total+'문항</div><div class="bar"><i style="width:'+pct+'%"></i></div></div><div class="pct">'+pct+"%</div></div>";
+  });
+  html+="</div>";
+  app.innerHTML=html;
+}
+function findLesson(id){for(const w of WEEKS){const l=w.lessons.find(x=>x.id===id);if(l)return{w,l}}return null}
+function startLesson(id){
+  const f=findLesson(id);if(!f)return;const{w,l}=f;
+  let html='<button class="back" onclick="go(\'train\')">‹ 코스</button><div class="card"><span class="tag">'+w+'주차 레슨</span><h2>'+esc(l.title)+'</h2><p class="small" style="margin-bottom:10px">먼저 모델 문장 3개를 읽어보세요. 문장을 탭하면 뜻이 보입니다. 규칙은 아직 몰라도 돼요 — 공통된 모양이 눈에 들어오는지 느껴보세요.</p>';
+  l.models.forEach(m=>{html+='<div class="qen" style="cursor:pointer" onclick="this.querySelector(\'.ko\').classList.toggle(\'hidden\')">'+esc(m[0])+'<div class="ko hidden" style="color:var(--sub);font-size:14px;margin-top:4px">'+esc(m[1])+"</div></div>"});
+  html+='<div class="pattern">🔑 오늘의 패턴: <b>'+esc(l.pat)+'</b></div><p class="small" style="margin-top:10px;line-height:1.7">'+esc(l.note)+'</p><br><button class="btn" id="goEx">이제 문제로 확인하기 ('+l.ex.length+'문제)</button></div>';
+  app.innerHTML=html;window.scrollTo(0,0);
+  document.getElementById("goEx").onclick=()=>{
+    startSession(l.title,l.ex.map(e=>[e[0],e[1],e[2]]),(c,t)=>{
+      S.lessons[id]={score:c,total:t,at:Date.now()};save();
+      const nx=nextLesson();
+      sessionResult("레슨 완료",c,t,"train",nx&&nx.l.id!==id?'<button class="btn ghost" style="margin-top:4px" onclick="startLesson(\''+nx.l.id+'\')">다음 레슨: '+esc(nx.l.title)+"</button>":"");
+    });
+  };
+}
+function startFree(pool){
+  let ex=[];
+  if(pool==="builder"){ex=BUILDER_MCQ.map(x=>["mcq","builder",x.id]).concat(BUILDER_ORDER.map(x=>["order","builder",x.id]))}
+  else if(pool==="para"){ex=PARA.map(x=>["para","para",x.id])}
+  else{ex=Object.values(MCQ[pool]).map(x=>["mcq",pool,x.id])}
+  ex=shuffle(ex);
+  const wrongFirst=ex.sort((a,b)=>{const ra=S.res[a[1]+":"+a[2]],rb=S.res[b[1]+":"+b[2]];return((ra&&ra.r===1)?1:0)-((rb&&rb.r===1)?1:0)});
+  startSession("자유 훈련",wrongFirst.slice(0,8),(c,t)=>sessionResult("훈련 완료",c,t,"train"));
+}
+function startReview(){
+  const keys=dueReviews();const ex=keys.map(exFromKey).filter(Boolean);
+  startSession("간격 반복 복습",shuffle(ex).slice(0,10),(c,t)=>sessionResult("복습 완료",c,t,"home"),{reviewMode:true});
+}
+function startDiag(){
+  const ex=DIAG.map(d=>["mcq","diag",d.id]);
+  startSession("시작 진단",ex,(c,t)=>{
+    const scores={};DIAG.forEach(d=>{const r=S.res["diag:"+d.id];scores[d.crit]=scores[d.crit]||{ok:0,n:0};scores[d.crit].n++;if(r&&r.r===1)scores[d.crit].ok++});
+    S.diag={at:Date.now(),scores};save();
+    const names={TR:"과제 응답 (질문이 시키는 대로 쓰기)",CC:"구성·연결 (문단 뼈대와 흐름)",LR:"어휘 (짝꿍 표현과 정확한 단어)",GRA:"문법 (문장 정확도와 복문)"};
+    let rows="";let weakest=null,wv=2;
+    Object.keys(names).forEach(k=>{const s=scores[k]||{ok:0,n:1};const p=Math.round(s.ok/s.n*100);if(p<wv){wv=p;weakest=k}rows+='<div class="metric"><span>'+names[k]+'</span><b>'+p+"%</b></div>"});
+    const advice={GRA:"문장 정확도부터 잡아야 합니다. 1주차부터 순서대로 시작하세요.",CC:"문장보다 문단의 흐름이 약점이에요. 그래도 1~3주차 문장 훈련 뒤 4주차에서 크게 오릅니다.",LR:"표현의 짝꿍(콜로케이션)이 약점이에요. 6주차 청크 훈련이 특히 도움이 됩니다.",TR:"질문을 정확히 읽는 게 약점이에요. 5주차(서론)와 7주차(유형별)가 핵심입니다."};
+    app.innerHTML='<div class="card"><h2>진단 결과</h2>'+rows+'<div class="why ok" style="margin-top:12px"><b>가장 먼저 잡을 곳: '+names[weakest]+'</b><br>'+advice[weakest]+'<br><br>그래도 코스는 1주차부터 순서대로 가세요. 이 앱의 레슨은 앞 레슨이 뒷 레슨의 재료가 되도록 쌓여 있습니다.</div></div><button class="btn" onclick="startLesson(\'w1d1\')">1주차 첫 레슨 시작하기</button>';
+    window.scrollTo(0,0);
+  });
+}
+function renderAssemblyList(){
+  let html='<div class="card"><h2>에세이 조립</h2><p class="small">완성된 Band 6.5 에세이를 문장 단위로 섞어 두었습니다. 순서대로 조립하면서 에세이 전체의 뼈대를 몸으로 익히세요. 직접 쓰는 게 아니라, 좋은 글의 구조를 읽고 맞히는 훈련입니다.</p></div>';
+  ASSEMBLY.forEach(a=>{
+    html+='<div class="card"><span class="tag teal">'+esc(a.type)+'</span><h3>'+esc(a.q)+'</h3><p class="small">문장 '+a.s.length+'개 조립 · 문단 4개</p><br><button class="btn" onclick="startAssembly(\''+a.id+'\')">'+(S.asm[a.id]?"다시 조립하기":"조립 시작")+"</button></div>";
+  });
+  app.innerHTML=html;
+}
+function startAssembly(id){
+  const a=ASSEMBLY.find(x=>x.id===id);let picked=[];
+  const draw=()=>{
+    let html='<button class="back" onclick="go(\'write\')">‹ 에세이 조립</button><div class="card"><span class="tag teal">'+esc(a.type)+'</span><div class="qen">'+esc(a.q)+'</div><div class="q">문장을 순서대로 탭하세요. 서론 → 본문 1 → 본문 2 → 결론 순서입니다</div>';
+    a.s.forEach((s,i)=>{const idx=picked.indexOf(i);html+='<button class="sent'+(idx>=0?" picked":"")+'" data-i="'+i+'">'+(idx>=0?("<b>"+(idx+1)+".</b> "):"")+esc(s)+"</button>"});
+    html+='<div class="btnrow"><button class="btn ghost" id="rstBtn">처음부터</button><button class="btn" id="chkBtn" '+(picked.length===a.s.length?"":"disabled")+">확인</button></div>"+'<div id="fb"></div></div>';
+    app.innerHTML=html;window.scrollTo(0,0);
+    app.querySelectorAll(".sent").forEach(b=>b.onclick=()=>{const i=+b.dataset.i;const at=picked.indexOf(i);if(at>=0)picked.splice(at,1);else picked.push(i);draw()});
+    document.getElementById("rstBtn").onclick=()=>{picked=[];draw()};
+    document.getElementById("chkBtn").onclick=()=>{
+      const correct=picked.every((v,idx)=>v===idx);
+      S.asm[id]={done:true,perfect:correct,at:Date.now()};save();
+      let full="";let partIdx=0;
+      a.s.forEach((s,i)=>{if(i===0||a.breaks.includes(i)){full+='<p style="margin:12px 0 4px"><span class="tag">'+esc(a.parts[partIdx++])+"</span></p>"}full+="<p style='margin:2px 0'>"+esc(s)+"</p>"});
+      document.getElementById("fb").innerHTML='<div class="why '+(correct?"ok":"no")+'"><b>'+(correct?"완벽합니다. 에세이 한 편의 뼈대를 통째로 조립했어요.":"조립 완료. 아래 완성본과 순서를 비교해 보세요.")+"</b><br>"+esc(a.band)+'</div><div class="card" style="margin:10px 0 0">'+full+"</div>";
+      document.getElementById("chkBtn").disabled=true;
+    };
+  };draw();
+}
+function renderMy(){
+  const names=[["clinic","문장 수술실"],["builder","문장 키우기"],["para","문단 조립"],["paraphrase","패러프레이즈"],["chunk","토픽 청크"]];
+  let html='<div class="card"><h2>내 기록</h2><div class="kpi"><div><b>'+streak()+'일</b><span>연속</span></div><div><b>'+S.days.length+'일</b><span>누적 학습일</span></div><div><b>'+Object.keys(S.lessons).length+'개</b><span>완료 레슨</span></div></div>';
+  names.forEach(([p,n])=>{const m=mastery(p);const pct=m.total?Math.round(m.ok/m.total*100):0;html+="<div style='margin:10px 0'><div style='display:flex;justify-content:space-between;font-size:14px'><span>"+n+"</span><b>"+m.ok+" / "+m.total+"</b></div><div class='bar'><i style='width:"+pct+"%'></i></div></div>"});
+  html+="</div>";
+  const rev=Object.keys(S.review);
+  html+='<div class="card"><h2>복습 큐</h2>'+(rev.length?'<p class="small">아직 몸에 붙지 않은 문제 '+rev.length+'개가 간격 반복으로 돌고 있어요. 오늘 도래: '+dueReviews().length+'개</p><br><button class="btn teal" onclick="startReview()">지금 복습하기</button>':'<p class="small">복습 큐가 비어 있어요. 문제를 틀리면 자동으로 여기에 들어갑니다.</p>')+"</div>";
+  if(S.diag){html+='<div class="card"><h2>진단 기록</h2><p class="small">'+new Date(S.diag.at).toLocaleDateString("ko-KR")+' 진단 완료</p><br><button class="btn ghost" onclick="startDiag()">다시 진단하기</button></div>'}
+  html+='<div class="card"><h2>처음부터 다시 시작</h2><p class="small">모든 진도와 기록을 지웁니다.</p><br><button class="btn ghost" style="border-color:var(--bad);color:var(--bad)" onclick="if(confirm(\'정말 모든 기록을 지울까요?\')){localStorage.removeItem(KEY);location.reload()}">기록 초기화</button></div>';
+  app.innerHTML=html;
+}
+if("serviceWorker" in navigator){navigator.serviceWorker.register("sw.js").catch(()=>{})}
+go("home");
+</script>
+</body>
+</html>
