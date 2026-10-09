@@ -24,8 +24,8 @@ try {
 } catch (e) { check("data evaluates", false, e.message); }
 if (data.CLINIC) {
   check("CLINIC = 24", data.CLINIC.length === 24, data.CLINIC.length);
-  check("BUILDER_MCQ = 23", data.BUILDER_MCQ.length === 23, data.BUILDER_MCQ.length);
-  check("BUILDER_ORDER = 24", data.BUILDER_ORDER.length === 24, data.BUILDER_ORDER.length);
+  check("BUILDER_MCQ = 26", data.BUILDER_MCQ.length === 26, data.BUILDER_MCQ.length);
+  check("BUILDER_ORDER = 27", data.BUILDER_ORDER.length === 27, data.BUILDER_ORDER.length);
   check("PARA = 6", data.PARA.length === 6, data.PARA.length);
   check("CHUNKS = 32", data.CHUNKS.length === 32, data.CHUNKS.length);
   check("DIAG = 12", data.DIAG.length === 12, data.DIAG.length);
@@ -68,6 +68,7 @@ if (data.CLINIC) {
   check("week 5 all ready", data.WEEKS[4].lessons.every(l => l.ready !== false));
   check("week 6 all ready", data.WEEKS[5].lessons.every(l => l.ready !== false));
   check("week 7 all ready", data.WEEKS[6].lessons.every(l => l.ready !== false));
+  check("week 8 all ready", data.WEEKS[7].lessons.every(l => l.ready !== false));
   // 레슨 운동 종류 회귀 (chunk 같은 미지원 kind가 세션 렌더러에서 빈 화면이 되는 버그 방지)
   let badKind = [];
   data.WEEKS.forEach(w => w.lessons.forEach(l => { (l.ex || []).forEach(e => { if (!["mcq", "order", "para"].includes(e[0])) badKind.push(l.id + ":" + e[0]); }); }));
