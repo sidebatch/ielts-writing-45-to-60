@@ -126,7 +126,7 @@ footer{text-align:center;color:#595959;font-size:12.5px;padding:18px 0 4px}
 <p class="sub">단어를 더 외우는 앱이 아니에요. 4.5와 6.0의 차이는 <b>의미가 막히는 오류가 없는가</b>, <b>복문을 안정적으로 쓰는가</b>, <b>문단에 뼈대가 있는가</b> — 딱 이 세 가지에서 갈립니다.</p>
 </header>
 <main id="app"></main>
-<footer>Band Jump v1.16.0 · 하루 한 레슨, 8주 코스 · 진단 결과는 시작점 안내용이며 실제 시험 점수를 보장하지 않습니다 · 진도는 이 기기에만 저장됩니다</footer>
+<footer>Band Jump v1.17.0 · 하루 한 레슨, 8주 코스 · 진단 결과는 시작점 안내용이며 실제 시험 점수를 보장하지 않습니다 · 진도는 이 기기에만 저장됩니다</footer>
 </div>
 <nav aria-label="주요 메뉴"><div class="inner">
 <button data-nav="home" class="on" aria-current="page"><span aria-hidden="true">🏠</span>홈</button>
@@ -713,8 +713,21 @@ function startAssembly(id){
       S.asm[id]={done:true,perfect:correct,at:Date.now()};save();
       let full="";let partIdx=0;
       a.s.forEach((s,i)=>{if(i===0||a.breaks.includes(i)){full+='<p style="margin:12px 0 4px"><span class="tag">'+esc(a.parts[partIdx++])+"</span></p>"}full+="<p style='margin:2px 0'>"+esc(s)+"</p>"});
-      document.getElementById("fb").innerHTML='<div class="why '+(correct?"ok":"no")+'"><b>'+(correct?"완벽합니다. 에세이 한 편의 뼈대를 통째로 조립했어요.":"조립 완료. 아래 완성본과 순서를 비교해 보세요.")+"</b><br>"+esc(a.band)+'</div><div class="card" style="margin:10px 0 0">'+full+"</div>";
+      const idx=ASSEMBLY.findIndex(x=>x.id===id);const nxt=idx>=0?ASSEMBLY[idx+1]:null;
+      const allDone=ASSEMBLY.every(x=>S.asm[x.id]&&S.asm[x.id].done);
+      let nav="";
+      if(allDone&&!nxt)nav+='<p class="small" style="margin-top:10px"><b>🎉 에세이 6편을 모두 조립했어요.</b> 이제 틀렸던 문제는 복습으로, 전체 구조는 다시 조립하며 굳히면 됩니다.</p>';
+      nav+='<div style="margin-top:12px">';
+      if(nxt)nav+='<button class="btn" id="asmNext">다음 에세이 조립하기 ›</button>';
+      else nav+='<button class="btn" id="asmList">에세이 목록으로</button>';
+      if(!correct)nav+='<button class="btn teal" style="margin-top:8px" id="asmRetry">이 에세이 다시 조립하기</button>';
+      if(nxt)nav+='<button class="btn ghost" style="margin-top:8px" id="asmList">에세이 목록으로</button>';
+      nav+="</div>";
+      document.getElementById("fb").innerHTML='<div class="why '+(correct?"ok":"no")+'"><b>'+(correct?"완벽합니다. 에세이 한 편의 뼈대를 통째로 조립했어요.":"조립 완료. 아래 완성본과 순서를 비교해 보세요.")+"</b><br>"+esc(a.band)+'</div><div class="card" style="margin:10px 0 0">'+full+"</div>"+nav;
       lockPickers();
+      const an=document.getElementById("asmNext");if(an)an.onclick=()=>startAssembly(nxt.id);
+      const ar=document.getElementById("asmRetry");if(ar)ar.onclick=()=>startAssembly(id);
+      const al=document.getElementById("asmList");if(al)al.onclick=()=>go("write");
     };
   };draw();
 }

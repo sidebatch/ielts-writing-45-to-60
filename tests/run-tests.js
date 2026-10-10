@@ -214,5 +214,14 @@ if (data.ASSEMBLY) {
   check("assembly no longer only disables its check button", !html.includes('document.getElementById("chkBtn").disabled=true'));
   check("README documents post-check locking", readme.includes("확인한 뒤에는 선택이 잠겨"));
 }
+// 16. 에세이 조립 완료 동선 회귀 (5차 백로그 17): 확인 뒤에는 피드백과 완성본 에세이가 화면 아래에 길게 이어지는데 나갈 길이 상단의 뒤로 버튼뿐이라, 긴 에세이를 다 읽은 학습자는 맨 위까지 되돌아가야 했고 틀린 에세이는 목록을 거쳐야만 다시 조립할 수 있었다 — 확인 직후 화면 아래에 다음 에세이·재시도·목록 버튼이 있어야 하고, 이 버튼들은 잠금(lockPickers) 대상이 아니어야 함
+{
+  check("assembly check offers bottom navigation (next / list)", html.includes('class="btn" id="asmNext"') && html.includes("다음 에세이 조립하기") && html.includes('id="asmList"') && html.includes("에세이 목록으로"));
+  check("assembly retry is offered in place when imperfect", html.includes('id="asmRetry"') && html.includes("이 에세이 다시 조립하기") && html.includes("if(!correct)nav+="));
+  check("assembly next is computed from ASSEMBLY order and wired", html.includes("ASSEMBLY.findIndex(x=>x.id===id)") && html.includes("startAssembly(nxt.id)") && html.includes('al.onclick=()=>go("write")'));
+  check("assembly retry restarts the same essay in place", html.includes("ar.onclick=()=>startAssembly(id)"));
+  check("assembly completion state shows when all essays are done", html.includes("에세이 6편을 모두 조립했어요") && html.includes("ASSEMBLY.every(x=>S.asm[x.id]"));
+  check("README documents assembly bottom navigation", readme.includes("조립을 확인한 뒤에는 화면 아래 버튼으로"));
+}
 console.log("\n" + pass + " passed, " + fail + " failed");
 process.exit(fail ? 1 : 0);
