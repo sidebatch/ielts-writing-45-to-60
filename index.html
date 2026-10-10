@@ -126,7 +126,7 @@ footer{text-align:center;color:#595959;font-size:12.5px;padding:18px 0 4px}
 <p class="sub">단어를 더 외우는 앱이 아니에요. 4.5와 6.0의 차이는 <b>의미가 막히는 오류가 없는가</b>, <b>복문을 안정적으로 쓰는가</b>, <b>문단에 뼈대가 있는가</b> — 딱 이 세 가지에서 갈립니다.</p>
 </header>
 <main id="app"></main>
-<footer>Band Jump v1.12.0 · 하루 한 레슨, 8주 코스 · 진단 결과는 시작점 안내용이며 실제 시험 점수를 보장하지 않습니다 · 진도는 이 기기에만 저장됩니다</footer>
+<footer>Band Jump v1.13.0 · 하루 한 레슨, 8주 코스 · 진단 결과는 시작점 안내용이며 실제 시험 점수를 보장하지 않습니다 · 진도는 이 기기에만 저장됩니다</footer>
 </div>
 <nav aria-label="주요 메뉴"><div class="inner">
 <button data-nav="home" class="on" aria-current="page"><span aria-hidden="true">🏠</span>홈</button>
@@ -454,7 +454,7 @@ const MCQ={clinic:byId(CLINIC),builder:byId(BUILDER_MCQ),chunk:byId(CHUNKS),para
 const ORD={builder:byId(BUILDER_ORDER),para:byId(PARA)};
 const KEY="bandjump-v1";
 let S;try{S=JSON.parse(localStorage.getItem(KEY))||{}}catch(e){S={}}
-S.lessons=S.lessons||{};S.res=S.res||{};S.review=S.review||{};S.days=S.days||[];S.diag=S.diag||null;S.asm=S.asm||{};
+S.lessons=S.lessons||{};S.res=S.res||{};S.review=S.review||{};S.days=S.days||[];S.diag=S.diag||null;S.asm=S.asm||{};S.rlog=S.rlog||[];
 function save(){localStorage.setItem(KEY,JSON.stringify(S))}
 function todayStr(){const d=new Date();return d.getFullYear()+"-"+String(d.getMonth()+1).padStart(2,"0")+"-"+String(d.getDate()).padStart(2,"0")}
 function touchDay(){const t=todayStr();if(!S.days.includes(t)){S.days.push(t);save()}}
@@ -478,6 +478,10 @@ function streak(){const set=new Set(S.days);let n=0;const d=new Date();if(!set.h
 function lessonAfter(id){const all=allLessons().filter(x=>x.l.ready!==false);const i=all.findIndex(x=>x.l.id===id);return i>=0&&i<all.length-1?all[i+1]:null}
 function nextDueInfo(){const ks=Object.keys(S.review);if(!ks.length)return null;let min=Infinity;ks.forEach(k=>{if(S.review[k].due<min)min=S.review[k].due});return{count:ks.length,earliest:min}}
 function fmtDay(ts){const d=new Date(ts);const now=new Date();const tom=new Date(Date.now()+86400000);const same=(a,b)=>a.getFullYear()===b.getFullYear()&&a.getMonth()===b.getMonth()&&a.getDate()===b.getDate();if(same(d,now))return"오늘";if(same(d,tom))return"내일";return(d.getMonth()+1)+"월 "+d.getDate()+"일"}
+function fmtMD(ts){const d=new Date(ts);return(d.getMonth()+1)+"월 "+d.getDate()+"일"}
+function weekStartTs(ts){const d=new Date(ts||Date.now());d.setHours(0,0,0,0);d.setDate(d.getDate()-((d.getDay()+6)%7));return d.getTime()}
+function dayStrOf(ts){const d=new Date(ts);return d.getFullYear()+"-"+String(d.getMonth()+1).padStart(2,"0")+"-"+String(d.getDate()).padStart(2,"0")}
+function weekStats(){const start=weekStartTs();const startStr=dayStrOf(start);const lessons=Object.values(S.lessons).filter(v=>v&&typeof v.at==="number"&&v.at>=start).length;const days=S.days.filter(s=>s>=startStr).length;const reviews=(S.rlog||[]).filter(t=>typeof t==="number"&&t>=start).length;return{start,lessons,days,reviews}}
 
 /* ============ SESSION RUNNER ============ */
 let SES=null;
@@ -495,7 +499,8 @@ function renderExercise(){
 }
 function finishExercise(correct){
   const[kind,pool,id]=SES.exercises[SES.i];
-  if(!SES.reviewMode)recordResult(pool,id,correct);else recordResult(pool,id,correct);
+  if(SES.reviewMode){S.rlog=S.rlog||[];S.rlog.push(Date.now());if(S.rlog.length>1000)S.rlog=S.rlog.slice(-1000)}
+  recordResult(pool,id,correct);
   if(correct)SES.correct++;
   SES.i++;
   if(SES.i>=SES.exercises.length){const f=SES.onFinish,c=SES.correct,t=SES.exercises.length;SES=null;f&&f(c,t)}
@@ -582,9 +587,12 @@ function renderHome(){
   const done=allLessons().filter(x=>x.l.ready!==false&&S.lessons[x.l.id]).length;
   const pct=total?Math.round(done/total*100):0;
   const nx=nextLesson();const due=dueReviews();
+  const wk=weekStats();
   const totalAll=allLessons().length;
   let html='<div class="card journey"><h2 style="color:#fff">Band 4.5 → 6.0 여정</h2><p style="font-size:13px;opacity:.92">8주 · 40레슨 코스입니다. 하루 한 레슨씩, 급할 것 없어요.</p><div class="track"><div class="fill" style="width:'+Math.max(pct,2)+'%"></div></div><div class="marks"><span>4.5 지금</span><span>5.0</span><span>5.5</span><span><b>6.0 목표</b></span></div><p style="font-size:13px;margin-top:8px;opacity:.92">전체 '+totalAll+'레슨 중 공개된 '+total+'레슨 · 완료 '+done+'개</p></div>';
   html+='<div class="kpi"><div><b>'+streak()+'일</b><span>연속 학습</span></div><div><b>'+S.days.length+'일</b><span>누적 학습일</span></div><div><b>'+due.length+'개</b><span>오늘 복습</span></div></div>';
+  const wkMsg=wk.lessons>=5?"이번 주 목표인 레슨 5개를 채웠어요. 남은 날은 복습만 가볍게 해도 충분합니다.":(wk.lessons+wk.days+wk.reviews===0?"이번 주는 아직 시작 전이에요. 오늘 한 레슨이면 충분합니다.":"주 5레슨 페이스까지 레슨 "+(5-wk.lessons)+"개가 남았어요. 하루 한 레슨이면 따라잡을 수 있어요.");
+  html+='<div class="card"><span class="tag teal">이번 주 진도</span><h2>'+fmtMD(wk.start)+' (월)부터 오늘까지</h2><div class="kpi"><div><b>'+wk.lessons+'개</b><span>완료한 레슨</span></div><div><b>'+wk.days+'일</b><span>학습한 날</span></div><div><b>'+wk.reviews+'문제</b><span>끝낸 복습 문제</span></div></div><p class="small">'+wkMsg+' 이 요약은 월요일마다 새로 시작합니다. 복습 수는 이번 업데이트 이후에 끝낸 복습 문제부터 셉니다.</p></div>';
   if(!S.diag){html+='<div class="card"><span class="tag rose">먼저 진단부터</span><h2>지금 내 라이팅, 어디가 약할까?</h2><p class="small">12문제로 4개 평가기준(TR·CC·LR·GRA) 중 어디서 점수가 새는지 찾습니다. 3분이면 돼요.</p><br><button class="btn" onclick="startDiag()">진단 시작하기</button></div>'}
   const allDone=total>0&&done>=total;
   if(allDone){html+='<div class="card" style="text-align:center"><div style="font-size:40px">🎉</div><h2>8주 코스를 완주했어요</h2><p class="small">40레슨을 모두 끝냈습니다. 이제는 새 레슨보다 에세이 조립으로 전체 구조를 굳히고, 틀렸던 문제를 복습으로 반복하는 단계예요.</p><br><button class="btn" onclick="go(\'write\')">에세이 조립으로 마무리하기</button><button class="btn ghost" style="margin-top:8px" onclick="go(\'train\')">코스에서 다시 풀기</button></div>'}

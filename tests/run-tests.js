@@ -175,5 +175,22 @@ if (data.ASSEMBLY) {
   check("JSON-LD parses as WebApplication for the live URL with unified description", !!ld && ld["@type"] === "WebApplication" && ld.url === LIVE && ld.description === metaDesc);
   check("apple touch icon and web-app title present", html.includes('<link rel="apple-touch-icon"') && html.includes('<meta name="apple-mobile-web-app-title" content="Band Jump">'));
 }
+// 12. 학습 리듬 마감 회귀 (2차 백로그 13): 홈 '이번 주 진도'는 월요일 시작 주간으로 완료 레슨·학습일·끝낸 복습 문제 수를 보여줘야 하고, 복습 완료는 실제로 기록돼야 함
+{
+  const fnMatch = html.match(/function weekStartTs\(ts\)\{[\s\S]*?\n\}/);
+  check("weekStartTs function extractable", !!fnMatch);
+  if (fnMatch) {
+    const fn = new Function(fnMatch[0] + "; return weekStartTs;")();
+    const fri = new Date(fn(new Date(2026, 9, 9, 15, 30).getTime()));
+    check("weekStartTs returns that week's Monday at midnight (Fri 2026-10-09 -> Mon 2026-10-05)", fri.getDay() === 1 && fri.getFullYear() === 2026 && fri.getMonth() === 9 && fri.getDate() === 5 && fri.getHours() === 0 && fri.getMinutes() === 0, fri.toString());
+    check("weekStartTs on a Monday returns the same day", new Date(fn(new Date(2026, 9, 5, 9, 0).getTime())).getDate() === 5);
+    check("weekStartTs on a Sunday stays in the same Monday-start week", new Date(fn(new Date(2026, 9, 11, 9, 0).getTime())).getDate() === 5);
+  }
+  check("weekStats aggregates lessons/days/review log from the week start", html.includes("function weekStats()") && html.includes("v.at>=start") && html.includes("s>=startStr") && html.includes("(S.rlog||[])"));
+  check("home renders this-week summary card with all three metrics", html.includes("이번 주 진도") && html.includes("완료한 레슨") && html.includes("학습한 날") && html.includes("끝낸 복습 문제") && html.includes("weekStats()"));
+  check("weekly summary explains the Monday reset and the 5-lesson pace", html.includes("월요일마다 새로 시작합니다") && html.includes("주 5레슨 페이스"));
+  check("review completions are logged (capped) without changing the storage key", html.includes("S.rlog=S.rlog||[]") && html.includes("S.rlog.push(Date.now())") && html.includes("S.rlog.slice(-1000)") && html.includes('const KEY="bandjump-v1"'));
+  check("README documents the weekly summary", readme.includes("이번 주 진도"));
+}
 console.log("\n" + pass + " passed, " + fail + " failed");
 process.exit(fail ? 1 : 0);
