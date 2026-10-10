@@ -260,14 +260,15 @@ if (data.ASSEMBLY) {
   const rep = ids.filter(i => ST[i].t === "repro"), fil = ids.filter(i => ST[i].t === "fill"), fix = ids.filter(i => ST[i].t === "fix");
   check("유형 구성: 재현 10+ · 회상 5+ · 고치기 5+", rep.length >= 10 && fil.length >= 5 && fix.length >= 5, rep.length + "/" + fil.length + "/" + fix.length);
   rep.forEach(i => { const r = ST[i]; check("재현 토큰 합 = 원문: " + i, r.tokens.join(" ") === r.en && !!r.ko); });
-  fil.forEach(i => { const f = ST[i]; check("회상 정답이 완성문에 포함: " + i, f.ans.length >= 1 && f.ans.every(a => f.full.toLowerCase().includes(a.toLowerCase())) && !!f.hint && !!f.why); });
-  fix.forEach(i => { const x = ST[i]; const rebuilt = x.chunks.map((c, ci) => ci === x.wrong ? x.opts[x.a] : c).join(" "); check("고치기 교체 시 고정문 재현: " + i, x.wrong >= 0 && x.wrong < x.chunks.length && x.a >= 0 && x.a < x.opts.length && new Set(x.opts).size === x.opts.length && rebuilt === x.fixed && !!x.why); });
+  fil.forEach(i => { const f = ST[i]; check("회상 정답이 완성문에 포함+뜻 존재: " + i, f.ans.length >= 1 && f.ans.every(a => f.full.toLowerCase().includes(a.toLowerCase())) && !!f.hint && !!f.why && !!f.ko); });
+  fix.forEach(i => { const x = ST[i]; const rebuilt = x.chunks.map((c, ci) => ci === x.wrong ? x.opts[x.a] : c).join(" "); check("고치기 교체 시 고정문 재현: " + i, x.wrong >= 0 && x.wrong < x.chunks.length && x.a >= 0 && x.a < x.opts.length && new Set(x.opts).size === x.opts.length && rebuilt === x.fixed && !!x.why && !!x.ko); });
   const pools = { clinic: byId2(data.CLINIC), builder: byId2(data.BUILDER_MCQ), chunk: byId2(data.CHUNKS), paraphrase: byId2(d2.PARAPHRASE) };
   const ords = { builder: byId2(data.BUILDER_ORDER), para: byId2(data.PARA) };
   const resolveStep = ([kind, pool, id]) => kind === "step" ? !!ST[id] : kind === "mcq" ? !!pools[pool] && !!pools[pool][id] : !!ords[pool] && !!ords[pool][id];
   data.WEEKS[0].lessons.forEach(l => {
     check("1주차 레슨 steps 5단계 이상: " + l.id, Array.isArray(l.steps) && l.steps.length >= 5, l.steps && l.steps.length);
     (l.steps || []).forEach(st => check("단계 참조 유효: " + l.id + " / " + st.join("/"), resolveStep(st)));
+    check("칩 UI: 놓은 조각 탭 제거(pchip) + 쓴 칩 자리 유지(used)", html.includes("pchip") && html.includes(" used") && html.includes('querySelectorAll(".pchip,.fchunk")'));
     check("1주차 레슨 재현형 단계 4개 이상: " + l.id, (l.steps || []).filter(st => st[0] === "step").length >= 4);
   });
 }

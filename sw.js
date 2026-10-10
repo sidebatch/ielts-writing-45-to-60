@@ -1,4 +1,4 @@
-const VERSION = "bandjump-v2.0.0";
+const VERSION = "bandjump-v2.1.0";
 const ASSETS = ["./", "./index.html", "./manifest.webmanifest", "./icon-192.png", "./icon-512.png"];
 self.addEventListener("install", (e) => {
   e.waitUntil(caches.open(VERSION).then((c) => c.addAll(ASSETS)).then(() => self.skipWaiting()));
