@@ -154,5 +154,26 @@ if (data.ASSEMBLY) {
   check("a6 body order markers are unambiguous", !!a6 && a6.s[8].startsWith("However") && a6.s[11].startsWith("Another problem") && a6.s[13].startsWith("Because returning products"));
   check("README counts 6 assembly essays", readme.includes("모범 에세이 6편"));
 }
+// 11. 공유·발견 마감 회귀 (2차 백로그 12): OG/Twitter 메타·canonical·구조화 데이터가 실주소와 맞고, 설명 문구가 페이지·매니페스트·소셜 메타에서 하나로 통일돼야 함
+{
+  const LIVE = "https://sidebatch.github.io/ielts-writing-45-to-60/";
+  const metaDesc = (html.match(/<meta name="description" content="([^"]+)">/) || [])[1];
+  const og = (name) => (html.match(new RegExp('<meta property="og:' + name + '" content="([^"]+)">')) || [])[1];
+  const tw = (name) => (html.match(new RegExp('<meta name="twitter:' + name + '" content="([^"]+)">')) || [])[1];
+  const canonical = (html.match(/<link rel="canonical" href="([^"]+)">/) || [])[1];
+  check("og title/description present and description unified (meta=og=twitter=manifest)", !!metaDesc && og("description") === metaDesc && tw("description") === metaDesc && manifest.description === metaDesc);
+  check("canonical and og:url match the live URL", canonical === LIVE && og("url") === LIVE, canonical + " / " + og("url"));
+  check("og:image is the absolute live og-image.png", og("image") === LIVE + "og-image.png" && tw("image") === og("image"), og("image"));
+  const ogPath = path.join(root, "og-image.png");
+  let ogDims = null;
+  if (fs.existsSync(ogPath)) { const b = fs.readFileSync(ogPath); if (b.slice(1, 4).toString() === "PNG") ogDims = [b.readUInt32BE(16), b.readUInt32BE(20)]; }
+  check("og-image.png exists at 1200x630 and meta dims agree", !!ogDims && ogDims[0] === 1200 && ogDims[1] === 630 && og("image:width") === "1200" && og("image:height") === "630", ogDims && ogDims.join("x"));
+  check("twitter card is summary_large_image with alt text", tw("card") === "summary_large_image" && !!tw("image:alt") && !!og("image:alt"));
+  let ld = null;
+  const ldMatch = html.match(/<script type="application\/ld\+json">([\s\S]*?)<\/script>/);
+  try { ld = ldMatch ? JSON.parse(ldMatch[1]) : null; } catch (e) { ld = null; }
+  check("JSON-LD parses as WebApplication for the live URL with unified description", !!ld && ld["@type"] === "WebApplication" && ld.url === LIVE && ld.description === metaDesc);
+  check("apple touch icon and web-app title present", html.includes('<link rel="apple-touch-icon"') && html.includes('<meta name="apple-mobile-web-app-title" content="Band Jump">'));
+}
 console.log("\n" + pass + " passed, " + fail + " failed");
 process.exit(fail ? 1 : 0);
