@@ -199,5 +199,12 @@ if (data.ASSEMBLY) {
   check("diag focus renders names/advice only through the selected weakest", html.includes("names[weakest]") && html.includes("advice[weakest]"));
   check("fresh-user empty states exist on my page (no lessons / no diag yet)", html.includes("아직 완료한 레슨이 없어요") && html.includes("아직 진단 기록이 없어요"));
 }
+// 14. 순서 맞히기 조작 연속성 회귀 (3차 백로그 15): 칩·문장을 탭할 때마다 배치가 섞이거나 화면이 맨 위로 튀면 긴 조립(에세이 16문장)에서 흐름이 끊긴다 — 칩 순서는 문항당 한 번만 섞고, 다시 그릴 때는 스크롤 위치를 유지해야 함
+{
+  check("order chips are shuffled once per question, not on every redraw", html.includes("const chipOrder=shuffle(tokens.map((t,i)=>i))") && (html.match(/shuffle\(tokens\.map/g) || []).length === 1 && html.includes("chipOrder.forEach"));
+  check("all three ordering redraws preserve scroll after the first render", (html.match(/window\.scrollTo\(0,first\?0:sy\)/g) || []).length === 3, (html.match(/window\.scrollTo\(0,first\?0:sy\)/g) || []).length);
+  check("ordering redraws capture scrollY before replacing the DOM", (html.match(/const sy=window\.scrollY;/g) || []).length === 3, (html.match(/const sy=window\.scrollY;/g) || []).length);
+  check("README documents ordering scroll/chip stability", readme.includes("순서 맞히기 화면에서는 탭할 때마다"));
+}
 console.log("\n" + pass + " passed, " + fail + " failed");
 process.exit(fail ? 1 : 0);
