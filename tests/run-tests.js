@@ -206,5 +206,13 @@ if (data.ASSEMBLY) {
   check("ordering redraws capture scrollY before replacing the DOM", (html.match(/const sy=window\.scrollY;/g) || []).length === 3, (html.match(/const sy=window\.scrollY;/g) || []).length);
   check("README documents ordering scroll/chip stability", readme.includes("순서 맞히기 화면에서는 탭할 때마다"));
 }
+// 15. 답안 확인 후 잠금 회귀 (4차 백로그 16): 정답이 공개된 뒤 칩·문장을 다시 탭하면 피드백(에세이 조립은 완성본까지)이 사라지고, 정답을 본 뒤 다시 맞춰 점수·복습 기록까지 바꿀 수 있었다 — 확인한 순간 세 화면 모두 선택과 되돌리기/처음부터/확인이 잠겨야 하고, 다음 버튼은 살아 있어야 함
+{
+  check("lockPickers helper disables pickers and undo/reset/check buttons", html.includes("function lockPickers()") && html.includes('app.querySelectorAll(".chip,.sent")') && html.includes('["undoBtn","rstBtn","chkBtn"]'));
+  check("all three ordering check handlers lock after revealing the answer", (html.match(/lockPickers\(\);/g) || []).length === 3, (html.match(/lockPickers\(\);/g) || []).length);
+  check("locking never disables the next button", !/lockPickers\(\)\{[^}]*nextBtn/.test(html) && html.includes('["undoBtn","rstBtn","chkBtn"]'));
+  check("assembly no longer only disables its check button", !html.includes('document.getElementById("chkBtn").disabled=true'));
+  check("README documents post-check locking", readme.includes("확인한 뒤에는 선택이 잠겨"));
+}
 console.log("\n" + pass + " passed, " + fail + " failed");
 process.exit(fail ? 1 : 0);

@@ -126,7 +126,7 @@ footer{text-align:center;color:#595959;font-size:12.5px;padding:18px 0 4px}
 <p class="sub">단어를 더 외우는 앱이 아니에요. 4.5와 6.0의 차이는 <b>의미가 막히는 오류가 없는가</b>, <b>복문을 안정적으로 쓰는가</b>, <b>문단에 뼈대가 있는가</b> — 딱 이 세 가지에서 갈립니다.</p>
 </header>
 <main id="app"></main>
-<footer>Band Jump v1.15.0 · 하루 한 레슨, 8주 코스 · 진단 결과는 시작점 안내용이며 실제 시험 점수를 보장하지 않습니다 · 진도는 이 기기에만 저장됩니다</footer>
+<footer>Band Jump v1.16.0 · 하루 한 레슨, 8주 코스 · 진단 결과는 시작점 안내용이며 실제 시험 점수를 보장하지 않습니다 · 진도는 이 기기에만 저장됩니다</footer>
 </div>
 <nav aria-label="주요 메뉴"><div class="inner">
 <button data-nav="home" class="on" aria-current="page"><span aria-hidden="true">🏠</span>홈</button>
@@ -507,6 +507,7 @@ function finishExercise(correct){
   else renderExercise();
 }
 function quitSession(){const b=SES?SES.back:"train";SES=null;go(b)}
+function lockPickers(){app.querySelectorAll(".chip,.sent").forEach(b=>{b.disabled=true});["undoBtn","rstBtn","chkBtn"].forEach(id=>{const b=document.getElementById(id);if(b)b.disabled=true})}
 function mcqPrompt(pool,item){
   if(pool==="clinic")return{t:"문장 수술실 · "+item.cat,q:"가장 올바른 문장은 어느 것인가요?"};
   if(pool==="builder")return item.q?{t:(item.link.includes("구조")?"에세이 구조 · ":"입장문 · ")+item.link,q:item.q}:{t:"문장 키우기 · "+item.link,q:"두 문장을 바르게 합친 것은 어느 것인가요?"};
@@ -551,6 +552,7 @@ function renderOrder(head,tokens,kind,pool,id){
       const correct=picked.every((v,idx)=>v===idx);
       document.getElementById("fb").innerHTML='<div class="why '+(correct?"ok":"no")+'"><b>'+(correct?"완벽해요. 이 문장 모양을 통째로 기억하세요.":"순서가 달라요. 정답 문장을 소리 내어 읽어보세요.")+'</b><br><span class="qen" style="display:block">'+esc(tokens.join(" "))+"</span>"+esc(item.why||"")+(item.pat?'<div class="pattern">🔑 '+esc(item.pat)+"</div>":"")+'</div><button class="btn" id="nextBtn">'+(SES.i+1>=SES.exercises.length?"결과 보기":"다음 문제")+"</button>";
       document.getElementById("nextBtn").onclick=()=>finishExercise(correct);
+      lockPickers();
     };
   };draw();
 }
@@ -570,6 +572,7 @@ function renderPara(head,p){
       app.querySelectorAll(".sent").forEach(b=>{const i=+b.dataset.i;b.classList.add(picked.indexOf(i)===i?"right":"wrongb")});
       document.getElementById("fb").innerHTML='<div class="why '+(correct?"ok":"no")+'"><b>'+(correct?"문단의 뼈대가 그대로 보여요.":"아쉬워요. 아래 순서가 정답 뼈대입니다.")+"</b><br>"+esc(p.note)+'</div><button class="btn" id="nextBtn">'+(SES.i+1>=SES.exercises.length?"결과 보기":"다음 문제")+"</button>";
       document.getElementById("nextBtn").onclick=()=>finishExercise(correct);
+      lockPickers();
     };
   };draw();
 }
@@ -711,7 +714,7 @@ function startAssembly(id){
       let full="";let partIdx=0;
       a.s.forEach((s,i)=>{if(i===0||a.breaks.includes(i)){full+='<p style="margin:12px 0 4px"><span class="tag">'+esc(a.parts[partIdx++])+"</span></p>"}full+="<p style='margin:2px 0'>"+esc(s)+"</p>"});
       document.getElementById("fb").innerHTML='<div class="why '+(correct?"ok":"no")+'"><b>'+(correct?"완벽합니다. 에세이 한 편의 뼈대를 통째로 조립했어요.":"조립 완료. 아래 완성본과 순서를 비교해 보세요.")+"</b><br>"+esc(a.band)+'</div><div class="card" style="margin:10px 0 0">'+full+"</div>";
-      document.getElementById("chkBtn").disabled=true;
+      lockPickers();
     };
   };draw();
 }
