@@ -29,7 +29,7 @@ if (data.CLINIC) {
   check("PARA = 6", data.PARA.length === 6, data.PARA.length);
   check("CHUNKS = 32", data.CHUNKS.length === 32, data.CHUNKS.length);
   check("DIAG = 12", data.DIAG.length === 12, data.DIAG.length);
-  check("ASSEMBLY = 5", data.ASSEMBLY.length === 5, data.ASSEMBLY.length);
+  check("ASSEMBLY = 6", data.ASSEMBLY.length === 6, data.ASSEMBLY.length);
   check("WEEKS = 8 / lessons = 40", data.WEEKS.length === 8 && data.WEEKS.reduce((n, w) => n + w.lessons.length, 0) === 40);
   // MCQ 정답 인덱스 유효성
   let badIdx = [];
@@ -144,6 +144,15 @@ if (data.ASSEMBLY) {
     if (!l.ex || l.ex.length < 3 || l.ex.length > 5) incomplete.push(l.id + ":ex");
   }));
   check("all 40 lessons playthrough-complete (pat/note/models/ex)", incomplete.length === 0, incomplete.join(","));
+}
+// 10. 6편째 에세이 회귀 (2차 백로그 11): 긍정/부정 발전형이 기존 5편과 같은 형식·기준을 지켜야 함
+if (data.ASSEMBLY) {
+  const a6 = data.ASSEMBLY.find(a => a.id === "a6");
+  check("a6 exists as positive/negative development essay", !!a6 && a6.type.includes("Positive or Negative Development") && /positive or negative development/i.test(a6.q));
+  check("a6 has 16 sentences and standard breaks/parts", !!a6 && a6.s.length === 16 && JSON.stringify(a6.breaks) === "[2,8,14]" && a6.parts.length === 4);
+  check("a6 states position in intro and restates it in conclusion", !!a6 && a6.s[1].includes("largely positive development") && a6.s[14].startsWith("In conclusion") && a6.s[14].includes("positive development overall"));
+  check("a6 body order markers are unambiguous", !!a6 && a6.s[8].startsWith("However") && a6.s[11].startsWith("Another problem") && a6.s[13].startsWith("Because returning products"));
+  check("README counts 6 assembly essays", readme.includes("모범 에세이 6편"));
 }
 console.log("\n" + pass + " passed, " + fail + " failed");
 process.exit(fail ? 1 : 0);
