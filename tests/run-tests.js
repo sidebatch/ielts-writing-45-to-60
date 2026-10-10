@@ -201,7 +201,7 @@ if (data.ASSEMBLY) {
 }
 // 14. 순서 맞히기 조작 연속성 회귀 (3차 백로그 15): 칩·문장을 탭할 때마다 배치가 섞이거나 화면이 맨 위로 튀면 긴 조립(에세이 16문장)에서 흐름이 끊긴다 — 칩 순서는 문항당 한 번만 섞고, 다시 그릴 때는 스크롤 위치를 유지해야 함
 {
-  check("order chips are shuffled once per question, not on every redraw", html.includes("const chipOrder=shuffle(tokens.map((t,i)=>i))") && (html.match(/shuffle\(tokens\.map/g) || []).length === 1 && html.includes("chipOrder.forEach"));
+  check("order/repro chips are shuffled once per question with shuffledIdx (never the answer order)", html.includes("const chipOrder=shuffledIdx(tokens.length)") && html.includes("const reproOrder=shuffledIdx(item.tokens.length)") && !html.includes("shuffle(tokens.map") && !html.includes("shuffle(item.tokens.map"));
   check("all three ordering redraws preserve scroll after the first render", (html.match(/window\.scrollTo\(0,first\?0:sy\)/g) || []).length === 3, (html.match(/window\.scrollTo\(0,first\?0:sy\)/g) || []).length);
   check("ordering redraws capture scrollY before replacing the DOM", (html.match(/const sy=window\.scrollY;/g) || []).length === 3, (html.match(/const sy=window\.scrollY;/g) || []).length);
   check("README documents ordering scroll/chip stability", readme.includes("순서 맞히기 화면에서는 탭할 때마다"));
@@ -271,6 +271,24 @@ if (data.ASSEMBLY) {
     check("고치기: 부재형 오류(x2/x3)에 장면 설정 lead 존재", !!ST.x2.lead && !!ST.x3.lead && html.includes("item.lead"));
     check("칩 UI: 놓은 조각 탭 제거(pchip) + 쓴 칩 자리 유지(used)", html.includes("pchip") && html.includes(" used") && html.includes('querySelectorAll(".pchip,.fchunk")'));
     check("1주차 레슨 재현형 단계 4개 이상: " + l.id, (l.steps || []).filter(st => st[0] === "step").length >= 4);
+  });
+}
+
+// 18. 전수 감사 규칙 (2026-10-10 감사에서 상설화)
+{
+  const EXC_KO = new Set(["b37","b38","b39","b40","b41","b50","dt2"]); // 정답 자체가 한국어인 구조 문항
+  const koPools = [["clinic", data.CLINIC], ["builder-mcq", data.BUILDER_MCQ], ["paraphrase", null], ["diag", data.DIAG], ["builder-order", data.BUILDER_ORDER]];
+  const src3 = m[1].split("/* ============ POOLS")[0];
+  const d3 = new Function(src3 + "; return {PARAPHRASE, STEP};")();
+  koPools[2][1] = d3.PARAPHRASE;
+  koPools.forEach(([pn, arr]) => arr.forEach(it => check("해석 전수: " + pn + "/" + it.id, !!it.ko || EXC_KO.has(it.id))));
+  data.CHUNKS.forEach(it => check("청크 피드백(ko 또는 why): chunk/" + it.id, !!(it.ko || it.why)));
+  data.BUILDER_ORDER.forEach(it => check("조립 토큰 중복 없음(순서 모호 방지): " + it.id, new Set(it.tokens).size === it.tokens.length));
+  const esc2 = v => v.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+  Object.entries(d3.STEP).filter(([, it]) => it.t === "fix").forEach(([id, it]) => {
+    const wholeWord = new RegExp("(^|\\s)" + esc2(it.chunks[it.wrong]) + "(\\s|$|[.,])");
+    const absentType = wholeWord.test(it.fixed);
+    check("고치기 부재형이면 lead 필수: " + id, !absentType || !!it.lead);
   });
 }
 console.log("\n" + pass + " passed, " + fail + " failed");
