@@ -126,7 +126,7 @@ footer{text-align:center;color:#595959;font-size:12.5px;padding:18px 0 4px}
 <p class="sub">단어를 더 외우는 앱이 아니에요. 4.5와 6.0의 차이는 <b>의미가 막히는 오류가 없는가</b>, <b>복문을 안정적으로 쓰는가</b>, <b>문단에 뼈대가 있는가</b> — 딱 이 세 가지에서 갈립니다.</p>
 </header>
 <main id="app"></main>
-<footer>Band Jump v1.13.0 · 하루 한 레슨, 8주 코스 · 진단 결과는 시작점 안내용이며 실제 시험 점수를 보장하지 않습니다 · 진도는 이 기기에만 저장됩니다</footer>
+<footer>Band Jump v1.14.0 · 하루 한 레슨, 8주 코스 · 진단 결과는 시작점 안내용이며 실제 시험 점수를 보장하지 않습니다 · 진도는 이 기기에만 저장됩니다</footer>
 </div>
 <nav aria-label="주요 메뉴"><div class="inner">
 <button data-nav="home" class="on" aria-current="page"><span aria-hidden="true">🏠</span>홈</button>
@@ -674,10 +674,11 @@ function startDiag(){
     const scores={};DIAG.forEach(d=>{const r=S.res["diag:"+d.id];scores[d.crit]=scores[d.crit]||{ok:0,n:0};scores[d.crit].n++;if(r&&r.r===1)scores[d.crit].ok++});
     S.diag={at:Date.now(),scores};save();
     const names={TR:"과제 응답 (질문이 시키는 대로 쓰기)",CC:"구성·연결 (문단 뼈대와 흐름)",LR:"어휘 (짝꿍 표현과 정확한 단어)",GRA:"문법 (문장 정확도와 복문)"};
-    let rows="";let weakest=null,wv=2;
+    let rows="";let weakest=null,wv=Infinity;
     Object.keys(names).forEach(k=>{const s=scores[k]||{ok:0,n:1};const p=Math.round(s.ok/s.n*100);if(p<wv){wv=p;weakest=k}rows+='<div class="metric"><span>'+names[k]+'</span><b>'+p+"%</b></div>"});
     const advice={GRA:"문장 정확도부터 잡아야 합니다. 1주차부터 순서대로 시작하세요.",CC:"문장보다 문단의 흐름이 약점이에요. 그래도 1~3주차 문장 훈련 뒤 4주차에서 크게 오릅니다.",LR:"표현의 짝꿍(콜로케이션)이 약점이에요. 6주차 청크 훈련이 특히 도움이 됩니다.",TR:"질문을 정확히 읽는 게 약점이에요. 5주차(서론)와 7주차(유형별)가 핵심입니다."};
-    app.innerHTML='<div class="card"><h2>진단 결과</h2>'+rows+'<div class="why ok" style="margin-top:12px"><b>가장 먼저 잡을 곳: '+names[weakest]+'</b><br>'+advice[weakest]+'<br><br>그래도 코스는 1주차부터 순서대로 가세요. 이 앱의 레슨은 앞 레슨이 뒷 레슨의 재료가 되도록 쌓여 있습니다.</div></div><button class="btn" onclick="startLesson(\'w1d1\')">1주차 첫 레슨 시작하기</button>';
+    const focus=wv>=100?'<b>네 기준 모두 만점이에요 — 이 진단에서는 약점이 드러나지 않았습니다.</b><br>진단은 시작점을 확인하는 12문항이라, 실제 약점은 코스를 진행하며 푸는 문제에서 더 정확히 드러납니다.':'<b>가장 먼저 잡을 곳: '+names[weakest]+'</b><br>'+advice[weakest];
+    app.innerHTML='<div class="card"><h2>진단 결과</h2>'+rows+'<div class="why ok" style="margin-top:12px">'+focus+'<br><br>그래도 코스는 1주차부터 순서대로 가세요. 이 앱의 레슨은 앞 레슨이 뒷 레슨의 재료가 되도록 쌓여 있습니다.</div></div><button class="btn" onclick="startLesson(\'w1d1\')">1주차 첫 레슨 시작하기</button>';
     window.scrollTo(0,0);
   },{back:"home"});
 }

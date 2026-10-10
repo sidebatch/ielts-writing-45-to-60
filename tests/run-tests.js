@@ -192,5 +192,12 @@ if (data.ASSEMBLY) {
   check("review completions are logged (capped) without changing the storage key", html.includes("S.rlog=S.rlog||[]") && html.includes("S.rlog.push(Date.now())") && html.includes("S.rlog.slice(-1000)") && html.includes('const KEY="bandjump-v1"'));
   check("README documents the weekly summary", readme.includes("이번 주 진도"));
 }
+// 13. 2차 전수 플레이스루 회귀 (2차 백로그 14): 신규 사용자 상태로 전 화면·전 레슨을 플레이했을 때 진단 결과가 어떤 점수 조합에서도 깨지지 않아야 함
+{
+  check("diag weakest selection starts from Infinity (perfect/mixed scores still pick a focus)", html.includes("let weakest=null,wv=Infinity") && !html.includes("wv=2"));
+  check("diag result has a perfect-score branch instead of a weakest focus", html.includes("wv>=100") && html.includes("네 기준 모두 만점이에요"));
+  check("diag focus renders names/advice only through the selected weakest", html.includes("names[weakest]") && html.includes("advice[weakest]"));
+  check("fresh-user empty states exist on my page (no lessons / no diag yet)", html.includes("아직 완료한 레슨이 없어요") && html.includes("아직 진단 기록이 없어요"));
+}
 console.log("\n" + pass + " passed, " + fail + " failed");
 process.exit(fail ? 1 : 0);
