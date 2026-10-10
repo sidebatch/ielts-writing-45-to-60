@@ -209,7 +209,7 @@ if (data.ASSEMBLY) {
 // 15. 답안 확인 후 잠금 회귀 (4차 백로그 16): 정답이 공개된 뒤 칩·문장을 다시 탭하면 피드백(에세이 조립은 완성본까지)이 사라지고, 정답을 본 뒤 다시 맞춰 점수·복습 기록까지 바꿀 수 있었다 — 확인한 순간 세 화면 모두 선택과 되돌리기/처음부터/확인이 잠겨야 하고, 다음 버튼은 살아 있어야 함
 {
   check("lockPickers helper disables pickers and undo/reset/check buttons", html.includes("function lockPickers()") && html.includes('app.querySelectorAll(".chip,.sent")') && html.includes('["undoBtn","rstBtn","chkBtn"]'));
-  check("all three ordering check handlers lock after revealing the answer", (html.match(/lockPickers\(\);/g) || []).length === 3, (html.match(/lockPickers\(\);/g) || []).length);
+  check("all four ordering check handlers (order/para/assembly/repro) lock after revealing the answer", (html.match(/lockPickers\(\);/g) || []).length === 4, (html.match(/lockPickers\(\);/g) || []).length);
   check("locking never disables the next button", !/lockPickers\(\)\{[^}]*nextBtn/.test(html) && html.includes('["undoBtn","rstBtn","chkBtn"]'));
   check("assembly no longer only disables its check button", !html.includes('document.getElementById("chkBtn").disabled=true'));
   check("README documents post-check locking", readme.includes("확인한 뒤에는 선택이 잠겨"));
@@ -247,6 +247,29 @@ if (data.ASSEMBLY) {
   check("assembly full model essay still renders in the original order", html.includes("a.s.forEach((s,i)=>{if(i===0||a.breaks.includes(i))"));
   check("picker instructions disclose that sentences are shuffled", html.includes("문장은 일부러 섞어 두었어요") && html.includes("문장은 섞여 있어요"));
   check("README documents shuffled sentence presentation", readme.includes("문단·에세이 조립의 문장은 섞어서 제시"));
+}
+
+// 17. v2 재현 포맷 (STEP)
+{
+  const src2 = m[1].split("/* ============ POOLS")[0];
+  const d2 = new Function(src2 + "; return {STEP, PARAPHRASE};")();
+  const ST = d2.STEP || {};
+  const ids = Object.keys(ST);
+  const byId2 = a => Object.fromEntries(a.map(x => [x.id, x]));
+  check("STEP 항목 20개 이상", ids.length >= 20, ids.length);
+  const rep = ids.filter(i => ST[i].t === "repro"), fil = ids.filter(i => ST[i].t === "fill"), fix = ids.filter(i => ST[i].t === "fix");
+  check("유형 구성: 재현 10+ · 회상 5+ · 고치기 5+", rep.length >= 10 && fil.length >= 5 && fix.length >= 5, rep.length + "/" + fil.length + "/" + fix.length);
+  rep.forEach(i => { const r = ST[i]; check("재현 토큰 합 = 원문: " + i, r.tokens.join(" ") === r.en && !!r.ko); });
+  fil.forEach(i => { const f = ST[i]; check("회상 정답이 완성문에 포함: " + i, f.ans.length >= 1 && f.ans.every(a => f.full.toLowerCase().includes(a.toLowerCase())) && !!f.hint && !!f.why); });
+  fix.forEach(i => { const x = ST[i]; const rebuilt = x.chunks.map((c, ci) => ci === x.wrong ? x.opts[x.a] : c).join(" "); check("고치기 교체 시 고정문 재현: " + i, x.wrong >= 0 && x.wrong < x.chunks.length && x.a >= 0 && x.a < x.opts.length && new Set(x.opts).size === x.opts.length && rebuilt === x.fixed && !!x.why); });
+  const pools = { clinic: byId2(data.CLINIC), builder: byId2(data.BUILDER_MCQ), chunk: byId2(data.CHUNKS), paraphrase: byId2(d2.PARAPHRASE) };
+  const ords = { builder: byId2(data.BUILDER_ORDER), para: byId2(data.PARA) };
+  const resolveStep = ([kind, pool, id]) => kind === "step" ? !!ST[id] : kind === "mcq" ? !!pools[pool] && !!pools[pool][id] : !!ords[pool] && !!ords[pool][id];
+  data.WEEKS[0].lessons.forEach(l => {
+    check("1주차 레슨 steps 5단계 이상: " + l.id, Array.isArray(l.steps) && l.steps.length >= 5, l.steps && l.steps.length);
+    (l.steps || []).forEach(st => check("단계 참조 유효: " + l.id + " / " + st.join("/"), resolveStep(st)));
+    check("1주차 레슨 재현형 단계 4개 이상: " + l.id, (l.steps || []).filter(st => st[0] === "step").length >= 4);
+  });
 }
 console.log("\n" + pass + " passed, " + fail + " failed");
 process.exit(fail ? 1 : 0);

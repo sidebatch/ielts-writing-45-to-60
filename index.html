@@ -84,6 +84,17 @@ h1 .grad{background:linear-gradient(90deg,var(--brand),var(--brand2));-webkit-ba
 .sent.picked{border-color:var(--brand);background:#eef2ff}
 .sent.right{border-color:var(--ok);background:#ecfdf5}
 .sent.wrongb{border-color:var(--bad);background:#fef2f2}
+.fchunk{display:inline-block;border:2px solid var(--line);background:#fff;border-radius:10px;padding:7px 11px;margin:3px 2px;font-size:16.5px;cursor:pointer;line-height:1.4}
+.fchunk:hover{border-color:#c7c2ea}
+.fchunk.hit{border-color:var(--amber);background:#fffbeb}
+.fchunk.bad{border-color:var(--bad);background:#fef2f2;opacity:.65}
+.fchunk.fixed{border-color:var(--ok);background:#ecfdf5;font-weight:700}
+.fillin{display:inline-block;width:170px;max-width:60vw;border:0;border-bottom:3px solid var(--brand);background:#eef2ff;border-radius:8px 8px 0 0;padding:6px 10px;font-size:16.5px;font-family:inherit;text-align:center;color:var(--ink)}
+.fillin:focus{outline:none;background:#e0e7ff}
+.cmp{border-radius:12px;padding:12px 14px;margin:8px 0;font-size:15.5px;line-height:1.6}
+.cmp.mine{background:#fffbeb;border:1px solid #fde68a}
+.cmp.orig{background:#eef2ff;border:1px solid #c7d2fe}
+.cmp b.lab{display:block;font-size:12.5px;letter-spacing:.06em;margin-bottom:3px}
 .prog{font-size:13px;color:var(--sub);font-weight:700}
 textarea{width:100%;min-height:260px;border:2px solid var(--line);border-radius:14px;padding:14px;font-size:16px;line-height:1.7;font-family:inherit;resize:vertical}
 textarea:focus{outline:none;border-color:var(--brand)}
@@ -126,7 +137,7 @@ footer{text-align:center;color:#595959;font-size:12.5px;padding:18px 0 4px}
 <p class="sub">단어를 더 외우는 앱이 아니에요. 4.5와 6.0의 차이는 <b>의미가 막히는 오류가 없는가</b>, <b>복문을 안정적으로 쓰는가</b>, <b>문단에 뼈대가 있는가</b> — 딱 이 세 가지에서 갈립니다.</p>
 </header>
 <main id="app"></main>
-<footer>Band Jump v1.18.0 · 하루 한 레슨, 8주 코스 · 진단 결과는 시작점 안내용이며 실제 시험 점수를 보장하지 않습니다 · 진도는 이 기기에만 저장됩니다</footer>
+<footer>Band Jump v2.0.0 · 하루 한 레슨, 8주 코스 · 진단 결과는 시작점 안내용이며 실제 시험 점수를 보장하지 않습니다 · 진도는 이 기기에만 저장됩니다</footer>
 </div>
 <nav aria-label="주요 메뉴"><div class="inner">
 <button data-nav="home" class="on" aria-current="page"><span aria-hidden="true">🏠</span>홈</button>
@@ -398,13 +409,39 @@ const ASSEMBLY=[
 "In conclusion, online shopping is a positive development overall because its convenience and wider choice benefit most consumers.",
 "However, governments should support small local businesses and reduce delivery waste, so that this growth does not harm local communities."]}
 ];
+
+const STEP={
+r1:{t:"repro",en:"Many students study abroad.",ko:"많은 학생이 유학을 갑니다.",tokens:["Many students","study","abroad."],pat:"주어 + 동사 + 목적어"},
+r2:{t:"repro",en:"Education changes lives.",ko:"교육은 삶을 바꿉니다.",tokens:["Education","changes","lives."],pat:"주어 + 동사 + 목적어"},
+r3:{t:"repro",en:"Online learning helps many students.",ko:"온라인 학습은 많은 학생에게 도움이 됩니다.",tokens:["Online learning","helps","many students."],pat:"주어 + 동사 + 목적어"},
+r4:{t:"repro",en:"Although it is expensive, many people buy smartphones.",ko:"비싸지만, 많은 사람이 스마트폰을 삽니다.",tokens:["Although it is expensive,","many people","buy","smartphones."],pat:"Although 절, + 주절"},
+r5:{t:"repro",en:"When children play outside, they develop social skills.",ko:"아이들은 밖에서 놀 때 사회성을 기릅니다.",tokens:["When children play outside,","they","develop","social skills."],pat:"When 절, + 결과"},
+r6:{t:"repro",en:"Online learning is flexible, and it saves time.",ko:"온라인 학습은 유연하고, 시간을 절약해 줍니다.",tokens:["Online learning is flexible,","and","it saves","time."],pat:"절, and + 절"},
+r7:{t:"repro",en:"Pollution increased, so the government introduced new laws.",ko:"오염이 심해져서 정부가 새 법을 도입했습니다.",tokens:["Pollution increased,","so","the government","introduced","new laws."],pat:"원인, so + 결과"},
+r8:{t:"repro",en:"Every student has to wear a uniform.",ko:"모든 학생은 교복을 입어야 합니다.",tokens:["Every student","has to","wear","a uniform."],pat:"Every + 단수명사 + has"},
+r9:{t:"repro",en:"The number of visitors grows every summer.",ko:"방문객 수가 매년 여름 늘어납니다.",tokens:["The number of visitors","grows","every summer."],pat:"The number of + 복수명사 + 단수동사"},
+r10:{t:"repro",en:"This policy will help reduce crime.",ko:"이 정책은 범죄를 줄이는 데 도움이 될 것입니다.",tokens:["This policy","will help","reduce","crime."],pat:"will + 동사원형"},
+r11:{t:"repro",en:"In the past, people sent letters to communicate.",ko:"과거에 사람들은 편지로 소통했습니다.",tokens:["In the past,","people","sent letters","to communicate."],pat:"과거 신호 → 과거형"},
+f1:{t:"fill",pre:"Regular exercise",post:"health.",ans:["improves"],hint:"뜻: 향상시키다 · 첫 글자 i",full:"Regular exercise improves health.",why:"주어 Regular exercise는 단수예요. 동사에 -s가 붙은 improves가 와야 합니다. 남이 고른 게 아니라 직접 떠올려 쓴 단어가 오래 남습니다."},
+f2:{t:"fill",pre:"",post:"the weather was bad, the flights were cancelled.",ans:["Because","because"],hint:"이유를 이끄는 말 · 첫 글자 B",full:"Because the weather was bad, the flights were cancelled.",why:"문장 맨 앞에서 이유를 이끌 때는 Because + 절, 콤마, 주절 순서예요."},
+f3:{t:"fill",pre:"Regular exercise improves health,",post:"many people join gyms.",ans:["so"],hint:"결과를 잇는 말 · 두 글자",full:"Regular exercise improves health, so many people join gyms.",why:"원인 뒤에 결과를 이을 때는 콤마 + so예요. because와 방향이 반대입니다."},
+f4:{t:"fill",pre:"There",post:"many advantages to living in a city.",ans:["are"],hint:"뒤에 오는 명사가 복수예요",full:"There are many advantages to living in a city.",why:"There 뒤 명사(advantages)가 복수면 be동사도 are. 뒤를 보고 결정하는 습관이 중요해요."},
+f5:{t:"fill",pre:"If governments invest in schools, children",post:"better jobs.",ans:["will get","get"],hint:"if 절의 결과 자리예요",full:"If governments invest in schools, children will get better jobs.",why:"if 절이 현재형이면 결과는 will + 동사원형이 기본이에요. 언제나 성립하는 일반 사실로 말할 때는 현재형 get도 가능합니다."},
+f6:{t:"fill",pre:"",post:"it is expensive, many people buy smartphones.",ans:["Although","although"],hint:"양보를 이끄는 말 · 첫 글자 A",full:"Although it is expensive, many people buy smartphones.",why:"'비싸지만'이라는 양보는 Although예요. 이 한 단어로 문장의 깊이가 달라집니다."},
+x1:{t:"fix",chunks:["Is","important","to exercise","regularly."],wrong:0,opts:["It is","There is","Is"],a:0,fixed:"It is important to exercise regularly.",why:"영어 문장에는 주어가 꼭 필요해요. 내용이 뒤에 있을 때는 형식주어 It으로 시작합니다."},
+x2:{t:"fix",chunks:["Although","it is expensive."],wrong:1,opts:["it is expensive, many people buy smartphones.","it is expensive.","it is expensive so it is very good."],a:0,fixed:"Although it is expensive, many people buy smartphones.",why:"Although 절은 혼자 끝낼 수 없어요. 마침표가 아니라 콤마 뒤에 주절이 이어져야 문장이 완성됩니다."},
+x3:{t:"fix",chunks:["Many people use smartphones","they are","useful in daily life."],wrong:0,opts:["Many people use smartphones because","Many people use smartphones and phones","People use smartphones"],a:0,fixed:"Many people use smartphones because they are useful in daily life.",why:"두 문장을 연결 없이 붙이면 run-on 오류예요. because로 이유를 이어 붙이는 게 가장 자연스럽습니다."},
+x4:{t:"fix",chunks:["The number of students","increase","every year."],wrong:1,opts:["increases","increase","are increasing"],a:0,fixed:"The number of students increases every year.",why:"of 뒤 students에 속지 마세요. 진짜 주어는 number(단수)라서 increases입니다."},
+x5:{t:"fix",chunks:["One of the main reasons","are","cost."],wrong:1,opts:["is","are","were being"],a:0,fixed:"One of the main reasons is cost.",why:"주어는 reasons가 아니라 One(단수)이에요. 그래서 is를 씁니다."},
+x6:{t:"fix",chunks:["In the past,","people","sends","letters."],wrong:2,opts:["sent","sends","send yesterday"],a:0,fixed:"In the past, people sent letters.",why:"'In the past'라는 신호가 있으면 동사는 과거형 sent예요. 시제는 신호를 보고 맞춥니다."}
+};
 const WEEKS=[
 {w:1,title:"문장 기초 — 의미가 막히지 않게",desc:"4.5의 가장 큰 특징은 '읽다가 막히는 문장'이에요. 1주차는 문장의 뼈대부터 세웁니다.",lessons:[
-{id:"w1d1",title:"모든 문장은 주어 + 동사로 시작해요",pat:"주어 + 동사 (+ 목적어)",models:[["Education changes lives.","교육은 삶을 바꿉니다."],["Many students study abroad.","많은 학생이 유학을 갑니다."],["Technology has improved our daily lives.","기술은 우리의 일상을 향상시켰습니다."]],note:"한국어는 주어를 생략해도 되지만 영어는 안 돼요. 문장을 시작할 때 '누가/무엇이 + 무엇을 한다'가 박혀 있는지부터 확인하는 습관이 6.0의 출발점입니다.",ex:[["mcq","clinic","c17"],["mcq","clinic","c7"],["mcq","clinic","c2"],["order","builder","b13"]]},
-{id:"w1d2",title:"문장을 중간에 끊지 않기",pat:"Although / Because 절 + 주절 = 한 문장",models:[["Although it is expensive, many people buy smartphones.","비싸지만, 많은 사람이 스마트폰을 삽니다."],["He studied hard because he wanted to pass the exam.","그는 시험에 합격하고 싶어서 열심히 공부했습니다."],["When children play outside, they develop social skills.","아이들은 밖에서 놀 때 사회성을 기릅니다."]],note:"because나 although로 시작한 덩어리는 혼자 서 있을 수 없어요. 반드시 주절(완전한 문장)과 한 몸이어야 합니다. 이 오류 하나로 문장 전체가 '미완성'이 됩니다.",ex:[["mcq","clinic","c6"],["mcq","clinic","c22"],["mcq","clinic","c1"],["order","builder","b14"]]},
-{id:"w1d3",title:"두 문장을 붙이는 법",pat:"절, and/so + 절 · 절 + because + 절",models:[["Online learning is flexible, and it saves time.","온라인 학습은 유연하고, 시간을 절약해 줍니다."],["Pollution increased, so the government introduced new laws.","오염이 심해져서 정부가 새 법을 도입했습니다."],["Regular exercise improves health, so many people join gyms.","규칙적인 운동은 건강을 좋게 해서 많은 사람이 헬스장에 등록합니다."]],note:"생각 두 개를 문장 하나로 잇는 데는 딱 두 가지 방법뿐이에요: 연결사(and/so)를 쓰거나, because 같은 접속사로 한쪽을 붙이거나. 콤마만으로는 못 잇습니다.",ex:[["mcq","clinic","c9"],["mcq","builder","b6"],["order","builder","b17"],["mcq","clinic","c16"]]},
-{id:"w1d4",title:"주어와 동사는 짝을 맞춰요",pat:"단수 주어 → 단수 동사 (has / is / increases)",models:[["The number of students increases every year.","학생 수가 매년 증가합니다."],["Every student has to wear a uniform.","모든 학생은 교복을 입어야 합니다."],["There are many advantages to living in a city.","도시에 사는 것에는 장점이 많습니다."]],note:"of 뒤 명사에 속지 마세요. 진짜 주어가 단수인지 복수인지가 동사를 결정합니다. 채점관이 가장 먼저 눈으로 훑는 기본기예요.",ex:[["mcq","clinic","c2"],["mcq","clinic","c7"],["mcq","clinic","c12"],["mcq","clinic","c20"]]},
-{id:"w1d5",title:"시제와 will — 동사 모양 지키기",pat:"will + 동사원형 · 과거 신호 → 과거형",models:[["This policy will help reduce crime.","이 정책은 범죄를 줄이는 데 도움이 될 것입니다."],["In the past, people sent letters to communicate.","과거에 사람들은 편지로 소통했습니다."],["If governments invest in schools, children get better jobs.","정부가 학교에 투자하면 아이들이 더 좋은 직업을 얻습니다."]],note:"will 뒤에는 어떤 상황에서도 동사원형. 그리고 'In the past' 같은 신호가 보이면 그 문단은 전부 과거형으로 통일하세요.",ex:[["mcq","clinic","c3"],["mcq","clinic","c8"],["mcq","clinic","c13"],["mcq","builder","b4"]]}
+{id:"w1d1",title:"모든 문장은 주어 + 동사로 시작해요",pat:"주어 + 동사 (+ 목적어)",models:[["Education changes lives.","교육은 삶을 바꿉니다."],["Many students study abroad.","많은 학생이 유학을 갑니다."],["Technology has improved our daily lives.","기술은 우리의 일상을 향상시켰습니다."]],note:"한국어는 주어를 생략해도 되지만 영어는 안 돼요. 문장을 시작할 때 '누가/무엇이 + 무엇을 한다'가 박혀 있는지부터 확인하는 습관이 6.0의 출발점입니다.",ex:[["mcq","clinic","c17"],["mcq","clinic","c7"],["mcq","clinic","c2"],["order","builder","b13"]],steps:[["step","step","r1"],["step","step","r2"],["step","step","x1"],["step","step","f1"],["step","step","r3"]]},
+{id:"w1d2",title:"문장을 중간에 끊지 않기",pat:"Although / Because 절 + 주절 = 한 문장",models:[["Although it is expensive, many people buy smartphones.","비싸지만, 많은 사람이 스마트폰을 삽니다."],["He studied hard because he wanted to pass the exam.","그는 시험에 합격하고 싶어서 열심히 공부했습니다."],["When children play outside, they develop social skills.","아이들은 밖에서 놀 때 사회성을 기릅니다."]],note:"because나 although로 시작한 덩어리는 혼자 서 있을 수 없어요. 반드시 주절(완전한 문장)과 한 몸이어야 합니다. 이 오류 하나로 문장 전체가 '미완성'이 됩니다.",ex:[["mcq","clinic","c6"],["mcq","clinic","c22"],["mcq","clinic","c1"],["order","builder","b14"]],steps:[["step","step","r4"],["step","step","x2"],["step","step","r5"],["step","step","f6"],["order","builder","b13"]]},
+{id:"w1d3",title:"두 문장을 붙이는 법",pat:"절, and/so + 절 · 절 + because + 절",models:[["Online learning is flexible, and it saves time.","온라인 학습은 유연하고, 시간을 절약해 줍니다."],["Pollution increased, so the government introduced new laws.","오염이 심해져서 정부가 새 법을 도입했습니다."],["Regular exercise improves health, so many people join gyms.","규칙적인 운동은 건강을 좋게 해서 많은 사람이 헬스장에 등록합니다."]],note:"생각 두 개를 문장 하나로 잇는 데는 딱 두 가지 방법뿐이에요: 연결사(and/so)를 쓰거나, because 같은 접속사로 한쪽을 붙이거나. 콤마만으로는 못 잇습니다.",ex:[["mcq","clinic","c9"],["mcq","builder","b6"],["order","builder","b17"],["mcq","clinic","c16"]],steps:[["step","step","r6"],["step","step","r7"],["step","step","f3"],["step","step","x3"],["order","builder","b17"]]},
+{id:"w1d4",title:"주어와 동사는 짝을 맞춰요",pat:"단수 주어 → 단수 동사 (has / is / increases)",models:[["The number of students increases every year.","학생 수가 매년 증가합니다."],["Every student has to wear a uniform.","모든 학생은 교복을 입어야 합니다."],["There are many advantages to living in a city.","도시에 사는 것에는 장점이 많습니다."]],note:"of 뒤 명사에 속지 마세요. 진짜 주어가 단수인지 복수인지가 동사를 결정합니다. 채점관이 가장 먼저 눈으로 훑는 기본기예요.",ex:[["mcq","clinic","c2"],["mcq","clinic","c7"],["mcq","clinic","c12"],["mcq","clinic","c20"]],steps:[["step","step","x4"],["step","step","r8"],["step","step","f4"],["step","step","x5"],["step","step","r9"]]},
+{id:"w1d5",title:"시제와 will — 동사 모양 지키기",pat:"will + 동사원형 · 과거 신호 → 과거형",models:[["This policy will help reduce crime.","이 정책은 범죄를 줄이는 데 도움이 될 것입니다."],["In the past, people sent letters to communicate.","과거에 사람들은 편지로 소통했습니다."],["If governments invest in schools, children get better jobs.","정부가 학교에 투자하면 아이들이 더 좋은 직업을 얻습니다."]],note:"will 뒤에는 어떤 상황에서도 동사원형. 그리고 'In the past' 같은 신호가 보이면 그 문단은 전부 과거형으로 통일하세요.",ex:[["mcq","clinic","c3"],["mcq","clinic","c8"],["mcq","clinic","c13"],["mcq","builder","b4"]],steps:[["step","step","r10"],["step","step","x6"],["step","step","f5"],["step","step","r11"],["mcq","clinic","c8"]]}
 ]},
 {w:2,title:"이유·결과로 문장 키우기",desc:"단문만으로는 5.0을 넘기 어려워요. 2주차는 가장 안전하고 자주 쓰는 확장 4종을 몸에 붙입니다.",lessons:[
 {id:"w2d1",title:"이유 붙이기 — because",pat:"주장 + because + 이유 (완전한 문장)",models:[["Many students study abroad because they want an international experience.","많은 학생이 국제 경험을 원해서 유학을 갑니다."],["Online courses are popular because they are flexible and affordable.","온라인 강의는 유연하고 저렴해서 인기가 많습니다."],["People exercise regularly because they want to stay healthy.","사람들은 건강을 유지하고 싶어서 규칙적으로 운동합니다."]],note:"because 뒤에는 '주어+동사'가 있는 완전한 이유가 와야 해요. 에세이 본문의 모든 근거는 사실상 because 문장의 변형입니다.",ex:[["mcq","builder","b1"],["order","builder","b13"],["order","builder","b16"],["mcq","clinic","c22"]]},
@@ -471,7 +508,7 @@ function recordResult(pool,id,correct){
   touchDay();save();
 }
 function dueReviews(){const now=Date.now();return Object.keys(S.review).filter(k=>S.review[k].due<=now)}
-function exFromKey(k){const[pool,id]=k.split(":");if(MCQ[pool]&&MCQ[pool][id])return["mcq",pool,id];if(ORD[pool]&&ORD[pool][id])return pool==="para"?["para",pool,id]:["order",pool,id];return null}
+function exFromKey(k){const[pool,id]=k.split(":");if(pool==="step"&&STEP[id])return["step","step",id];if(MCQ[pool]&&MCQ[pool][id])return["mcq",pool,id];if(ORD[pool]&&ORD[pool][id])return pool==="para"?["para",pool,id]:["order",pool,id];return null}
 function mastery(pool){const items=pool==="builder"?BUILDER_MCQ.concat(BUILDER_ORDER):(MCQ[pool]?Object.values(MCQ[pool]):Object.values(ORD[pool]||{}));let ok=0;items.forEach(it=>{const r=S.res[pool+":"+it.id];if(r&&r.r===1)ok++});return{ok,total:items.length}}
 function allLessons(){const out=[];WEEKS.forEach(w=>w.lessons.forEach(l=>out.push({w:w.w,l})));return out}
 function nextLesson(){return allLessons().find(x=>x.l.ready!==false&&!S.lessons[x.l.id])||allLessons().find(x=>x.l.ready!==false)}
@@ -497,6 +534,7 @@ function renderExercise(){
   if(kind==="mcq")renderMCQ(head,pool,MCQ[pool][id]);
   else if(kind==="order")renderOrder(head,ORD[pool][id].tokens,"order",pool,id);
   else if(kind==="para"){const p=ORD.para[id];renderPara(head,p)}
+  else if(kind==="step")renderStep(head,STEP[id]);
 }
 function finishExercise(correct){
   const[kind,pool,id]=SES.exercises[SES.i];
@@ -533,6 +571,81 @@ function renderMCQ(head,pool,item){
     if(!correct)b.classList.add("wrong");
     document.getElementById("fb").innerHTML='<div class="why '+(correct?"ok":"no")+'"><b>'+(correct?"정답이에요.":"아쉬워요. 정답을 확인하세요.")+"</b><br>"+esc(item.why||"")+(item.pat?'<div class="pattern">🔑 '+esc(item.pat)+"</div>":"")+(item.ko?'<div class="pattern">🔑 '+esc(item.ko)+"</div>":"")+'</div><button class="btn" id="nextBtn">'+(SES.i+1>=SES.exercises.length?"결과 보기":"다음 문제")+"</button>";
     document.getElementById("nextBtn").onclick=()=>finishExercise(correct);
+  });
+}
+
+function renderStep(head,item){
+  if(item.t==="repro")renderRepro(head,item);
+  else if(item.t==="fill")renderFill(head,item);
+  else if(item.t==="fix")renderFix(head,item);
+}
+function nextBtnHTML(){return '<button class="btn" id="nextBtn">'+(SES.i+1>=SES.exercises.length?"결과 보기":"다음")+"</button>"}
+function renderRepro(head,item){
+  const tokens=item.tokens;
+  let html=head+'<div class="card"><span class="tag rose">재현 — 보고, 가리고, 다시 만들기</span><div class="q">이 문장을 잘 읽어두세요. 외우라는 게 아니라, 모양을 눈에 담는 거예요.</div><div class="qen">'+esc(item.en)+'<div style="color:var(--sub);font-size:14px;margin-top:4px">'+esc(item.ko)+'</div></div><button class="btn" id="hideBtn">가리고 직접 만들기</button></div>';
+  app.innerHTML=html;window.scrollTo(0,0);
+  document.getElementById("hideBtn").onclick=()=>{
+    let picked=[];const reproOrder=shuffle(item.tokens.map((t,i)=>i));
+    const draw=()=>{
+      const used=new Set(picked);
+      let h=head+'<div class="card"><span class="tag rose">재현 — 다시 만들기</span><div class="q">방금 본 문장을 조각으로 다시 만들어보세요</div><div class="built">'+(picked.length?esc(picked.map(i=>tokens[i]).join(" ")):'<span class="small">여기에 문장이 조립됩니다</span>')+'</div><div class="chips">';
+      reproOrder.forEach(i=>{if(!used.has(i))h+='<button class="chip" data-i="'+i+'">'+esc(tokens[i])+"</button>"});
+      h+='</div><div class="btnrow"><button class="btn ghost" id="undoBtn">되돌리기</button><button class="btn" id="chkBtn" '+(picked.length===tokens.length?"":"disabled")+">원본과 비교하기</button></div>"+'<div id="fb"></div></div>';
+      app.innerHTML=h;
+      app.querySelectorAll(".chip").forEach(c=>c.onclick=()=>{picked.push(+c.dataset.i);draw()});
+      const u=document.getElementById("undoBtn");if(u)u.onclick=()=>{picked.pop();draw()};
+      const k=document.getElementById("chkBtn");if(k)k.onclick=()=>{
+        const mine=picked.map(i=>tokens[i]).join(" ");
+        const correct=mine===item.en;
+        lockPickers();
+        document.getElementById("fb").innerHTML=(correct
+          ?'<div class="why ok"><b>원본과 똑같아요. 방금 이 문장을 머릿속에서 꺼내 만든 거예요 — 그게 실력이에요.</b></div>'
+          :'<div class="cmp mine"><b class="lab">내가 만든 문장</b>'+esc(mine)+'</div><div class="cmp orig"><b class="lab">원본</b>'+esc(item.en)+'</div><div class="why no"><b>어디가 달랐는지 눈으로 확인하세요. 이 차이를 보는 게 재현 훈련의 핵심이에요.</b></div>')
+          +(item.pat?'<div class="pattern">🔑 '+esc(item.pat)+"</div>":"")+nextBtnHTML();
+        document.getElementById("nextBtn").onclick=()=>finishExercise(correct);
+      };
+    };draw();
+  };
+}
+function renderFill(head,item){
+  let html=head+'<div class="card"><span class="tag amber">회상 — 직접 떠올려 쓰기</span><div class="q">빈칸에 들어갈 말을 직접 타이핑하세요. 고르는 게 아니라 떠올리는 겁니다</div><div class="qen" style="font-size:17px;line-height:2">'+esc(item.pre)+(item.pre?" ":"")+'<input class="fillin" id="fillIn" autocomplete="off" autocapitalize="off" spellcheck="false" aria-label="빈칸 입력"> '+esc(item.post)+'</div><p class="small">힌트: '+esc(item.hint)+'</p><button class="btn" id="chkBtn">확인</button><div id="fb"></div></div>';
+  app.innerHTML=html;window.scrollTo(0,0);
+  const inp=document.getElementById("fillIn");const chkBtn=document.getElementById("chkBtn");inp.focus();
+  const norm=v=>v.toLowerCase().trim().replace(/\s+/g," ").replace(/\.$/,"");
+  const check=()=>{
+    if(document.getElementById("nextBtn"))return;
+    const correct=item.ans.some(a=>norm(a)===norm(inp.value));
+    inp.disabled=true;chkBtn.disabled=true;
+    document.getElementById("fb").innerHTML='<div class="why '+(correct?"ok":"no")+'"><b>'+(correct?"떠올려냈어요. 직접 쓴 단어는 고른 단어보다 오래 남습니다.":"아쉬워요. 정답은 이거예요 — 소리 내어 한 번 읽어보세요.")+'</b><br><span class="qen" style="display:block">'+esc(item.full)+"</span>"+esc(item.why)+"</div>"+nextBtnHTML();
+    document.getElementById("nextBtn").onclick=()=>finishExercise(correct);
+  };
+  chkBtn.onclick=check;
+  inp.addEventListener("keydown",e=>{if(e.key==="Enter")check()});
+}
+function renderFix(head,item){
+  let firstTap=null,donePick=false;
+  let html=head+'<div class="card"><span class="tag teal">고치기 — 어색한 덩어리 찾기</span><div class="q">이 문장에는 어색한 덩어리가 하나 있어요. 탭해서 찾아보세요</div><div class="qen" id="fixZone">';
+  item.chunks.forEach((c,i)=>{html+='<button class="fchunk" data-i="'+i+'">'+esc(c)+"</button>"});
+  html+='</div><div id="fixOpts"></div><div id="fb"></div></div>';
+  app.innerHTML=html;window.scrollTo(0,0);
+  app.querySelectorAll(".fchunk").forEach(b=>b.onclick=()=>{
+    if(donePick)return;const i=+b.dataset.i;
+    if(i!==item.wrong){if(firstTap===null)firstTap=false;b.classList.add("bad");b.disabled=true;const fb=document.getElementById("fb");fb.innerHTML='<div class="why ok" style="background:#fffbeb;border-color:#fde68a"><b>거긴 괜찮아요.</b> 다른 덩어리를 보세요.</div>';return}
+    if(firstTap===null)firstTap=true;
+    b.classList.add("hit");
+    app.querySelectorAll(".fchunk").forEach(x=>x.disabled=true);
+    let oh='<div class="q" style="margin-top:12px">찾았어요. 이 덩어리를 무엇으로 바꾸면 문장이 완성될까요?</div>';
+    shuffle(item.opts.map((o,oi)=>({o,oi}))).forEach(({o,oi})=>{oh+='<button class="opt" data-i="'+oi+'">'+esc(o)+"</button>"});
+    document.getElementById("fixOpts").innerHTML=oh;
+    app.querySelectorAll("#fixOpts .opt").forEach(ob=>ob.onclick=()=>{
+      if(donePick)return;donePick=true;const pick=+ob.dataset.i;
+      app.querySelectorAll("#fixOpts .opt").forEach(x=>{x.disabled=true;if(+x.dataset.i===item.a)x.classList.add("correct")});
+      if(pick!==item.a)ob.classList.add("wrong");
+      const correct=firstTap===true&&pick===item.a;
+      b.classList.remove("hit");b.classList.add("fixed");b.textContent=item.opts[item.a];
+      document.getElementById("fb").innerHTML='<div class="why '+(correct?"ok":"no")+'"><b>'+(correct?"찾아서 고쳤어요. 남의 문장을 고치는 눈이 생기면, 내 문장의 오류도 보이기 시작합니다.":"고치긴 했어요. 정답 흐름을 확인하세요.")+'</b><br><span class="qen" style="display:block">'+esc(item.fixed)+"</span>"+esc(item.why)+"</div>"+nextBtnHTML();
+      document.getElementById("nextBtn").onclick=()=>finishExercise(correct);
+    });
   });
 }
 function renderOrder(head,tokens,kind,pool,id){
@@ -650,10 +763,10 @@ function startLesson(id){
   const f=findLesson(id);if(!f)return;const{w,l}=f;
   let html='<button class="back" onclick="go(\'train\')">‹ 코스</button><div class="card"><span class="tag">'+w+'주차 레슨</span><h2>'+esc(l.title)+'</h2><p class="small" style="margin-bottom:10px">먼저 모델 문장 3개를 읽어보세요. 문장을 탭하면(키보드는 Enter) 뜻이 보입니다. 규칙은 아직 몰라도 돼요 — 공통된 모양이 눈에 들어오는지 느껴보세요.</p>';
   l.models.forEach(m=>{html+='<div class="qen" role="button" tabindex="0" data-kb aria-expanded="false" aria-label="모델 문장 뜻 보기" style="cursor:pointer" onclick="var k=this.querySelector(\'.ko\');k.classList.toggle(\'hidden\');this.setAttribute(\'aria-expanded\',k.classList.contains(\'hidden\')?\'false\':\'true\')">'+esc(m[0])+'<div class="ko hidden" style="color:var(--sub);font-size:14px;margin-top:4px">'+esc(m[1])+"</div></div>"});
-  html+='<div class="pattern">🔑 오늘의 패턴: <b>'+esc(l.pat)+'</b></div><p class="small" style="margin-top:10px;line-height:1.7">'+esc(l.note)+'</p><br><button class="btn" id="goEx">이제 문제로 확인하기 ('+l.ex.length+'문제)</button></div>';
+  const stepList=l.steps||l.ex;html+='<div class="pattern">🔑 오늘의 패턴: <b>'+esc(l.pat)+'</b></div><p class="small" style="margin-top:10px;line-height:1.7">'+esc(l.note)+'</p><br><button class="btn" id="goEx">'+(l.steps?'이제 직접 만들어보기':'이제 문제로 확인하기')+' ('+stepList.length+'단계)</button></div>';
   app.innerHTML=html;window.scrollTo(0,0);
   document.getElementById("goEx").onclick=()=>{
-    startSession(l.title,l.ex.map(e=>[e[0],e[1],e[2]]),(c,t)=>{
+    startSession(l.title,stepList.map(e=>[e[0],e[1],e[2]]),(c,t)=>{
       S.lessons[id]={score:c,total:t,at:Date.now()};save();
       renderLessonResult(id,c,t);
     });
