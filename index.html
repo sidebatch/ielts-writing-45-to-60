@@ -126,7 +126,7 @@ footer{text-align:center;color:#595959;font-size:12.5px;padding:18px 0 4px}
 <p class="sub">단어를 더 외우는 앱이 아니에요. 4.5와 6.0의 차이는 <b>의미가 막히는 오류가 없는가</b>, <b>복문을 안정적으로 쓰는가</b>, <b>문단에 뼈대가 있는가</b> — 딱 이 세 가지에서 갈립니다.</p>
 </header>
 <main id="app"></main>
-<footer>Band Jump v1.17.0 · 하루 한 레슨, 8주 코스 · 진단 결과는 시작점 안내용이며 실제 시험 점수를 보장하지 않습니다 · 진도는 이 기기에만 저장됩니다</footer>
+<footer>Band Jump v1.18.0 · 하루 한 레슨, 8주 코스 · 진단 결과는 시작점 안내용이며 실제 시험 점수를 보장하지 않습니다 · 진도는 이 기기에만 저장됩니다</footer>
 </div>
 <nav aria-label="주요 메뉴"><div class="inner">
 <button data-nav="home" class="on" aria-current="page"><span aria-hidden="true">🏠</span>홈</button>
@@ -461,6 +461,7 @@ function touchDay(){const t=todayStr();if(!S.days.includes(t)){S.days.push(t);sa
 function esc(s){return String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;")}
 const app=document.getElementById("app");
 function shuffle(a){a=a.slice();for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]]}return a}
+function shuffledIdx(n){const o=shuffle(Array.from({length:n},(_,i)=>i));if(n>1&&o.every((v,i)=>v===i)){const t=o[0];o[0]=o[1];o[1]=t}return o}
 function recordResult(pool,id,correct){
   const k=pool+":"+id;const prev=S.res[k];
   S.res[k]={r:correct?1:0,tries:(prev?prev.tries:0)+1};
@@ -558,11 +559,12 @@ function renderOrder(head,tokens,kind,pool,id){
 }
 function renderPara(head,p){
   let picked=[];
+  const sentOrder=shuffledIdx(p.s.length);
   let first=true;
   const draw=()=>{
     const sy=window.scrollY;
-    let html=head+'<div class="card"><span class="tag amber">문단 조립 · '+esc(p.topic)+'</span><div class="q">문장을 탭한 순서대로 문단이 만들어집니다. 주제문부터 순서대로 골라보세요</div>';
-    p.s.forEach((s,i)=>{const idx=picked.indexOf(i);html+='<button class="sent'+(idx>=0?" picked":"")+'" data-i="'+i+'">'+(idx>=0?("<b>"+(idx+1)+".</b> "):"")+esc(s)+"</button>"});
+    let html=head+'<div class="card"><span class="tag amber">문단 조립 · '+esc(p.topic)+'</span><div class="q">문장은 일부러 섞어 두었어요. 탭한 순서대로 문단이 만들어지니, 주제문부터 순서대로 골라보세요</div>';
+    sentOrder.forEach(i=>{const s=p.s[i];const idx=picked.indexOf(i);html+='<button class="sent'+(idx>=0?" picked":"")+'" data-i="'+i+'">'+(idx>=0?("<b>"+(idx+1)+".</b> "):"")+esc(s)+"</button>"});
     html+='<div class="btnrow"><button class="btn ghost" id="rstBtn">처음부터</button><button class="btn" id="chkBtn" '+(picked.length===p.s.length?"":"disabled")+">확인</button></div>"+'<div id="fb" aria-live="polite"></div></div>';
     app.innerHTML=html;window.scrollTo(0,first?0:sy);first=false;
     app.querySelectorAll(".sent").forEach(b=>b.onclick=()=>{const i=+b.dataset.i;const at=picked.indexOf(i);if(at>=0)picked.splice(at,1);else picked.push(i);draw()});
@@ -699,11 +701,12 @@ function renderAssemblyList(){
 }
 function startAssembly(id){
   const a=ASSEMBLY.find(x=>x.id===id);let picked=[];
+  const sentOrder=shuffledIdx(a.s.length);
   let first=true;
   const draw=()=>{
     const sy=window.scrollY;
-    let html='<button class="back" onclick="go(\'write\')">‹ 에세이 조립</button><div class="card"><span class="tag teal">'+esc(a.type)+'</span><div class="qen">'+esc(a.q)+'</div><div class="q">문장을 순서대로 탭하세요. 서론 → 본문 1 → 본문 2 → 결론 순서입니다</div>';
-    a.s.forEach((s,i)=>{const idx=picked.indexOf(i);html+='<button class="sent'+(idx>=0?" picked":"")+'" data-i="'+i+'">'+(idx>=0?("<b>"+(idx+1)+".</b> "):"")+esc(s)+"</button>"});
+    let html='<button class="back" onclick="go(\'write\')">‹ 에세이 조립</button><div class="card"><span class="tag teal">'+esc(a.type)+'</span><div class="qen">'+esc(a.q)+'</div><div class="q">문장은 섞여 있어요. 서론 → 본문 1 → 본문 2 → 결론 순서로 문장을 탭하세요</div>';
+    sentOrder.forEach(i=>{const s=a.s[i];const idx=picked.indexOf(i);html+='<button class="sent'+(idx>=0?" picked":"")+'" data-i="'+i+'">'+(idx>=0?("<b>"+(idx+1)+".</b> "):"")+esc(s)+"</button>"});
     html+='<div class="btnrow"><button class="btn ghost" id="rstBtn">처음부터</button><button class="btn" id="chkBtn" '+(picked.length===a.s.length?"":"disabled")+">확인</button></div>"+'<div id="fb" aria-live="polite"></div></div>';
     app.innerHTML=html;window.scrollTo(0,first?0:sy);first=false;
     app.querySelectorAll(".sent").forEach(b=>b.onclick=()=>{const i=+b.dataset.i;const at=picked.indexOf(i);if(at>=0)picked.splice(at,1);else picked.push(i);draw()});

@@ -223,5 +223,30 @@ if (data.ASSEMBLY) {
   check("assembly completion state shows when all essays are done", html.includes("에세이 6편을 모두 조립했어요") && html.includes("ASSEMBLY.every(x=>S.asm[x.id]"));
   check("README documents assembly bottom navigation", readme.includes("조립을 확인한 뒤에는 화면 아래 버튼으로"));
 }
+// 17. 문단·에세이 조립 제시 순서 회귀 (6차 백로그 18): 문단 조립과 에세이 조립은 문장을 저장된 순서(=정답 순서) 그대로 보여줘서 위에서 아래로 탭하기만 하면 항상 만점이었다 — 문장은 문항당 한 번만 섞어 제시해야 하고(탭할 때마다 재배열 금지), 섞은 결과가 우연히 정답 순서와 같아서는 안 되며, 완성본 에세이는 원래 순서로 렌더링돼야 함
+{
+  check("shuffledIdx helper exists and guards against the identity order", html.includes("function shuffledIdx(n)") && html.includes("o.every((v,i)=>v===i)"));
+  const fnMatch = html.match(/function shuffle\(a\)\{[\s\S]*?\nfunction shuffledIdx\(n\)\{[\s\S]*?\n\}/);
+  check("shuffle+shuffledIdx extractable for simulation", !!fnMatch);
+  if (fnMatch) {
+    const shuffledIdx = new Function(fnMatch[0] + "; return shuffledIdx;")();
+    let permOk = true, identitySeen = false;
+    for (let trial = 0; trial < 300; trial++) {
+      const o = shuffledIdx(5);
+      if (o.length !== 5 || new Set(o).size !== 5 || o.some(v => v < 0 || v > 4)) permOk = false;
+      if (o.every((v, i) => v === i)) identitySeen = true;
+      const o16 = shuffledIdx(16);
+      if (o16.length !== 16 || new Set(o16).size !== 16) permOk = false;
+      if (o16.every((v, i) => v === i)) identitySeen = true;
+    }
+    check("shuffledIdx always returns a permutation (n=5 and n=16, 300 trials)", permOk);
+    check("shuffledIdx never returns the answer order itself", !identitySeen);
+  }
+  check("paragraph picker displays sentences in the shuffled order", html.includes("const sentOrder=shuffledIdx(p.s.length)") && html.includes("sentOrder.forEach(i=>{const s=p.s[i]"));
+  check("assembly picker displays sentences in the shuffled order", html.includes("const sentOrder=shuffledIdx(a.s.length)") && html.includes("sentOrder.forEach(i=>{const s=a.s[i]"));
+  check("assembly full model essay still renders in the original order", html.includes("a.s.forEach((s,i)=>{if(i===0||a.breaks.includes(i))"));
+  check("picker instructions disclose that sentences are shuffled", html.includes("문장은 일부러 섞어 두었어요") && html.includes("문장은 섞여 있어요"));
+  check("README documents shuffled sentence presentation", readme.includes("문단·에세이 조립의 문장은 섞어서 제시"));
+}
 console.log("\n" + pass + " passed, " + fail + " failed");
 process.exit(fail ? 1 : 0);
