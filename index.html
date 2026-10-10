@@ -141,7 +141,7 @@ footer{text-align:center;color:#595959;font-size:12.5px;padding:18px 0 4px}
 <p class="sub">단어를 더 외우는 앱이 아니에요. 4.5와 6.0의 차이는 <b>의미가 막히는 오류가 없는가</b>, <b>복문을 안정적으로 쓰는가</b>, <b>문단에 뼈대가 있는가</b> — 딱 이 세 가지에서 갈립니다.</p>
 </header>
 <main id="app"></main>
-<footer>Band Jump v2.1.0 · 하루 한 레슨, 8주 코스 · 진단 결과는 시작점 안내용이며 실제 시험 점수를 보장하지 않습니다 · 진도는 이 기기에만 저장됩니다</footer>
+<footer>Band Jump v2.1.1 · 하루 한 레슨, 8주 코스 · 진단 결과는 시작점 안내용이며 실제 시험 점수를 보장하지 않습니다 · 진도는 이 기기에만 저장됩니다</footer>
 </div>
 <nav aria-label="주요 메뉴"><div class="inner">
 <button data-nav="home" class="on" aria-current="page"><span aria-hidden="true">🏠</span>홈</button>
@@ -433,8 +433,8 @@ f4:{t:"fill",ko:"도시에 사는 것에는 장점이 많습니다.",pre:"There"
 f5:{t:"fill",ko:"정부가 학교에 투자하면 아이들은 더 좋은 직업을 얻을 것입니다.",pre:"If governments invest in schools, children",post:"better jobs.",ans:["will get","get"],hint:"if 절의 결과 자리예요",full:"If governments invest in schools, children will get better jobs.",why:"if 절이 현재형이면 결과는 will + 동사원형이 기본이에요. 언제나 성립하는 일반 사실로 말할 때는 현재형 get도 가능합니다."},
 f6:{t:"fill",ko:"비싸지만 많은 사람이 스마트폰을 삽니다.",pre:"",post:"it is expensive, many people buy smartphones.",ans:["Although","although"],hint:"양보를 이끄는 말 · 첫 글자 A",full:"Although it is expensive, many people buy smartphones.",why:"'비싸지만'이라는 양보는 Although예요. 이 한 단어로 문장의 깊이가 달라집니다."},
 x1:{t:"fix",ko:"규칙적으로 운동하는 것은 중요합니다.",chunks:["Is","important","to exercise","regularly."],wrong:0,opts:["It is","There is","Is"],a:0,fixed:"It is important to exercise regularly.",why:"영어 문장에는 주어가 꼭 필요해요. 내용이 뒤에 있을 때는 형식주어 It으로 시작합니다."},
-x2:{t:"fix",ko:"비싸지만 많은 사람이 스마트폰을 삽니다.",chunks:["Although","it is expensive."],wrong:1,opts:["it is expensive, many people buy smartphones.","it is expensive.","it is expensive so it is very good."],a:0,fixed:"Although it is expensive, many people buy smartphones.",why:"Although 절은 혼자 끝낼 수 없어요. 마침표가 아니라 콤마 뒤에 주절이 이어져야 문장이 완성됩니다."},
-x3:{t:"fix",ko:"스마트폰은 일상생활에 유용해서 많은 사람이 사용합니다.",chunks:["Many people use smartphones","they are","useful in daily life."],wrong:0,opts:["Many people use smartphones because","Many people use smartphones and phones","People use smartphones"],a:0,fixed:"Many people use smartphones because they are useful in daily life.",why:"두 문장을 연결 없이 붙이면 run-on 오류예요. because로 이유를 이어 붙이는 게 가장 자연스럽습니다."},
+x2:{t:"fix",ko:"비싸지만 많은 사람이 스마트폰을 삽니다.",lead:"소리 내어 읽어보세요: \"비싸지만.\" — 뭔가 더 나올 것 같은데 끝나버리죠? Although로 시작한 덩어리는 혼자 문장이 될 수 없어요. 문장을 잘못 끝내버린 덩어리를 찾아보세요.",chunks:["Although","it is expensive."],wrong:1,opts:["it is expensive, many people buy smartphones.","it is expensive.","it is expensive so it is very good."],a:0,fixed:"Although it is expensive, many people buy smartphones.",why:"Although 절은 혼자 끝낼 수 없어요. 마침표가 아니라 콤마 뒤에 주절이 이어져야 문장이 완성됩니다."},
+x3:{t:"fix",ko:"스마트폰은 일상생활에 유용해서 많은 사람이 사용합니다.",lead:"이 문장은 두 문장이 이어주는 말 없이 그냥 붙어버렸어요. 읽다가 숨이 막히는 그 붙인 자리를 고쳐야 합니다. 어느 덩어리를 바꾸면 될까요?",chunks:["Many people use smartphones","they are","useful in daily life."],wrong:0,opts:["Many people use smartphones because","Many people use smartphones and phones","People use smartphones"],a:0,fixed:"Many people use smartphones because they are useful in daily life.",why:"두 문장을 연결 없이 붙이면 run-on 오류예요. because로 이유를 이어 붙이는 게 가장 자연스럽습니다."},
 x4:{t:"fix",ko:"학생 수가 매년 늘어납니다.",chunks:["The number of students","increase","every year."],wrong:1,opts:["increases","increase","are increasing"],a:0,fixed:"The number of students increases every year.",why:"of 뒤 students에 속지 마세요. 진짜 주어는 number(단수)라서 increases입니다."},
 x5:{t:"fix",ko:"주된 이유 중 하나는 비용입니다.",chunks:["One of the main reasons","are","cost."],wrong:1,opts:["is","are","were being"],a:0,fixed:"One of the main reasons is cost.",why:"주어는 reasons가 아니라 One(단수)이에요. 그래서 is를 씁니다."},
 x6:{t:"fix",ko:"과거에 사람들은 편지를 보냈습니다.",chunks:["In the past,","people","sends","letters."],wrong:2,opts:["sent","sends","send yesterday"],a:0,fixed:"In the past, people sent letters.",why:"'In the past'라는 신호가 있으면 동사는 과거형 sent예요. 시제는 신호를 보고 맞춥니다."}
@@ -628,7 +628,7 @@ function renderFill(head,item){
 }
 function renderFix(head,item){
   let firstTap=null,donePick=false;
-  let html=head+'<div class="card"><span class="tag teal">고치기 — 어색한 덩어리 찾기</span><div class="q">이 문장에는 어색한 덩어리가 하나 있어요. 탭해서 찾아보세요</div><p class="small">완성할 문장의 뜻: '+esc(item.ko||"")+'</p><div class="qen" id="fixZone">';
+  let html=head+'<div class="card"><span class="tag teal">고치기 — 어색한 덩어리 찾기</span>'+(item.lead?'<div class=\"pattern\" style=\"margin-bottom:10px\">👀 '+esc(item.lead)+'</div>':'')+'<div class="q">이 문장에는 어색한 덩어리가 하나 있어요. 탭해서 찾아보세요</div><p class="small">완성할 문장의 뜻: '+esc(item.ko||"")+'</p><div class="qen" id="fixZone">';
   item.chunks.forEach((c,i)=>{html+='<button class="fchunk" data-i="'+i+'">'+esc(c)+"</button>"});
   html+='</div><div id="fixOpts"></div><div id="fb"></div></div>';
   app.innerHTML=html;window.scrollTo(0,0);

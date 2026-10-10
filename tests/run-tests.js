@@ -268,6 +268,7 @@ if (data.ASSEMBLY) {
   data.WEEKS[0].lessons.forEach(l => {
     check("1주차 레슨 steps 5단계 이상: " + l.id, Array.isArray(l.steps) && l.steps.length >= 5, l.steps && l.steps.length);
     (l.steps || []).forEach(st => check("단계 참조 유효: " + l.id + " / " + st.join("/"), resolveStep(st)));
+    check("고치기: 부재형 오류(x2/x3)에 장면 설정 lead 존재", !!ST.x2.lead && !!ST.x3.lead && html.includes("item.lead"));
     check("칩 UI: 놓은 조각 탭 제거(pchip) + 쓴 칩 자리 유지(used)", html.includes("pchip") && html.includes(" used") && html.includes('querySelectorAll(".pchip,.fchunk")'));
     check("1주차 레슨 재현형 단계 4개 이상: " + l.id, (l.steps || []).filter(st => st[0] === "step").length >= 4);
   });
